@@ -1,0 +1,32 @@
+\begin{tikzpicture}[thick,scale=0.8, every node/.style={transform shape}]
+\begin{axis}[
+    ybar stacked,
+	bar width=12pt,
+	nodes near coords = {%
+    \pgfmathprintnumberto[fixed,assume math mode=true]{\pgfplotspointmeta}{\myval}%
+    \pgfmathparse{\myval<101?:\myval}\pgfmathresult%
+},
+    enlargelimits=0.15,
+    legend style={at={(0.5,-0.28)},
+      anchor=north,legend columns=-1},
+    ylabel={Proportion [\%]},
+    symbolic x coords={AddressBook, TimelClock, WebChess, Drupal,
+    phpBB, phpMyAdmin, Anchor, Kirby, Automad, Monstra, Nibbleblog}, xtick=data,
+    x tick label style={rotate=45,anchor=east},
+    cycle list name=ColorListBar3,
+    ]
+
+\addplot+[ybar] plot coordinates {(AddressBook, 100) 
+  (TimelClock, 0) (WebChess, 79) (Drupal, 87) (phpBB, 94) (phpMyAdmin, 99)
+  (Anchor, 79) (Kirby, 98) (Automad, 100) (Monstra, 100) (Nibbleblog, 100)};
+\addplot+[ybar] plot coordinates {(AddressBook, 0) 
+  (TimelClock, 0) (WebChess, 0) (Drupal, 3) (phpBB, 1) (phpMyAdmin, 0)
+  (Anchor, 3) (Kirby, 1) (Automad, 0) (Monstra, 0) (Nibbleblog, 0)};
+\addplot+[ybar] plot coordinates {(AddressBook, 0) 
+  (TimelClock, 100) (WebChess, 21) (Drupal, 10) (phpBB, 5) (phpMyAdmin, 0)
+  (Anchor, 18) (Kirby, 1) (Automad, 0) (Monstra, 0) (Nibbleblog, 0)};
+
+\legend{Complete, Partial, None}
+\end{axis}
+%\caption{Relative distribution of contexts of not reached output candidates}
+\end{tikzpicture}

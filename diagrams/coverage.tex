@@ -1,0 +1,55 @@
+\pgfplotstableread[header=false, col sep=comma]{ 
+	86.32, AdressBook
+	100.0, SchoolMate
+	92.36, TimeClock
+	91.28, WebChess
+	31.44, phpBB
+	19.99, Drupal
+	5.000, phpMyAdmin
+	90.48, Anchor
+	76.3,  Kirby
+	46.87, Automad
+	79.47, Monstra
+	71.37, Nibbleblog
+	}\datatablex
+	
+	\pgfplotstableread[header=false, col sep=comma]{ 
+	84.44, AdressBook
+	98.24, SchoolMate
+	91.22, TimeClock
+	88.72, WebChess
+	4.76, phpBB
+	18.39, Drupal
+	3.79, phpMyAdmin
+	89.56, Anchor
+	76.30,  Kirby
+	40.15, Automad
+	61.38, Monstra
+	59.43, Nibbleblog
+	}\datatable
+	
+	\begin{tikzpicture}[thick,scale=0.8, every node/.style={transform shape}]
+	  \begin{axis}[   
+	  	,legend style={at={(0.25,-0.2)},
+		anchor=north,legend columns=-1} 
+	    ,xbar
+	    ,xlabel={Coverage [\%]}
+	    ,bar width=1ex, y=3ex
+	    ,enlarge y limits={abs=0.75}
+	    ,ytick={data} % (\empty,data,{coordinate list})
+	    ,label={Reach}
+	    ,yticklabels from table={\datatable}{1}
+	  ]
+	  
+	  \addplot[red!20!black,fill=gray!80!white] table [
+	    y expr=-\coordindex, % Use negative coordinate index as y coordinate
+	    x index=0 % Use first column as x coordinate
+	  ] {\datatable};
+	  \addplot[red!20!black,fill=RYB2!100!white] table [
+	    y expr=-\coordindex, % Use negative coordinate index as y coordinate
+	    x index=0 % Use first column as x coordinate
+	  ] {\datatablex};
+	  
+	  \legend{Output, Reached}
+	  \end{axis}
+	\end{tikzpicture}

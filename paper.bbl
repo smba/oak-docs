@@ -1,0 +1,63 @@
+\begin{thebibliography}{1}
+
+\bibitem{codegeekz}
+\url{https://codegeekz.com/12-lightweight-cms-for-building-websites/}.
+\newblock Accessed: 2016-09-30.
+
+\bibitem{Hills:2013:ESP:2483760.2483786}
+M.~Hills, P.~Klint, and J.~Vinju.
+\newblock An empirical study of php feature usage: A static analysis
+  perspective.
+\newblock In {\em Proceedings of the 2013 International Symposium on Software
+  Testing and Analysis}, ISSTA 2013, pages 325--335, New York, NY, USA, 2013.
+  ACM.
+
+\bibitem{hills2014static}
+M.~Hills, P.~Klint, and J.~J. Vinju.
+\newblock Static, lightweight includes resolution for php.
+\newblock In {\em Proceedings of the 29th ACM/IEEE international conference on
+  Automated software engineering}, pages 503--514. ACM, 2014.
+
+\bibitem{minamide2005static}
+Y.~Minamide.
+\newblock Static approximation of dynamically generated web pages.
+\newblock In {\em Proceedings of the 14th international conference on World
+  Wide Web}, pages 432--441. ACM, 2005.
+
+\bibitem{Nguyen:2014:BCG:2635868.2635928}
+H.~V. Nguyen, C.~K\"{a}stner, and T.~N. Nguyen.
+\newblock Building call graphs for embedded client-side code in dynamic web
+  applications.
+\newblock In {\em Proceedings of the 22Nd ACM SIGSOFT International Symposium
+  on Foundations of Software Engineering}, FSE 2014, pages 518--529, New York,
+  NY, USA, 2014. ACM.
+
+\bibitem{Nguyen:2015:CPS:2786805.2786872}
+H.~V. Nguyen, C.~K\"{a}stner, and T.~N. Nguyen.
+\newblock Cross-language program slicing for dynamic web applications.
+\newblock In {\em Proceedings of the 2015 10th Joint Meeting on Foundations of
+  Software Engineering}, ESEC/FSE 2015, pages 369--380, New York, NY, USA,
+  2015. ACM.
+
+\bibitem{Nguyen:2015:VIS:2819009.2819140}
+H.~V. Nguyen, C.~K\"{a}stner, and T.~N. Nguyen.
+\newblock Varis: Ide support for embedded client code in php web applications.
+\newblock In {\em Proceedings of the 37th International Conference on Software
+  Engineering - Volume 2}, ICSE '15, pages 693--696, Piscataway, NJ, USA, 2015.
+  IEEE Press.
+
+\bibitem{Nguyen:2011:AFH:2190078.2190142}
+H.~V. Nguyen, H.~A. Nguyen, T.~T. Nguyen, and T.~N. Nguyen.
+\newblock Auto-locating and fix-propagating for html validation errors to php
+  server-side code.
+\newblock In {\em Proceedings of the 2011 26th IEEE/ACM International
+  Conference on Automated Software Engineering}, ASE '11, pages 13--22,
+  Washington, DC, USA, 2011. IEEE Computer Society.
+
+\bibitem{wassermann2007sound}
+G.~Wassermann and Z.~Su.
+\newblock Sound and precise analysis of web applications for injection
+  vulnerabilities.
+\newblock In {\em ACM Sigplan Notices}, volume~42, pages 32--41. ACM, 2007.
+
+\end{thebibliography}

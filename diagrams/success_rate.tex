@@ -1,0 +1,35 @@
+\pgfplotstableread[header=false, col sep=comma]{ 
+		95, AdressBook
+		100, SchoolMate
+		100, TimeClock
+		100, WebChess
+		74, phpBB
+		88, Drupal
+		99, phpMyAdmin
+		0, Anchor
+		0,  Kirby
+		100, Automad
+		27, Monstra
+		90, Nibbleblog
+		}\successfulincludes
+	
+		\begin{tikzpicture}[thick,scale=0.8, every node/.style={transform shape}]
+		  \begin{axis}[   
+		  	,legend style={at={(0.25,-0.2)},
+			anchor=north,legend columns=-1} 
+		    ,xbar
+		    ,xlabel={Successfully resolved and reached include expressions [\%]}
+		    ,bar width=1.2ex, y=2ex
+		    ,enlarge y limits={abs=0.75}
+		    ,ytick={data} % (\empty,data,{coordinate list})
+		    ,label={Reach}
+		    ,yticklabels from table={\successfulincludes}{1}
+		  ]
+		  
+		  \addplot[red!20!black,fill=RYB11!80!white] table [
+		    y expr=-\coordindex, % Use negative coordinate index as y coordinate
+		    x index=0 % Use first column as x coordinate
+		  ] {\successfulincludes};
+		  
+		  \end{axis}
+		\end{tikzpicture}

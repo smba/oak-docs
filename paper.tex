@@ -141,13 +141,13 @@ Stefan Mühlbauer\\
        %\email{s.muehlbauer@tu-bs.de}
 % 2nd. author
 \alignauthor
-%Christian Kästner\\
-%      \affaddr{Carnegie Mellon University, USA}\\
+Christian Kästner\\
+      \affaddr{Carnegie Mellon University, USA}\\
        %\email{ckaestner@cs.cmu.edu}
 % 3rd. author
 \alignauthor
-%Tien N. Nguyen\\
-%       \affaddr{University of Texas at Dallas, USA}\\
+Tien N. Nguyen\\
+       \affaddr{University of Texas at Dallas, USA}\\
 %      %\email{tien.n.nguyen@utdallas.edu}
 }
 % There's nothing stopping you putting the seventh, eighth, etc.
@@ -176,7 +176,7 @@ approximation using symbolic execution of state-of-the-art PHP web
 applications. For a symbolic execution engine extended with support for
 object-oriented programming and arrays, we identified language features and
 corresponding programming patterns that impede symbolic execution and limit the
-scalability of this approach. Our findings include: (1) dynamic features such as
+scalability of this approach. Our findings include: (1) Dynamic features such as
 functions and includes are prone to fail for certain programming patterns. (2)
 Expressions containing elements from I/O, databases or files can heavily impede
 symbolic execution. Our findings provide useful guidelines to design new
@@ -235,11 +235,25 @@ applications.
 Static Analysis, PHP}
 
 \section{Introduction}
-Dynamic web applications have become widely popular and various different
-implementation techniques have emerged, ranging from server-side scripting
-languages to state-of-the-art frameworks for web development. For scritpting
-languages such as PHP, source code usually contains script code along with nested
-target code since the HTML pages are dynamically generated.
+Dynamic web applications have become widely popular and various different implementation techniques have emerged, ranging from server-side scripting languages to state-of-the-art frameworks for web development. For all  ways to implement web applications, one common ground is the dynamic nature of output generation: HTML output is generated dynamically during a session, for instance when a form is submitted to a web application. Output can be dependent on different classes of inputs.
+
+Symbolic execution is a static analysis technique between program testing and program proving. For a program, symbolic, i.e., abstract, yet fix inputs are applied instead of  concrete inputs \cite{Darringer1978,King1976}. The underlying concept is to map program input (symbolically) to program output.  Different classes of inputs may result in variational output, representing  dependencies of output and input. Symbolic execution extends concrete execution semantics with semantics to handle symbolic values. Hence, concrete execution semantics is contained in symbolic execution semantics. 
+
+Symbolic execution has been used and studied for generating test suites, but has more recently also been applied for approximating the output of web applications. Knowledge about different output variants enabled useful analyses for the domain of web applications, such as detecting and locating HTML validation errors \cite{Nguyen:2011:AFH:2190078.2190142}. As for developers, from an output model, outlines and callgraphs for easier IDE code navigation \cite{Nguyen:2014:BCG:2635868.2635928}, or program slices \cite{Nguyen:2015:CPS:2786805.2786872} can be computed. Existing work has been integrated in the Varis plugin for the Eclipse IDE \cite{Nguyen:2015:VIS:2819009.2819140}. Despite the various use cases for analyses based on an approximated output model, static output approximation for PHP web applications has so far only been tested for smaller systems that are not developed anymore.
+
+\subsection*{Can we have a practical tool?}
+We ask for the symbolic execution engine whether we can have a practical tool built from it. In the context of useful analyses stated earlier, we define a practical symbolic engine to be accurate and precise enough for the analyses' results to be useful. 
+An accurate symbolic execution engine allows a single concrete execution to be retraced from a symbolic execution representing variability. For a precise symbolic execution engine, each concrete execution represented in a symbolic execution could have been performed by a concrete execution engine.
+
+We see concerns for practicality in intrinsic properties of symbolic execution (abstraction of real input sources), and in the language properties of PHP. With no standardization the language has become successful one the one hand, but did not grew coordinately leaving constructs that are partially  functionally redundant, or inconsistent for different versions.  
+
+\subsection*{We can have a practical tool, can't we?}
+To investigate this question, we build a symbolic execution engine for PHP that re-implements the specifications of previous symbolic execution semantics \cite{Nguyen:2014:BCG:2635868.2635928} for PHP with additional features, such as object-oriented programming, and extensive array support. 
+
+Based on our observations and evaluation results, we learn that for dynamic PHP constructs, expressions that are assembled dynamically, in combination with symbolic values symbolic execution can be impractical. For object-orientation and method calls, symbolic execution semantics can be a tightrope walk between state space explosion and imprecision. Moreover, the nature of PHP challenges a practical symbolic execution engine since  for it to be accurate, a large number of functions from the standard library needs to be supported.
+
+Our key contributions in this paper include: (1) Ihe tool infrastructure to statically approximate the output for PHP web applications using symbolic execution and (2) observations as well as an anecdotal and empirical evaluation to identify and measure PHP constructs impeding symbolic execution of PHP code.
+
 
 
 \section{State Of the Art}
@@ -437,7 +451,9 @@ The coverage results are illustrated in Figure \ref{coverage}. We could replicat
 % OUTPUT COVERAGE
 \begin{figure}
 	\centering	
-	\input{diagrams/coverage}	
+	\resizebox{0.4\textwidth}{!}{%
+		\input{diagrams/coverage}	
+	}
 	\caption{Coverage results for the PHP corpus}
 	\label{coverage}
 \end{figure}
@@ -449,7 +465,9 @@ Based on these results we investigated why output candidates could not be reache
 % - FUNCTION CONTEXT
 % - TEMPLATE CONTEXT
 \begin{figure}
-	\input{diagrams/context_distribution}
+	\resizebox{0.4\textwidth}{!}{%
+		\input{diagrams/context_distribution}
+	}	
 	\caption{Context distribution of never reached output candidates for the PHP
 	corpus.}
 	\label{contexts}
@@ -536,6 +554,7 @@ symbolic execution due to inaccuracy.}
   \item Static analysis of feature usage in PHP systems by Hills et al.
   \cite{Hills:2013:ESP:2483760.2483786} and static resolution of include
   expressions \cite{Hills:2013:ESP:2483760.2483786,hills2014static}
+  \item bener \cite{King1976} \cite{multiSE}
 \end{itemize}
 
 

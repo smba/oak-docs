@@ -1,4 +1,4 @@
-\documentclass{sig-alternate-05-2015}
+\documentclass[preprint]{sig-alternate-05-2015}
 
 
 \usepackage[utf8]{inputenc}
@@ -6,6 +6,7 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 
+\usepackage{enumerate}
 \usepackage{subcaption}
 \usepackage{cleveref}
 \usepackage{ucs}
@@ -168,8 +169,7 @@ Dynamic web applications have become widely popular and are to a large
 proportion based on the scripting language PHP. Output approximation of web
 applications enables a range of additional tool support as well as possibilities
 for vulnerability detection. Unfortunately, recent approximation approaches have
-only been evaluated for smaller systems due to both conceptual limitations and
-unsupported language features.
+only been evaluated for smaller systems.
 
 This paper presents an experience report about the scalability of output
 approximation using symbolic execution of state-of-the-art PHP web
@@ -235,7 +235,9 @@ applications.
 Static Analysis, PHP}
 
 \section{Introduction}
-Dynamic web applications have become widely popular and various different implementation techniques have emerged, ranging from server-side scripting languages to state-of-the-art frameworks for web development. For all  ways to implement web applications, one common ground is the dynamic nature of output generation: HTML output is generated dynamically during a session, for instance when a form is submitted to a web application. Output can be dependent on different classes of inputs.
+With the world wide web emerging, dynamic web applications have become widely popular. Various different implementation techniques have emerged, ranging from web application frameworks for programming (JSP, ASP .NET) and script languages (Ruby On Rails, Django) to languages tailored specifically to the domain of web applications. PHP \cite{phpNET} is a programming language focused on server-side application development. For 2012, it was used by 78.8 percent of the ten million most popular websites (according to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE programming community index \cite{tiobePHP}, and was the ranked as the 6th most popular language on GitHub \cite{githubPHP}.
+
+For all ways to implement web applications, one common ground is the nature of output generation: HTML output is generated dynamically during a session, for instance when a form is submitted to a web application. Thus, output can be dependent on different classes of inputs.
 
 Symbolic execution is a static analysis technique between program testing and program proving. For a program, symbolic, i.e., abstract, yet fix inputs are applied instead of  concrete inputs \cite{Darringer1978,King1976}. The underlying concept is to map program input (symbolically) to program output.  Different classes of inputs may result in variational output, representing  dependencies of output and input. Symbolic execution extends concrete execution semantics with semantics to handle symbolic values. Hence, concrete execution semantics is contained in symbolic execution semantics. 
 
@@ -306,45 +308,28 @@ Our key contributions in this paper include: (1) Ihe tool infrastructure to stat
 \section{How can we explain low code coverage?}
 As already stated in the previous section, we encountered sevaral problems
 during the development of the symbolic interpreter. Therefore this section
-describes our methods to evaluate the precision of the output approximation, and
+describes our methods to evaluate practicality of the output approximation, and
 possible explanation theses.
 
 \subsection{How to measure approximation success?} \label{heuristic}
-In the absence of ground truth for the approximated output we
-are bound to choose a \emph{heuristic approach} in order to measure the accuracy
-of the aproximation. We define a string literal to be an \emph{output candidate} if there exists an
-execution path reaching the string literal and passing it to an 
+For the evaluation of our output approximation we require a ground truth output model to compare against.
+In the absence of ground truth for the approximated output we are bound to choose a \emph{heuristic approach} in order to measure the accuracy of our aproximation. We define a string literal to be an \emph{output candidate} if there exists an execution path reaching the string literal and evantually passing it to an 
 output-generating statement (e.g., \texttt{echo} or \texttt{print}).
 
-We approximate output candidates as those string literals containing the
-characters \texttt{<}, \texttt{>} or both. We evaluated this heuristic manually
-with a sample of 400 string literals from the entire corpus and measured a
-precision of 94\% and a recall of 50\%. This means, our classification has a
-rate of 6\% false positives and only half of the actual output candidates
-respond. These were mostly HTML-containing literals, whereas plain text did not
-respond. 
+We approximate output candidates as those string literals containing the characters \texttt{<}, \texttt{>}, or both since we expect output to contain HTML tags. We evaluated this heuristic manually
+with a sample of 400 string literals randomly selected from the entire corpus.
+We measured for our heuristic classifier a precision of 94\%, and a recall of 50\%.
+ 
+This means that six percent of the string literals are classified incorrectly as false positives. In turn, the classifier is highly distinctive as 96 percent of the string literals are classified correctly. The recall of 50 percent means that half of the string literals, which we manually classified as output, actually were responsive to the classifier. We attempted to increase recall by looking for further distinctive properties to build a classifier from, but could not do so without decreasing precision. In spite of missing half of the output candidates, we decided to use a simple, yet distinctive classifier.
 
 \subsection{Experimental Evaluation} 
-For the evaluation we chose to selected a corpus of twelve PHP systems with regard to
-previous work, but chose to additionally scale system size and recency. The full list of twelve PHP systems is shown in Table \ref{corpus}. Our selection contains
-twelve systems:
-
-\begin{itemize}
-  \item Four small-scale/old systems are systems that have been subject to
-  related studies and approaches in order to have comparable results. These
-  projects do not make comprehensive use of PHP language features and output
-  approximation on these systems achieved fairly high precision
-  \cite{minamide2005static,Nguyen:2014:BCG:2635868.2635928}.
-  
-  \item Three large-scale/modern systems that have been subject to related
-  studies, especially their use of language features as we aim to study
-  scalability of symbolic execution The feature usage of these systems has been
-  studied by Hills et al. \cite{Hills:2013:ESP:2483760.2483786}
-  
-  \item Five small-scale/modern systems to compare the impact
-  of system size to the second part of the corpus. The systems are selected
-  from a list of recent content management systems (CMS) \cite{codegeekz}. We only selected five systems 	due to limited support of the Quercus parser used in our implementation.
-\end{itemize}
+For the evaluation we symbolically executed a selection of PHP systems. We selected a corpus of twelve PHP systems with regard to system size and recency as the corpus of the case study for \cite{Nguyen:2014:BCG:2635868.2635928} only contained small-scale systems that are not maintained any more. The full list of PHP systems is shown in Table \ref{corpus}. Our selection of PHP systems includes
+\begin{enumerate}[a)]
+\item four small-scale systems that selected from the previously mentioned case study in order to compare our results with the previous symbolic execution engine \cite{Nguyen:2014:BCG:2635868.2635928},
+\item three recent large-scale systems selected from the case study corpus of \cite{Hills:2013:ESP:2483760.2483786}, and
+\item four small-scale systems selected from a list of recent Content Management Systems \cite{codegeekz}.
+\end{enumerate}
+As for b) and c), we limited our selection since the parser we used did not support all language features used.
 
 \begin{table*}[t]
 \centering 

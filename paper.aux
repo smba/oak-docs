@@ -16,6 +16,10 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{phpNET}
+\citation{alexaPHP}
+\citation{tiobePHP}
+\citation{githubPHP}
 \citation{Darringer1978}
 \citation{King1976}
 \citation{Nguyen:2011:AFH:2190078.2190142}
@@ -28,7 +32,7 @@
 \citation{Nguyen:2015:CPS:2786805.2786872}
 \citation{Nguyen:2014:BCG:2635868.2635928}
 \citation{Nguyen:2011:AFH:2190078.2190142}
-\citation{minamide2005static}
+\citation{Nguyen:2014:BCG:2635868.2635928}
 \citation{Nguyen:2014:BCG:2635868.2635928}
 \citation{Hills:2013:ESP:2483760.2483786}
 \citation{codegeekz}
@@ -51,12 +55,12 @@
 \newlabel{heuristic}{{4.1}{\thepage }{How to measure approximation success?}{subsection.4.1}{}}
 \newlabel{heuristic@cref}{{[subsection][1][4]4.1}{\thepage }}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Experimental Evaluation}{\thepage }{subsection.4.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Metrics for Understanding Limitations}{\thepage }{subsection.4.3}}
-\newlabel{metrics}{{4.3}{\thepage }{Metrics for Understanding Limitations}{subsection.4.3}{}}
-\newlabel{metrics@cref}{{[subsection][3][4]4.3}{\thepage }}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Corpus of twelve PHP systems. The file count includes files with a .php, .inc, .bit or .module extension.\relax }}{\thepage }{table.caption.8}}
 \newlabel{corpus}{{1}{\thepage }{Corpus of twelve PHP systems. The file count includes files with a .php, .inc, .bit or .module extension.\relax }{table.caption.8}{}}
 \newlabel{corpus@cref}{{[table][1][]1}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Metrics for Understanding Limitations}{\thepage }{subsection.4.3}}
+\newlabel{metrics}{{4.3}{\thepage }{Metrics for Understanding Limitations}{subsection.4.3}{}}
+\newlabel{metrics@cref}{{[subsection][3][4]4.3}{\thepage }}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Reach Coverage and Output Coverage}{\thepage }{subsubsection.4.3.1}}
 \newlabel{coverage_section}{{4.3.1}{\thepage }{Reach Coverage and Output Coverage}{subsubsection.4.3.1}{}}
 \newlabel{coverage_section@cref}{{[subsubsection][1][4,3]4.3.1}{\thepage }}
@@ -72,9 +76,6 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.5}Callback Candidates}{\thepage }{subsubsection.4.3.5}}
 \newlabel{callback_candidate_section}{{4.3.5}{\thepage }{Callback Candidates}{subsubsection.4.3.5}{}}
 \newlabel{callback_candidate_section@cref}{{[subsubsection][5][4,3]4.3.5}{\thepage }}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Results}{\thepage }{subsection.4.4}}
-\newlabel{results}{{4.4}{\thepage }{Results}{subsection.4.4}{}}
-\newlabel{results@cref}{{[subsection][4][4]4.4}{\thepage }}
 \newlabel{callgraph_a}{{2a}{\thepage }{Completely explained by callback candidates (no call from \texttt {main})\relax }{figure.caption.9}{}}
 \newlabel{callgraph_a@cref}{{[subfigure][1][2]2a}{\thepage }}
 \newlabel{sub@callgraph_a}{{a}{\thepage }{Completely explained by callback candidates (no call from \texttt {main})\relax }{figure.caption.9}{}}
@@ -89,6 +90,9 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Coverage results for the PHP corpus\relax }}{\thepage }{figure.caption.10}}
 \newlabel{coverage}{{3}{\thepage }{Coverage results for the PHP corpus\relax }{figure.caption.10}{}}
 \newlabel{coverage@cref}{{[figure][3][]3}{\thepage }}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Results}{\thepage }{subsection.4.4}}
+\newlabel{results}{{4.4}{\thepage }{Results}{subsection.4.4}{}}
+\newlabel{results@cref}{{[subsection][4][4]4.4}{\thepage }}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Output Candidates in Function Definitions}{\thepage }{subsubsection.4.4.1}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Developing Hypotheses: Inaccessible Code}{\thepage }{subsubsection.4.4.2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Context distribution of never reached output candidates for the PHP corpus.\relax }}{\thepage }{figure.caption.11}}
@@ -97,6 +101,7 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Explanation of never reached output candidates by dead code features.\relax }}{\thepage }{figure.caption.12}}
 \newlabel{dead_explanations}{{5}{\thepage }{Explanation of never reached output candidates by dead code features.\relax }{figure.caption.12}{}}
 \newlabel{dead_explanations@cref}{{[figure][5][]5}{\thepage }}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Why were code sections inaccessible?}{\thepage }{subsubsection.4.4.3}}
 \citation{minamide2005static}
 \citation{wassermann2007sound}
 \citation{Hills:2013:ESP:2483760.2483786}
@@ -107,24 +112,27 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Distribution dead function output candidates that are partially or completely explained due to callback candidates.\relax }}{\thepage }{figure.caption.14}}
 \newlabel{output_candidate_explanation}{{7}{\thepage }{Distribution dead function output candidates that are partially or completely explained due to callback candidates.\relax }{figure.caption.14}{}}
 \newlabel{output_candidate_explanation@cref}{{[figure][7][]7}{\thepage }}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Why were code sections inaccessible?}{\thepage }{subsubsection.4.4.3}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Quantitative Analysis}{\thepage }{subsubsection.4.4.4}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Lessons Learned}{\thepage }{section.5}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Related Work}{\thepage }{section.6}}
 \bibstyle{abbrv}
 \bibdata{bibliography}
 \bibcite{codegeekz}{1}
-\bibcite{Darringer1978}{2}
-\bibcite{Hills:2013:ESP:2483760.2483786}{3}
-\bibcite{hills2014static}{4}
-\bibcite{King1976}{5}
-\bibcite{minamide2005static}{6}
-\bibcite{Nguyen:2014:BCG:2635868.2635928}{7}
-\bibcite{Nguyen:2015:CPS:2786805.2786872}{8}
-\bibcite{Nguyen:2015:VIS:2819009.2819140}{9}
-\bibcite{Nguyen:2011:AFH:2190078.2190142}{10}
-\bibcite{multiSE}{11}
-\bibcite{wassermann2007sound}{12}
+\bibcite{phpNET}{2}
+\bibcite{githubPHP}{3}
+\bibcite{alexaPHP}{4}
+\bibcite{tiobePHP}{5}
+\bibcite{Darringer1978}{6}
+\bibcite{Hills:2013:ESP:2483760.2483786}{7}
+\bibcite{hills2014static}{8}
+\bibcite{King1976}{9}
+\bibcite{minamide2005static}{10}
+\bibcite{Nguyen:2014:BCG:2635868.2635928}{11}
+\bibcite{Nguyen:2015:CPS:2786805.2786872}{12}
+\bibcite{Nguyen:2015:VIS:2819009.2819140}{13}
+\bibcite{Nguyen:2011:AFH:2190078.2190142}{14}
+\bibcite{multiSE}{15}
+\bibcite{wassermann2007sound}{16}
 \newlabel{include_coverage_results1}{{6a}{\thepage }{Proportion of reached include expressions per project.\relax }{figure.caption.13}{}}
 \newlabel{include_coverage_results1@cref}{{[subfigure][1][6]6a}{\thepage }}
 \newlabel{sub@include_coverage_results1}{{a}{\thepage }{Proportion of reached include expressions per project.\relax }{figure.caption.13}{}}
@@ -133,7 +141,7 @@
 \newlabel{include_coverage_results2@cref}{{[subfigure][2][6]6b}{\thepage }}
 \newlabel{sub@include_coverage_results2}{{b}{\thepage }{Rate of successful resolutions of reached include expressions per project.\relax }{figure.caption.13}{}}
 \newlabel{sub@include_coverage_results2@cref}{{[subfigure][2][6]6b}{\thepage }}
-\newlabel{include_coverage_results}{{\caption@xref {include_coverage_results}{ on input line 516}}{\thepage }{Quantitative Analysis}{figure.caption.13}{}}
+\newlabel{include_coverage_results}{{\caption@xref {include_coverage_results}{ on input line 501}}{\thepage }{Quantitative Analysis}{figure.caption.13}{}}
 \newlabel{include_coverage_results@cref}{{[subsubsection][4][4,4]4.4.4}{\thepage }}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Include coverage and accuracy.\relax }}{\thepage }{figure.caption.13}}
 \@writefile{toc}{\contentsline {section}{\numberline {7}References}{\thepage }{section.7}}

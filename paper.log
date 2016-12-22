@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  22 DEC 2016 12:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  22 DEC 2016 12:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1442,51 +1442,36 @@ Missing character: There is no ( in font nullfont!
 Missing character: There is no x in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no , in font nullfont!
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 510.
-
-(/usr/share/texlive/texmf-dist/tex/latex/ucs/utf8x.def
-File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
-)
-
-LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 512.
-
-(./paper.bblpdfTeX warning (ext4): destination with the same identifier (name{p
-age.}) has been already used, duplicate ignored
+) (./paper.bblpdfTeX warning (ext4): destination with the same identifier (name
+{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.83 
       [4 <./images-paper/callgraph_a-eps-converted-to.pdf> <./images-paper/call
 graph_b-eps-converted-to.pdf>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 523.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 520.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.523 \end{document}
+l.520 \end{document}
                      [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 523.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 520.
  (./paper.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 523.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 523.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 520.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 520.
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 6E10FDC05CF3131DF08DE3EAEFFEE81F;1002.
-
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 523.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 520.
  ) 
 Here is how much of TeX's memory you used:
- 33089 strings out of 493105
- 749789 string characters out of 6137071
- 1176911 words of memory out of 5000000
- 35905 multiletter control sequences out of 15000+600000
- 79928 words of font info for 108 fonts, out of 8000000 for 9000
+ 31229 strings out of 493105
+ 716999 string characters out of 6137071
+ 1173911 words of memory out of 5000000
+ 34054 multiletter control sequences out of 15000+600000
+ 77206 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,22n,105p,969b,2829s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,22n,105p,969b,2328s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/
@@ -1497,10 +1482,10 @@ tic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (5 pages, 140628 bytes).
+Output written on paper.pdf (5 pages, 138992 bytes).
 PDF statistics:
- 213 PDF objects out of 1000 (max. 8388607)
- 192 compressed objects within 2 object streams
- 48 named destinations out of 1000 (max. 500000)
+ 211 PDF objects out of 1000 (max. 8388607)
+ 190 compressed objects within 2 object streams
+ 43 named destinations out of 1000 (max. 500000)
  143 words of extra memory for PDF output out of 10000 (max. 10000000)
 

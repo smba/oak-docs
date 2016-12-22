@@ -5,6 +5,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{paralist}
 
 \usepackage{enumerate}
 \usepackage{subcaption}
@@ -23,6 +24,16 @@
 
 \usepackage{listings}  
 
+\lstset{
+language=PHP,
+basicstyle=\small\sffamily,
+numbers=left,
+numberstyle=\tiny,
+frame=tb,
+columns=fullflexible,
+showstringspaces=false
+}
+
 % ARIAL
 %\usepackage{helvet}
 %\renewcommand{\familydefault}{\sfdefault}
@@ -38,28 +49,26 @@
 \definecolor{orange}{RGB}{230, 100, 20}
 \definecolor{gruen}{RGB}{255, 190, 69}
 
-\definecolor{RYB1}{HTML}{8F83DB}
-\definecolor{RYB2}{HTML}{DDDDDD}
-\definecolor{RYB3}{HTML}{FFFFFF}
+\definecolor{RYB1}{HTML}{DCDCDC}
+\definecolor{RYB2}{HTML}{C0C0C0}
+\definecolor{RYB3}{HTML}{808080}
 
-\definecolor{RYB4}{HTML}{A699FF}
-\definecolor{RYB5}{HTML}{FFBA49}
-\definecolor{RYB6}{HTML}{FFFFFF}
+\definecolor{RYB4}{HTML}{DCDCDC}
+\definecolor{RYB5}{HTML}{C0C0C0}
+\definecolor{RYB6}{HTML}{808080}
 
+\definecolor{RYB7}{HTML}{DCDCDC}
+\definecolor{RYB8}{HTML}{C0C0C0}
+\definecolor{RYB9}{HTML}{808080}
 
-\definecolor{RYB7}{HTML}{6A62A3}
-\definecolor{RYB8}{HTML}{BEB4FF}
-\definecolor{RYB9}{HTML}{E6E3FF}
-
-\definecolor{RYB10}{HTML}{FFB030}
-\definecolor{RYB11}{HTML}{FFCD7C}
+\definecolor{RYB10}{HTML}{D3D3D3}
+\definecolor{RYB11}{HTML}{A9A9A9}
 
 \pgfplotscreateplotcyclelist{ColorListBar}{
 {fill=RYB1},
 {fill=RYB2},
 {fill=RYB3},
 }
-
 
 \pgfplotscreateplotcyclelist{ColorListBar2}{
 {fill=RYB4},
@@ -72,7 +81,6 @@
 {fill=RYB8},
 {fill=RYB9},
 }
-
 
 \begin{document}
 \lstset{
@@ -148,7 +156,7 @@ Christian Kästner\\
 % 3rd. author
 \alignauthor
 Tien N. Nguyen\\
-       \affaddr{University of Texas at Dallas, USA}\\
+       \affaddr{University of Texas, USA}\\
 %      %\email{tien.n.nguyen@utdallas.edu}
 }
 % There's nothing stopping you putting the seventh, eighth, etc.
@@ -165,8 +173,8 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 
 \maketitle
 \begin{abstract}
-Dynamic web applications have become widely popular and are to a large
-proportion based on the scripting language PHP. Output approximation of web
+Dynamic web applications have become widely popular and are to
+a large proportion based on the scripting language PHP. Output approximation of web
 applications enables a range of additional tool support as well as possibilities
 for vulnerability detection. Unfortunately, recent approximation approaches have
 only been evaluated for smaller systems.
@@ -182,7 +190,6 @@ Expressions containing elements from I/O, databases or files can heavily impede
 symbolic execution. Our findings provide useful guidelines to design new
 tools and also to improve the development process of statically analyzable web
 applications.
-
 \end{abstract}
 
 
@@ -235,101 +242,114 @@ applications.
 Static Analysis, PHP}
 
 \section{Introduction}
-With the world wide web emerging, dynamic web applications have become widely popular. Various different implementation techniques have emerged, ranging from web application frameworks for programming (JSP, ASP .NET) and script languages (Ruby On Rails, Django) to languages tailored specifically to the domain of web applications. PHP \cite{phpNET} is a programming language focused on server-side application development. For 2012, it was used by 78.8 percent of the ten million most popular websites (according to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE programming community index \cite{tiobePHP}, and was the ranked as the 6th most popular language on GitHub \cite{githubPHP}.
+With the emerge of the world wide web, dynamic web applications have become
+widely popular. Various different implementation techniques have emerged,
+ranging from technologies for programming languages (JSP, ASP .NET) and web
+application frameworks for  script languages (Ruby On Rails, Django) to
+languages tailored specifically to the domain of web applications. PHP \cite{phpNET} is
+a programming language focused on server-side application development. As of 2012,
+it was used by 78.8 percent of the ten million most popular websites (according
+to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE
+programming community index \cite{tiobePHP}, and was the ranked as the 6th most
+popular language on GitHub \cite{githubPHP}.\\
 
-For all ways to implement web applications, one common ground is the nature of output generation: HTML output is generated dynamically during a session, for instance when a form is submitted to a web application. Thus, output can be dependent on different classes of inputs.
+One common property of all technologies for dynamic we b applications is the
+\emph{staged computation} of output, or simplified: dynamic code generation.
+Since based on both static values and runtime values, output code is generated step by step
+dynamically, output can be dependent on application inputs. Dynamic web
+applications incorporate various both server-side inputs (databases,
+configuration) and client-side inputs respectively. Static
+analysis of dynamic web applications, hence, has to consider different input
+sources.
 
-Symbolic execution is a static analysis technique between program testing and program proving. For a program, symbolic, i.e., abstract, yet fix inputs are applied instead of  concrete inputs \cite{Darringer1978,King1976}. The underlying concept is to map program input (symbolically) to program output.  Different classes of inputs may result in variational output, representing  dependencies of output and input. Symbolic execution extends concrete execution semantics with semantics to handle symbolic values. Hence, concrete execution semantics is contained in symbolic execution semantics. 
+\emph{Symbolic execution} is a static analysis technique between program testing
+and program proving. For a program, symbolic, i.e., abstract, yet fix inputs are
+applied instead of concrete inputs \cite{Darringer1978,King1976}. The underlying
+concept is to map program input (symbolically) to program output. Different classes of inputs may
+result in variational output, representing dependencies of output and input.
+Symbolic execution extends concrete execution semantics with semantics to
+handle symbolic values. Hence, concrete execution semantics is contained in
+symbolic execution semantics.\\
 
-Symbolic execution has been used and studied for generating test suites, but has more recently also been applied for approximating the output of web applications. Knowledge about different output variants enabled useful analyses for the domain of web applications, such as detecting and locating HTML validation errors \cite{Nguyen:2011:AFH:2190078.2190142}. As for developers, from an output model, outlines and callgraphs for easier IDE code navigation \cite{Nguyen:2014:BCG:2635868.2635928}, or program slices \cite{Nguyen:2015:CPS:2786805.2786872} can be computed. Existing work has been integrated in the Varis plugin for the Eclipse IDE \cite{Nguyen:2015:VIS:2819009.2819140}. Despite the various use cases for analyses based on an approximated output model, static output approximation for PHP web applications has so far only been tested for smaller systems that are not developed anymore.
+Symbolic execution has been used and studied for generating test suites, but
+has more recently also been applied for approximating the output of web
+applications. Knowledge about different output variants enabled useful analyses
+for the domain of web applications, such as detecting and locating HTML
+validation errors \cite{Nguyen:2011:AFH:2190078.2190142}. As for developers,
+from an output model, outlines and callgraphs for easier IDE code navigation
+\cite{Nguyen:2014:BCG:2635868.2635928}, or program slices
+\cite{Nguyen:2015:CPS:2786805.2786872} can be computed. Existing work has been
+integrated in the Varis plugin for the Eclipse IDE \cite{Nguyen:2015:VIS:2819009.2819140}.
 
-\subsection*{Can we have a practical tool?}
-We ask for the symbolic execution engine whether we can have a practical tool built from it. In the context of useful analyses stated earlier, we define a practical symbolic engine to be accurate and precise enough for the analyses' results to be useful. 
-An accurate symbolic execution engine allows a single concrete execution to be retraced from a symbolic execution representing variability. For a precise symbolic execution engine, each concrete execution represented in a symbolic execution could have been performed by a concrete execution engine.
+Despite the various use cases for analyses based on an approximated output
+model, static output approximation for PHP web applications using symbolic
+execution has so far only been evaluated for smaller systems that are not
+developed anymore. The previously mentioned tools though are only practical, if
+for a given system the symbolic execution engine is scalable, i.e., will also
+approximate reliable output for larger and more recent systems with good time
+and space consumption.\\
 
-We see concerns for practicality in intrinsic properties of symbolic execution (abstraction of real input sources), and in the language properties of PHP. With no standardization the language has become successful one the one hand, but did not grew coordinately leaving constructs that are partially  functionally redundant, or inconsistent for different versions.  
+To investigate the question, whether we can have practical tools built from the
+symbolic execution engine, we re-implemented the engine with the specifications
+of the previous symbolic execution semantics
+\cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such as
+object-oriented programming, and extensive array support. We evaluated our
+symbolic execution engine for large-scale and modern PHP systems.
 
-\subsection*{We can have a practical tool, can't we?}
-To investigate this question, we build a symbolic execution engine for PHP that re-implements the specifications of previous symbolic execution semantics \cite{Nguyen:2014:BCG:2635868.2635928} for PHP with additional features, such as object-oriented programming, and extensive array support. 
+During introduction of new semantics for object-orientation and advanced array
+we encountered two main challenges. First, we walked a boundary between a
+purely symbolic or mixed concrete and symbolic (concolic) execution engine
+since concrete execution, e.g. foreach loops for arrays, increased code
+coverage significantly. Second, we had to make a trade-off between the accuracy
+of method calls and the scalability of this language feature as a method call
+for different program state variants can have multiple targets.
 
-Based on our observations and evaluation results, we learn that for dynamic PHP constructs, expressions that are assembled dynamically, in combination with symbolic values symbolic execution can be impractical. For object-orientation and method calls, symbolic execution semantics can be a tightrope walk between state space explosion and imprecision. Moreover, the nature of PHP challenges a practical symbolic execution engine since  for it to be accurate, a large number of functions from the standard library needs to be supported.
+Based on our observations and evaluation results, we learned that for dynamic
+PHP constructs, expressions that are assembled dynamically, in combination with
+symbolic values symbolic execution can be impractical. For object-orientation
+and method calls, symbolic execution semantics can be a tightrope walk between
+state space explosion and imprecision. Moreover, the nature of PHP challenges a
+practical symbolic execution engine since for it to be accurate, a large number
+of functions from the standard library needs to be supported.\\
 
-Our key contributions in this paper include: (1) Ihe tool infrastructure to statically approximate the output for PHP web applications using symbolic execution and (2) observations as well as an anecdotal and empirical evaluation to identify and measure PHP constructs impeding symbolic execution of PHP code.
-
-
+Our key contributions in this paper include: (1) The tool infrastructure to
+statically approximate the output for PHP web applications using symbolic
+execution and (2) observations as well as an experience evaluation to identify
+and measure PHP constructs impeding symbolic execution of PHP code.
 
 \section{State Of the Art}
-\subsection{Symbolic Execution (and Choices?)}
-\subsection{Use Cases for Output Approximation}
 
-\begin{figure}
-	
-	\centering
-	\includegraphics[width=0.5\textwidth]{images-paper/approach}
-	\caption{Approach overview; the different analyses in Varis are based upon the
-	symbolic output. Step 1 is the \emph{symbolic execution}, step 2 is the
-	\emph{variability-aware parsing} and step enfolds subsequent analyses based
-	upon the symbolic output.}
-	\label{approach}
-\end{figure}
+\section{Towards scalable symbolic execution}%
 
-\begin{itemize}
-  \item Steps: Symbolic Execution $\rightarrow$ Parsing $\rightarrow$
-  Analysis, see Figure \ref{approach}
-  \item Varis: IDE support \cite{Nguyen:2015:VIS:2819009.2819140} for PHP with
-  code slicing \cite{Nguyen:2015:CPS:2786805.2786872}, code navigation
-  \cite{Nguyen:2014:BCG:2635868.2635928} and
-  HTML validation \cite{Nguyen:2011:AFH:2190078.2190142}.
-\end{itemize}
 
-\section{Towards scalable symbolic execution}
-\subsection{Can we have a practical tool?}
-\begin{itemize}
-  \item Are the assumprions just engineering or do not matter for accuracy? 
-\end{itemize}
-\subsection{Oak: A Symbolic Interpreter}
-\begin{itemize}
-  \item \textsc{Oak}\footnote{\url{https://github.com/smba/oak}}:
-  Re-implementing and extending the symbolic execution engine with OOP and array support
-  \item Test-driven implementation strategy 
-  \item WordPress!
-\end{itemize}
-\subsection{Experience Report}
-\subsubsection{Problems}
-\subsubsection{Concrete/Symbolic Boundary}
-\subsubsection{Further experiments}
-\begin{itemize}
-  \item SPL approach for Oak in order to evaluate different execution modes
-  (feature model?)
-  \item ``\emph{Things we tried, some improvement but had no significant impact;
-  tradeoffs between accuracy and performance etc.}''
-\end{itemize}
-
-\section{How can we explain low code coverage?}
+\section{Evaluation}
 As already stated in the previous section, we encountered sevaral problems
 during the development of the symbolic interpreter. Therefore this section
 describes our methods to evaluate practicality of the output approximation, and
-possible explanation theses.
+possible explanations.
 
-\subsection{How to measure approximation success?} \label{heuristic}
+\subsection{Measuring Approximation Success} \label{heuristic}
 For the evaluation of our output approximation we require a ground truth output model to compare against.
 In the absence of ground truth for the approximated output we are bound to choose a \emph{heuristic approach} in order to measure the accuracy of our aproximation. We define a string literal to be an \emph{output candidate} if there exists an execution path reaching the string literal and evantually passing it to an 
 output-generating statement (e.g., \texttt{echo} or \texttt{print}).
 
 We approximate output candidates as those string literals containing the characters \texttt{<}, \texttt{>}, or both since we expect output to contain HTML tags. We evaluated this heuristic manually
 with a sample of 400 string literals randomly selected from the entire corpus.
-We measured for our heuristic classifier a precision of 94\%, and a recall of 50\%.
- 
-This means that six percent of the string literals are classified incorrectly as false positives. In turn, the classifier is highly distinctive as 96 percent of the string literals are classified correctly. The recall of 50 percent means that half of the string literals, which we manually classified as output, actually were responsive to the classifier. We attempted to increase recall by looking for further distinctive properties to build a classifier from, but could not do so without decreasing precision. In spite of missing half of the output candidates, we decided to use a simple, yet distinctive classifier.
+We measured for our heuristic classifier a precision of 94 percent, and a recall
+of 50 percent. This means that six percent of the string literals are classified incorrectly as false positives. In turn, the classifier is highly distinctive as 96 percent of the string literals are classified correctly. The recall of 50 percent means that half of the string literals, which we manually classified as output, actually were responsive to the classifier. We attempted to increase recall by looking for further distinctive properties to build a classifier from, but could not do so without decreasing precision. In spite of missing half of the output candidates, we decided to use a simple, yet distinctive classifier.
 
-\subsection{Experimental Evaluation} 
+\subsection{Experiment Setup} 
 For the evaluation we symbolically executed a selection of PHP systems. We selected a corpus of twelve PHP systems with regard to system size and recency as the corpus of the case study for \cite{Nguyen:2014:BCG:2635868.2635928} only contained small-scale systems that are not maintained any more. The full list of PHP systems is shown in Table \ref{corpus}. Our selection of PHP systems includes
-\begin{enumerate}[a)]
+%\begin{enumerate}[a)]
+\begin{compactitem}
 \item four small-scale systems that selected from the previously mentioned case study in order to compare our results with the previous symbolic execution engine \cite{Nguyen:2014:BCG:2635868.2635928},
 \item three recent large-scale systems selected from the case study corpus of \cite{Hills:2013:ESP:2483760.2483786}, and
 \item four small-scale systems selected from a list of recent Content Management Systems \cite{codegeekz}.
-\end{enumerate}
-As for b) and c), we limited our selection since the parser we used did not support all language features used.
+%umerate}
+
+\end{compactitem}
+As for for the last two cases, we limited our selection since the parser we
+used did not support all language features used.
 
 \begin{table*}[t]
 \centering 
@@ -362,75 +382,13 @@ As for b) and c), we limited our selection since the parser we used did not supp
 
 For the experimental analysis we symbolically executed per system each script file or entry point (files with a \texttt{.php}, \texttt{.inc}, \texttt{.bit} or \texttt{.module} extension). All following measurements are cumulated per system for each entry point. 
 
-\subsection{Metrics for Understanding Limitations} \label{metrics}
-The following metrics are used throughout the description of the results. 
+\subsection{Measuring Approximation Accuracy}
+\label{HowAccurateIsOurApproximation} 
+In Section \ref{heuristic} we introduced the definition of output candidates as expected output. As a most accurate approximation contains all output candidates, we define two metrics to measure accuracy of our approximation. 
 
-\subsubsection{Reach Coverage and Output Coverage} \label{coverage_section}
-In Section \ref{heuristic} we introduced the definition of output candidates. In
-order to describe how much of the expected output was actually reached by the
-symbolic interpreter or even was part of the output respectively.
-We define the metric \emph{reach coverage} as the ratio of output candidates
-that are reached by any execution path during symbolic execution and the total
-number of output candidates in the analyzed system. Moreover, the metric \emph{output coverage} describes the ratio of output
-candidates that are contained in the output of the symbolic interpreter and the total
-number of output candidates of the analyzed system. 
+First, we measure how much of the expected output was actually processed by the symbolic interpreter.  Once a line of code, a statement or expression containing an output candidate is actually an element in an execution path, we define this output candidate as reached. We define the metric \emph{reach coverage} as the ratio of output candidates that are reached and the total number of output candidates in the analyzed system. Although a reached output candidate is processed by the symbolic interpreter, it does not guarantee we will see that output candidate in the symbolic output. Second, we define the metric \emph{output coverage} as the ratio of output candidates that are contained in the output of the symbolic interpreter and the total number of output candidates in the analyzed system.  For an imprecise approximation, we may see loss of output candidate information resulting in a output coverage lower than the reach coverage.
 
-\subsubsection{Include Expressions: Coverage and Success} \label{include_coverage_section}
-One metric to approach \emph{accuracy} is to measure (1) the ratio of reached
-include expressions and the total number of include expressionsm in a system
-respectively, and (2) the ratio of successfully resolved include expressions and
-reached include expressions in a system. We therefore measure the coverage
-of include expressions as well as the resolution success rate. For a most
-accurate result, all include expressions are reached and resolved.
-
-\subsubsection{String Literal Context} \label{context_section}
-Another approach to understand not-reached output candidates is to understand why their surrounding program code was not accessed/accessible. Of special interest are those output candidates which are located in HTML template files or are surrounded by a function definition. 
-
-First, HTML templates are script files containing HTML and additional nested script snippets. Any HTML inside a template is part of the output once the template file is included. Consequently a not-reached output candidate residing in a template file means that the file is not included (dead code) or an include failed at runtime. Second, an output candidate located inside a function definition indicates that either the defined function is never called (dead code), or that the entire function definition is never reached, hence, it is not included or has failed to be included.
-
-Apparently the explanations for both two cases are not mutually exclusive as the surrounding code does not give any reference to why it has not been accessed or could not be accessed. Nevertheless, this classification of not-reached output candidates may give us some insight on the question whether code accessibility is a matter, and if so, where to look for further answers. We will refer to this two cases as \emph{function context} and \emph{template context}.
-
-\subsubsection{Dead Code Features} \label{dead_feature_section}
-A refinement of the previous metric is to explicitly measure those cases where (1) not-reached output candidates are located inside a function context and the corresponding function is defined at runtime. Here we can a priori exclude a failed include from the set of possible explanations. We are also interested in those cases where (2) the not-reached output candidate is located in a file that has never been included from any other script file at runtime). Consequently these script files are either never to be included, or every attempt to include these files failed.
-
-We refer to those two cases as dead code features, especially (1) \emph{dead functions} or (2) \emph{dead includes}. The explanations for these two cases are mutually exclusive since for (1) relevant script files need to be included and for (2) relevant script files must not be included.
-
-\subsubsection{Callback Candidates} \label{callback_candidate_section}
-Aside from failed or successful includes, this metric approaches the explanation of why functions containing not-reached output candidates are never called. The trivial explanation would be that there are no direct calls of those functions, yet PHP offers a number of ways to call a function indirectly, for instance using built-in functions (\texttt{call\_user\_func} or \texttt{call\_user\_func\_args}), or simply evaluating strings as PHP code using the \texttt{eval} function. 
-
-Moreover we need to take into account that one missed function execution can result in missing even more function calls (direct or indirect) and executions. Thus, for functions containing not-reached output candidates we measure whether they can be (1) only, (2) partially or (3) never accessed transitively from functions that have no direct call sites. We refer to those functions (or access points) having no direct call site as callback candidates since the only way to reach them is through indirect mechanisms.
-
-Measuring how many not-reached output candidates can be explained by functions that are callback candidates helps to understand whether, and if so, indirect call mechanisms and their usage may impact our analysis' code coverage.
-
-The callgraph snippets in Figure \ref{callgraph} illustrate the idea of detecting the functions' access points: The green function definitions depict callback candidates, the gray ones depict function definitions containing not-reached output candidates. In Figure \ref{callgraph_a} function \texttt{x()} can only be accessed through callback candidates, as for Figure \ref{callgraph_b} function \texttt{y()} can be partially accessed by callback candidates, whereas function \texttt{z()} is never accessible through callback candidates.
-
-\begin{figure}
-	\centering
-	\begin{subfigure}[t]{0.18\textwidth}
-	\centering
-		\includegraphics[scale=0.4]{images-paper/callgraph_a}
-		\caption{Completely explained by callback candidates (no call from
-		\texttt{main})}
-		\label{callgraph_a}
-    \end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.25\textwidth}
-	\centering
-		\includegraphics[scale=0.4]{images-paper/callgraph_b}
-		\caption{Partially (left; one call from \texttt{main}) or not at all  (right)
-		explained by callback candidates}
-		\label{callgraph_b}
-    \end{subfigure}
-    \caption{Callgraph analysis. The blue nodes represent entry points to
-    relevant functions (gray).}
-    \label{callgraph}
-\end{figure}
-
-\subsection{Results} \label{results}
-
-% TODO Result description 
-The coverage results are illustrated in Figure \ref{coverage}. We could replicate high coverage results for the four small-scale systems with a reach coverage and output coverage over 80~\% respectively. For the three modern/large-scale systems we measured poor coverage with reach coverage ranging from 5~\% to 30~\% and output coverage ranging from 4~\% to 20~\%. We measured medium to high coverage for the more recent small-scale systems: reach coverage ranging from 43~\% to 85~\%, output coverage ranging from 40~\% to 85~\%.
-
+The coverage results are illustrated in Figure \ref{coverage}. We could replicate high coverage results for the four small-scale systems with a reach coverage and output coverage over 80 percent respectively. For the three modern/large-scale systems we measured poor coverage with reach coverage ranging from 5 to 30 percent and output coverage ranging from 4 to 20 percent. We measured medium to high coverage for the more recent small-scale systems: reach coverage ranging from 43 to 85 percent, output coverage ranging from 40 to 85 percent.
 % RESULTS
 % REACH COVERAGE and
 % OUTPUT COVERAGE
@@ -443,8 +401,14 @@ The coverage results are illustrated in Figure \ref{coverage}. We could replicat
 	\label{coverage}
 \end{figure}
 
-\subsubsection{Output Candidates in Function Definitions}
-Based on these results we investigated why output candidates could not be reached. First, we started classifying not-reached output candidates by their string literal context (see Section \ref{context_section}). As the classification results in Figure \ref{contexts} illustrate, for almost all (except for AddressBook and TimeClock) systems not-reached output candidates had a function context. Note that SchoolMate was excluded from the diagram since our analysis reached all output candidates for that system.
+\subsection{Understanding Limitations}
+As we have seen in Section \ref{HowAccurateIsOurApproximation} both measured coverage metrics were poor for large-scale and small-scale/recent systems. To understand what output candidates we missed and why, we further investigated our approximation results and conducted three more measurements. 
+
+\subsubsection{What literals did we miss?}
+\label{WhatLiteralsDidWeMiss?}
+Our initial approach to understand missed output candidates is to find out whether their surrounding program code was not accessed/accessible, and if so, why. Of special interest are those output candidates that are located in HTML files (possibly with nested PHP), or located in a function definition. Plain HTML files do not require any further execution (of course, unless PHP scripts are embedded) and represent output candidates that just need to be included properly to be part of the output. Aside, output candidates that are part of a function definition are only missed if the corresponding function is never called at runtime.
+
+We started classifying missed output candidates by their string literal context. As the classification statistics in Figure \ref{fig:contexts} illustrate, for almost all systems (except for \textsc{AddressBook} and \textsc{TimeClock}) not-reached output candidates had a function context. Note that \textsc{SchoolMate} was excluded from the diagram since our analysis reached all output candidates for that system.
 
 % CONTEXT DISTRIBUTION
 % - FUNCTION CONTEXT
@@ -455,29 +419,24 @@ Based on these results we investigated why output candidates could not be reache
 	}	
 	\caption{Context distribution of never reached output candidates for the PHP
 	corpus.}
-	\label{contexts}
+	\label{fig:contexts}
 \end{figure}
 
-\subsubsection{Developing Hypotheses: Inaccessible Code}
-Furthermore, this lead us to investigate whether we could explain not-reached output candidates by inaccessible dead code features (see Section \ref{dead_feature_section}), especially either dead functions or dead includes. As Figure \ref{dead_explanations} illustrates, the two explanation hypotheses did explain a portion of not-reached output candidates completely. If we look at Anchor for example, we see that all not-reached output candidates had a function context, and that 30~\% were explained by dead functions and dead includes respectively. The missing 40~\% correspond to functions that were defined and called, but whose function body was not completely covered by the execution, i.e., certain branches were missed.
-Nevertheless, we see that inaccessible code is possibly one of the main reasons for missing output candidates. 
+\subsubsection{Inaccessible Dynamic Features}
+\label{sec:inaccessible}
+For both cases of context, either inclusion of a script file failed, or a function call failed. If an HTML file is not part of the output, it also is never reached, i.e., included. An include can fail due to various reasons, such as an imprecise evaluation of the include expression returning a symbolic value, or simply a missing file. 
 
-% DEAD FUNCTIONS and DEAD INCLUDES
-\begin{figure}
-	\input{diagrams/dead_features}
-	\caption{Explanation of never reached output candidates by dead code features.}
-	\label{dead_explanations}
-\end{figure}
+For a function to be never reached there are several scenarios: A function is undefined at runtime if the corresponding script file is never included. In turn, if the function is defined at runtime the function can either be dead code if there is no call site for this function, or the function call failed. In PHP there are several ways to call a function beside direct call sites. The language offers indirect call mechanisms like callback-commands or an evaluation function that parses and evaluates PHP source code as strings.
 
-\subsubsection{Why were code sections inaccessible?}  
-Eventually we started analyzing (1) why include expression may not be resolved/evaluated correctly, and (2) why a reasonable portion of defined functions is never called. For include expressions we  sampled failed attempts and manually evaluated the cause of failure. 
+Given a symbolic value, indirect call mechanisms like callback-commands are likely to fail since target function name and the symbolic value do not match. This also applies for the evaluation of include expressions as concrete values representing include targets can be included, but any include target containing symbolic values is ambiguous.
 
-We identified for (1) that all failed attempts were dynamic include expressions, i.e., those which are resolved at runtime and were assembled from fragments of environment-dependent information including database retrievals, user input, or files. Consequently, the resolved include expressions contained symbolic values which apparently did not represent identifiable script files.
+\subsubsection{Why did includes fail?}
+\label{WhyDidIncludesFail}
+To better understand include expression evaluation, we use another metric to approach accuracy from a different angle: We measure (1) the ratio of reached include expressions and the total number of include expressions in a system respectively (coverage of include expressions), and (2) the ratio of successfully resolved include expressions and reached include expressions in a system (resolution success rate). For a most accurate result all include expressions are reached and resolved.
 
-For (2) we again sampled dead function cases and identified the lack of direct calls to those functions. Interestingly, also functions despite having no direct call sites were called through indirect call features (see Section \ref{callback_candidate_section}). Again we identified dynamically assembled expressions (function names) to be responsible for failed attempts of calling a function indirectly as the resolved function name eventually contained symbolic values. These expressions, as well as include expressions, contained information dependent on the system environment.
+For include expressions we sampled failed attempts and manually evaluated the cause of failure. We identified for (1) that all failed attempts were dynamic include expressions, i.e., those which were resolved at runtime and were assembled from fragments of environment-dependent information including database retrievals, user input, or files. Consequently, the resolved include expressions contained symbolic values which did not represent identifiable script files.
 
-\subsubsection{Quantitative Analysis}
-Finally, we measured for include expressions the overall reach coverage and the overall resolution success rate per system. As illustrated in Figure \ref{include_coverage_results1}, except for the small-scale systems and two recent small-scale systems we did not even really reach a great portion of include expressions, although for most systems the resolution success rate was over 80~\% (see Figure \ref{include_coverage_results2}). As described in Section \ref{include_coverage_section} one failed attempt to include a script file possibly results in a cascade of missing more include expressions.
+Finally, we measured for include expressions the overall reach coverage and the overall resolution success rate per system. As illustrated in Figure \ref{fig:include_coverage_results2}, except for the small-scale systems and two recent small-scale systems we did not even really reach a great portion of include expressions, although for most systems the resolution success rate was over 80 percent (see Figure \ref{fig:include_coverage_results1}). Nevertheless, one failed attempt to include a script file can result in a cascade of missing more include expressions as the include target script is not executed.
 
 % INCLUDE COVERAGE / SUCCESS RATE
 \begin{figure*}[t!]
@@ -487,7 +446,7 @@ Finally, we measured for include expressions the overall reach coverage and the 
         % Include Coverage Plot        
 		\input{diagrams/include_coverage}		
         \caption{Proportion of reached include expressions per project.}
-        \label{include_coverage_results1}
+        \label{fig:include_coverage_results1}
     \end{subfigure}%
 	\hfill
     \begin{subfigure}[t]{0.5\textwidth}    
@@ -496,69 +455,69 @@ Finally, we measured for include expressions the overall reach coverage and the 
         \input{diagrams/success_rate}        
         \caption{Rate of successful resolutions of reached include expressions
         per project.}
-        \label{include_coverage_results2}
+        \label{fig:include_coverage_results2}
     \end{subfigure}
-    \label{include_coverage_results}
+    \label{fig:include_coverage_results}
     \caption{Include coverage and accuracy.}
 \end{figure*}
 
+\subsubsection{Why did function calls fail?}
+\label{WhyDidFunctionCallsFail}
+Aside from failed or successful includes, this metric describes one scenario of why functions containing not-reached output candidates are never called: The trivial explanation would be that there are no direct calls of those functions, yet PHP offers a number of ways to call a function indirectly, for instance using built-in functions, or simply evaluating strings as PHP code using the \texttt{eval} function. 
 
-For failed function calls to functions containing not-reached output candidates we measured how many of those functions were only, or partially accessibly through indirect calling mechanisms (see Section \ref{callback_candidate_section}). As Figure \ref{output_candidate_explanation} illustrates, around 80~\% (except for TimeClock) all missed output candidates of each system were only accessible through callback candidates, i.e., functions that are only accessible through indirect calling mechanisms.
+Moreover we need to take into account that one missed function execution can result in missing even more function calls (direct or indirect) and executions. Thus, for functions containing not-reached output candidates we measure whether they can be (1) only, (2) partially or (3) never accessed transitively from functions that have no direct call sites. We refer to those functions (or access points) having no direct call site as callback candidates since the only way to reach them is through indirect mechanisms. Measuring how many not-reached output candidates can be explained by functions that are callback candidates helps to understand whether, and if so, indirect call mechanisms and their usage may impact our analysis’ code coverage.
+
+The callgraph snippets in Figure \ref{fig:callgraph} illustrate the idea of detecting the functions’ access points: The nodes at the top depict callback candidates, the nodes at the bottom with labels X, Y, and Z depict function definitions containing not-reached output candidates. In Figure \ref{fig:callgraph_a} function X can only be accessed through callback candidates, as for Figure \ref{fig:callgraph_b} function Y can be partially accessed by callback candidates, whereas function Z is never accessible through callback candidates.
+
+% Callback candidate description
+\begin{figure}
+	\centering
+	\begin{subfigure}[t]{0.18\textwidth}
+	\centering
+		\includegraphics[scale=0.4]{images-paper/callgraph_a}
+		\caption{Completely explained by callback candidates (no call from
+		\texttt{main})}
+		\label{fig:callgraph_a}
+    \end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.25\textwidth}
+	\centering
+		\includegraphics[scale=0.4]{images-paper/callgraph_b}
+		\caption{Partially (left; one call from \texttt{main}) or not at all  (right)
+		explained by callback candidates}
+		\label{fig:callgraph_b}
+    \end{subfigure}
+    \caption{Callgraph analysis: The bottom nodes represent functions containing missed output candidates, the top nodes depict entry points to them.}
+    \label{fig:callgraph}
+\end{figure}
+
+Like for include expressions, we again sampled dead function cases and identified the lack of direct call sites to those functions. As described in Section \ref{sec:inaccessible}, functions despite having no direct call sites were called through indirect call features. We identified dynamically assembled expressions (function names) to be responsible for failed attempts of calling a function indirectly as the resolved function name eventually contained symbolic values. These expressions, as well as include expressions, contained information dependent on the system environment.
+
+For failed function calls to functions containing not-reached output candidates we measured how many of those functions were only, or partially accessibly through indirect calling mechanisms (see Section \ref{sec:inaccessible}). As Figure \ref{fig:output_candidate_explanation} illustrates, around 80 percent (except for \textsc{TimeClock}) all missed output candidates of each system were only accessible through callback candidates, i.e., functions that are only accessible through indirect calling mechanisms.
 
 % CALLBACK CANDIDATE ACCESSIBILITY ANALYSIS
-\begin{figure}
+\begin{figure}[p]
 	\input{diagrams/output_candidates}
 	\caption{Distribution dead function output candidates that are partially or
 	completely explained due to callback candidates.}
-	\label{output_candidate_explanation}
+	\label{fig:output_candidate_explanation}
 \end{figure}
 
+
+
 \section{Lessons Learned}
-\begin{itemize}
-  \item Certain language features are prone to be used in a way that symbolic
-  execution is impeded.
-  \item Tendency to use functions/includes with I/O, databases or configuration
-  files is problematic.
-\end{itemize}
 
-\begin{framed}
-\textcolor{RYB1}{The use of include expressions whose evaluation at runtime
-involves concatenation, especially of fragments from critical sources, impede
-symbolic execution due to inaccuracy.}
-\end{framed}
-
-
-
+		\begin{lstlisting}[caption=A misplaced and unused \texttt{listing} with no real value to this paper.]
+		function foo() {
+   		   echo "foo";
+		}
+		\end{lstlisting}
 
 
 \section{Related Work}
-\begin{itemize}
-  \item Static output approximation using context-free grammars
-  by Minamide \cite{minamide2005static} and detection of SQL
-  injection vulnerabilities \cite{wassermann2007sound}.
-  \item Static analysis of feature usage in PHP systems by Hills et al.
-  \cite{Hills:2013:ESP:2483760.2483786} and static resolution of include
-  expressions \cite{Hills:2013:ESP:2483760.2483786,hills2014static}
-  \item bener \cite{King1976} \cite{multiSE}
-\end{itemize}
 
-
-
-
-
-
-
-
-
-
-\newpage
+%References
 \bibliographystyle{abbrv}
-\bibliography{bibliography}  % sigproc.bib is the name of the Bibliography in this case
-% You must have a proper ".bib" file
-%  and remember to run:
-% latex bibtex latex latex
-% to resolve all references
-%
-% ACM needs 'a single self-contained file'!
-%
+\bibliography{bibliography}
+
 \end{document}

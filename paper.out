@@ -1,28 +1,15 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{State Of the Art}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Symbolic Execution \(and Choices?\)}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Use Cases for Output Approximation}{section.2}% 4
-\BOOKMARK [1][-]{section.3}{Towards scalable symbolic execution}{}% 5
-\BOOKMARK [2][-]{subsection.3.1}{Can we have a practical tool?}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.2}{Oak: A Symbolic Interpreter}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.3}{Experience Report}{section.3}% 8
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Problems}{subsection.3.3}% 9
-\BOOKMARK [3][-]{subsubsection.3.3.2}{Concrete/Symbolic Boundary}{subsection.3.3}% 10
-\BOOKMARK [3][-]{subsubsection.3.3.3}{Further experiments}{subsection.3.3}% 11
-\BOOKMARK [1][-]{section.4}{How can we explain low code coverage?}{}% 12
-\BOOKMARK [2][-]{subsection.4.1}{How to measure approximation success?}{section.4}% 13
-\BOOKMARK [2][-]{subsection.4.2}{Experimental Evaluation}{section.4}% 14
-\BOOKMARK [2][-]{subsection.4.3}{Metrics for Understanding Limitations}{section.4}% 15
-\BOOKMARK [3][-]{subsubsection.4.3.1}{Reach Coverage and Output Coverage}{subsection.4.3}% 16
-\BOOKMARK [3][-]{subsubsection.4.3.2}{Include Expressions: Coverage and Success}{subsection.4.3}% 17
-\BOOKMARK [3][-]{subsubsection.4.3.3}{String Literal Context}{subsection.4.3}% 18
-\BOOKMARK [3][-]{subsubsection.4.3.4}{Dead Code Features}{subsection.4.3}% 19
-\BOOKMARK [3][-]{subsubsection.4.3.5}{Callback Candidates}{subsection.4.3}% 20
-\BOOKMARK [2][-]{subsection.4.4}{Results}{section.4}% 21
-\BOOKMARK [3][-]{subsubsection.4.4.1}{Output Candidates in Function Definitions}{subsection.4.4}% 22
-\BOOKMARK [3][-]{subsubsection.4.4.2}{Developing Hypotheses: Inaccessible Code}{subsection.4.4}% 23
-\BOOKMARK [3][-]{subsubsection.4.4.3}{Why were code sections inaccessible?}{subsection.4.4}% 24
-\BOOKMARK [3][-]{subsubsection.4.4.4}{Quantitative Analysis}{subsection.4.4}% 25
-\BOOKMARK [1][-]{section.5}{Lessons Learned}{}% 26
-\BOOKMARK [1][-]{section.6}{Related Work}{}% 27
-\BOOKMARK [1][-]{section.7}{References}{}% 28
+\BOOKMARK [1][-]{section.3}{Towards scalable symbolic execution}{}% 3
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Measuring Approximation Success}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Experiment Setup}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Measuring Approximation Accuracy}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.4}{Understanding Limitations}{section.4}% 8
+\BOOKMARK [3][-]{subsubsection.4.4.1}{What literals did we miss?}{subsection.4.4}% 9
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Inaccessible Dynamic Features}{subsection.4.4}% 10
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Why did includes fail?}{subsection.4.4}% 11
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Why did function calls fail?}{subsection.4.4}% 12
+\BOOKMARK [1][-]{section.5}{Lessons Learned}{}% 13
+\BOOKMARK [1][-]{section.6}{Related Work}{}% 14
+\BOOKMARK [1][-]{section.7}{References}{}% 15

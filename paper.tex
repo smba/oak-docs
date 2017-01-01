@@ -6,7 +6,9 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{paralist}
-
+\usepackage{listings}
+\usepackage{lipsum}
+\usepackage{cite}
 \usepackage{enumerate}
 \usepackage{subcaption}
 \usepackage{cleveref}
@@ -26,12 +28,15 @@
 
 \lstset{
 language=PHP,
-basicstyle=\small\sffamily,
+basicstyle=\ttfamily\footnotesize,
+basewidth={0.5em,0.4em}, % for other columns settings
+%columns=fullflexible,
 numbers=left,
 numberstyle=\tiny,
-frame=tb,
-columns=fullflexible,
-showstringspaces=false
+frame=single,
+showstringspaces=false,
+xleftmargin=2em,
+framexleftmargin=1.5em
 }
 
 % ARIAL
@@ -242,7 +247,7 @@ applications.
 Static Analysis, PHP}
 
 \section{Introduction}
-With the emerge of the world wide web, dynamic web applications have become
+With the emerging world wide web, dynamic web applications have become
 widely popular. Various different implementation techniques have emerged,
 ranging from technologies for programming languages (JSP, ASP .NET) and web
 application frameworks for  script languages (Ruby On Rails, Django) to
@@ -251,29 +256,31 @@ a programming language focused on server-side application development. As of 201
 it was used by 78.8 percent of the ten million most popular websites (according
 to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE
 programming community index \cite{tiobePHP}, and was the ranked as the 6th most
-popular language on GitHub \cite{githubPHP}.\\
+popular language on GitHub \cite{githubPHP}.
 
-One common property of all technologies for dynamic we b applications is the
-\emph{staged computation} of output, or simplified: dynamic code generation.
-Since based on both static values and runtime values, output code is generated step by step
-dynamically, output can be dependent on application inputs. Dynamic web
-applications incorporate various both server-side inputs (databases,
-configuration) and client-side inputs respectively. Static
-analysis of dynamic web applications, hence, has to consider different input
-sources.
+One common property of all technologies for dynamic web applications is \emph{staged computation} of output: A dynamic web application as a whole consists of both static code, such as scripts, and dynamically generated code, such as responses to HTTP requests. The latter code, although assembled at runtime, may contain client-side parts of the web application, such as JavaScript. So, to study dynamic web applications in its entirety, we need to consider both static as well as dynamic aspects of systems.
+
+%Since based on both static values and runtime values, output code is generated step by step
+%dynamically, output can be dependent on application inputs. Dynamic web
+%applications incorporate various both server-side inputs (databases,
+%configuration) and client-side inputs respectively. Static
+%analysis of dynamic web applications, hence, has to consider different input
+%sources.
 
 \emph{Symbolic execution} is a static analysis technique between program testing
 and program proving. For a program, symbolic, i.e., abstract, yet fix inputs are
 applied instead of concrete inputs \cite{Darringer1978,King1976}. The underlying
 concept is to map program input (symbolically) to program output. Different classes of inputs may
 result in variational output, representing dependencies of output and input.
-Symbolic execution extends concrete execution semantics with semantics to
-handle symbolic values. Hence, concrete execution semantics is contained in
-symbolic execution semantics.\\
+As symbolic execution of a program returns an input-output-mapping for symbolic inputs, this analysis technique helps unfold the \emph{staged} nature of web applications: Since every feasible path is executed all possible output is contained in the symbolic output, and all dynamically generated variational parts of the web application can be analyzed.
 
-Symbolic execution has been used and studied for generating test suites, but
-has more recently also been applied for approximating the output of web
-applications. Knowledge about different output variants enabled useful analyses
+%Symbolic execution extends concrete execution semantics with semantics to
+%handle symbolic values. Hence, concrete execution semantics is contained in
+%symbolic execution semantics. Symbolic execution has been used and studied for generating test suites, but
+%has more recently also been applied for approximating the output of web
+%applications. 
+
+Knowledge about different output variants enabled useful analyses
 for the domain of web applications, such as detecting and locating HTML
 validation errors \cite{Nguyen:2011:AFH:2190078.2190142}. As for developers,
 from an output model, outlines and callgraphs for easier IDE code navigation
@@ -284,21 +291,20 @@ integrated in the Varis plugin for the Eclipse IDE \cite{Nguyen:2015:VIS:2819009
 Despite the various use cases for analyses based on an approximated output
 model, static output approximation for PHP web applications using symbolic
 execution has so far only been evaluated for smaller systems that are not
-developed anymore. The previously mentioned tools though are only practical, if
+maintained anymore. The previously mentioned tools though are only practical, if
 for a given system the symbolic execution engine is scalable, i.e., will also
-approximate reliable output for larger and more recent systems with good time
-and space consumption.\\
+approximate output accurately for larger and more recent systems with good time
+and space consumption.
 
-To investigate the question, whether we can have practical tools built from the
-symbolic execution engine, we re-implemented the engine with the specifications
+To investigate the question, whether we can build practical tools from the
+the symbolic execution engine, we re-implemented the engine with the specifications
 of the previous symbolic execution semantics
 \cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such as
 object-oriented programming, and extensive array support. We evaluated our
 symbolic execution engine for large-scale and modern PHP systems.
 
-During introduction of new semantics for object-orientation and advanced array
-we encountered two main challenges. First, we walked a boundary between a
-purely symbolic or mixed concrete and symbolic (concolic) execution engine
+During introduction of new semantics for object-orientation we encountered two main challenges. 
+First, we walked a boundary between a purely symbolic or mixed concrete and symbolic execution engine
 since concrete execution, e.g. foreach loops for arrays, increased code
 coverage significantly. Second, we had to make a trade-off between the accuracy
 of method calls and the scalability of this language feature as a method call
@@ -310,16 +316,46 @@ symbolic values symbolic execution can be impractical. For object-orientation
 and method calls, symbolic execution semantics can be a tightrope walk between
 state space explosion and imprecision. Moreover, the nature of PHP challenges a
 practical symbolic execution engine since for it to be accurate, a large number
-of functions from the standard library needs to be supported.\\
+of functions from the standard library needs to be supported.
 
-Our key contributions in this paper include: (1) The tool infrastructure to
-statically approximate the output for PHP web applications using symbolic
-execution and (2) observations as well as an experience evaluation to identify
-and measure PHP constructs impeding symbolic execution of PHP code.
+Our key contributions in this paper include (1) a new tool infrastructure to statically approximate the output for PHP web applications using symbolic execution, and (2) a report of our observations with state-of-the-art web applications as well as an explanation on conceptual limitations for symbolic execution of PHP applications.
 
 \section{State Of the Art}
+In this section we present the motivation for building tools that address the \textcolor{blue}{development, quality and xxx} of dynamic web applications, but require an accurate static output approximation. All tools proposed so far \cite{Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,Nguyen:2011:AFH:2190078.2190142} leverage a representation of all possible HTML client page output. Since any variant can be analyzed in particular, this enables tool support addressing the web application as a whole despite its \emph{staged} nature, where parts of the web application (client-side output) is just generated dynamically.
 
-\section{Towards scalable symbolic execution}%
+The work-flow for all these tools is illustrated in Figure \ref{fig:approach}, where prior to any analysis, the web application is symbolically executed and all client page output variants are parsed. To illustrate the concept of symbolic execution for this purpose consider the following example:
+
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=0.45\textwidth]{images-paper/approach}
+	
+	\caption{Bener}
+	\label{fig:approach}
+\end{figure}
+
+\begin{lstlisting}
+<?php
+
+echo 'Hello World!';
+\end{lstlisting}
+
+Based on this output representation, the so-called D-Model, subsequent analyses can be conducted:
+
+\begin{compactitem}
+\item \emph{PhpSync}: Using all variants of  HTML client page output, every single one can be statically checked for Markup Validity, i.e., if the web page conforms to syntactical specifications for HTML and other client-side languages. After validation errors are detected, auto-fixes are provided. Otherwise, the validation error can be traced back to source code responsible for the defect, which then can be refactored manually \cite{Nguyen:2011:AFH:2190078.2190142}.
+
+\item \emph{WebSlice}: Bener bener
+\item \emph{Varis}: Bener IDE bener
+\end{compactitem}
+
+\textcolor{blue}{\emph{D. Tool evaluation critique}
+\begin{compactitem}
+	\item Limitations/Assumptions
+	\item Too small sample
+\end{compactitem}
+}
+
+\section{Scalable Output Approximation}%
 
 
 \section{Evaluation}
@@ -353,26 +389,25 @@ used did not support all language features used.
 
 \begin{table*}[t]
 \centering 
-	\begin{tabular}{p{4cm}rrrl}
+	\begin{tabular}{lrp{4cm}rlrr}
 	\toprule
-	\textbf{System} & \textbf{Version} & \textbf{File Count} & \textbf{SLOC} &
-	\textbf{Description}
+	\textbf{System} & \textbf{Version} & \textbf{Classification} & \textbf{SLOC} & \textbf{\#files} & \textbf{\#OCs} & \textbf{\#includes}
 	\\
 	\midrule
-	AddressBook & 8.2.5.2 & 239 & 51,907 & Adress Administration \\
-	SchoolMate & 1.5.4 & 65 & 8,118 & School Administration \\
-	TimeClock & 1.04 & 63 & 20,800 & XXX \\
-	WebChess & 1.0.0 & 28 & 5,219 & XXX \\
+	\textsc{AddressBook} & 8.2.5.2 & 239 & 51,907 & Adress Administration  & XXX & XXX\\
+	\textsc{SchoolMate} & 1.5.4 & 65 & 8,118 & School Administration  & XXX & XXX\\
+	\textsc{TimeClock} & 1.04 & 63 & 20,800 & XXX  & XXX & XXX\\
+	\textsc{WebChess} & 1.0.0 & 28 & 5,219 & XXX  & XXX & XXX\\
 	\midrule
-	Drupal & 7.5.0 & 125 & 52,464 & Content Management System \\
-	phpBB & 3.1.9 & 1,398 & 327,371 & Bulletin Board \\
-	phpMyAdmin & 4.6.3 & 871 & 303,582 & Database Administration \\
+	\textsc{Drupal} & 7.5.0 & 125 & 52,464 & Content Management System  & XXX & XXX\\
+	\textsc{phpBB} & 3.1.9 & 1,398 & 327,371 & Bulletin Board  & XXX & XXX\\
+	\textsc{phpMyAdmin} & 4.6.3 & 871 & 303,582 & Database Administration  & XXX & XXX\\
 	\midrule
-	Anchor & 0.12.1 & 201 & 15,054 & Content Management System \\
-	Kirby & XXX & XXX & XXX & Content Management System \\
-	Automad & XXX & XXX & XXX & Content Management System \\
-	Monstra & XXX & XXX & XXX & Content Management System \\
-	Nibbleblog & XXX & XXX & XXX & Content Management System \\
+	\textsc{Anchor} & 0.12.1 & 201 & 15,054 & Content Management System  & XXX & XXX\\
+	\textsc{Kirby} & XXX & XXX & XXX & Content Management System  & XXX & XXX\\
+	\textsc{Automad} & XXX & XXX & XXX & Content Management System  & XXX & XXX\\
+	\textsc{Monstra} & XXX & XXX & XXX & Content Management System  & XXX & XXX\\
+	\textsc{Nibbleblog} & XXX & XXX & XXX & Content Management System  & XXX & XXX\\
 	\bottomrule
 	\end{tabular}
 	\caption{Corpus of twelve PHP systems. The file count includes files with a .php,
@@ -394,10 +429,13 @@ The coverage results are illustrated in Figure \ref{coverage}. We could replicat
 % OUTPUT COVERAGE
 \begin{figure}
 	\centering	
-	\resizebox{0.4\textwidth}{!}{%
-		\input{diagrams/coverage}	
+%	\resizebox{0.4\textwidth}{!}{%
+%		\input{diagrams/coverage}	
+%	}
+	\includegraphics[width=0.5\textwidth]{images-paper/coverage.eps}
+	\caption{
+		Results for output candidates: \emph{Coverage loss} repesents reached output candidates that were not part of the output. \emph{Simple file} and \emph{function definition} represent context classifications of missed output candidates.
 	}
-	\caption{Coverage results for the PHP corpus}
 	\label{coverage}
 \end{figure}
 
@@ -413,14 +451,14 @@ We started classifying missed output candidates by their string literal context.
 % CONTEXT DISTRIBUTION
 % - FUNCTION CONTEXT
 % - TEMPLATE CONTEXT
-\begin{figure}
-	\resizebox{0.4\textwidth}{!}{%
-		\input{diagrams/context_distribution}
-	}	
-	\caption{Context distribution of never reached output candidates for the PHP
-	corpus.}
-	\label{fig:contexts}
-\end{figure}
+%\begin{figure}
+%	\resizebox{0.4\textwidth}{!}{%
+%		\input{diagrams/context_distribution}
+%	}	
+%	\caption{Context distribution of never reached output candidates for the PHP
+%	corpus.}
+%	\label{fig:contexts}
+%\end{figure}
 
 \subsubsection{Inaccessible Dynamic Features}
 \label{sec:inaccessible}
@@ -439,27 +477,30 @@ For include expressions we sampled failed attempts and manually evaluated the ca
 Finally, we measured for include expressions the overall reach coverage and the overall resolution success rate per system. As illustrated in Figure \ref{fig:include_coverage_results2}, except for the small-scale systems and two recent small-scale systems we did not even really reach a great portion of include expressions, although for most systems the resolution success rate was over 80 percent (see Figure \ref{fig:include_coverage_results1}). Nevertheless, one failed attempt to include a script file can result in a cascade of missing more include expressions as the include target script is not executed.
 
 % INCLUDE COVERAGE / SUCCESS RATE
-\begin{figure*}[t!]
-    \centering
-    \begin{subfigure}[t]{0.5 \textwidth}    	
-        \centering        
-        % Include Coverage Plot        
-		\input{diagrams/include_coverage}		
-        \caption{Proportion of reached include expressions per project.}
-        \label{fig:include_coverage_results1}
-    \end{subfigure}%
-	\hfill
-    \begin{subfigure}[t]{0.5\textwidth}    
-        \centering
-        % Success Rate Plot        
-        \input{diagrams/success_rate}        
-        \caption{Rate of successful resolutions of reached include expressions
-        per project.}
-        \label{fig:include_coverage_results2}
-    \end{subfigure}
+\begin{figure}
+%    \centering
+%    \begin{subfigure}[t]{0.5 \textwidth}    	
+%        \centering        
+%        % Include Coverage Plot        %
+%		\input{diagrams/include_coverage}		
+%        \caption{Proportion of reached include expressions per project.}
+%        \label{fig:include_coverage_results1}
+%    \end{subfigure}
+%	\hfill
+%    \begin{subfigure}[t]{0.5\textwidth}    
+%        \centering
+%        % Success Rate Plot        
+%        \input{diagrams/success_rate}        
+%        \caption{Rate of successful resolutions of reached include expressions
+%        per project.}
+%        \label{fig:include_coverage_results2}
+%    \end{subfigure}
+
+\includegraphics[width=0.5\textwidth]{images-paper/includes.eps}
+
     \label{fig:include_coverage_results}
     \caption{Include coverage and accuracy.}
-\end{figure*}
+\end{figure}
 
 \subsubsection{Why did function calls fail?}
 \label{WhyDidFunctionCallsFail}
@@ -470,23 +511,9 @@ Moreover we need to take into account that one missed function execution can res
 The callgraph snippets in Figure \ref{fig:callgraph} illustrate the idea of detecting the functions’ access points: The nodes at the top depict callback candidates, the nodes at the bottom with labels X, Y, and Z depict function definitions containing not-reached output candidates. In Figure \ref{fig:callgraph_a} function X can only be accessed through callback candidates, as for Figure \ref{fig:callgraph_b} function Y can be partially accessed by callback candidates, whereas function Z is never accessible through callback candidates.
 
 % Callback candidate description
-\begin{figure}
+\begin{figure}[t!]
 	\centering
-	\begin{subfigure}[t]{0.18\textwidth}
-	\centering
-		\includegraphics[scale=0.4]{images-paper/callgraph_a}
-		\caption{Completely explained by callback candidates (no call from
-		\texttt{main})}
-		\label{fig:callgraph_a}
-    \end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.25\textwidth}
-	\centering
-		\includegraphics[scale=0.4]{images-paper/callgraph_b}
-		\caption{Partially (left; one call from \texttt{main}) or not at all  (right)
-		explained by callback candidates}
-		\label{fig:callgraph_b}
-    \end{subfigure}
+	\includegraphics[scale=0.55]{images-paper/callgraph_cases}
     \caption{Callgraph analysis: The bottom nodes represent functions containing missed output candidates, the top nodes depict entry points to them.}
     \label{fig:callgraph}
 \end{figure}

@@ -1,6 +1,6 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{State Of the Art}{}% 2
-\BOOKMARK [1][-]{section.3}{Towards scalable symbolic execution}{}% 3
+\BOOKMARK [1][-]{section.3}{Scalable Output Approximation}{}% 3
 \BOOKMARK [1][-]{section.4}{Evaluation}{}% 4
 \BOOKMARK [2][-]{subsection.4.1}{Measuring Approximation Success}{section.4}% 5
 \BOOKMARK [2][-]{subsection.4.2}{Experiment Setup}{section.4}% 6

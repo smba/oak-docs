@@ -34,12 +34,6 @@ M.~Hills, P.~Klint, and J.~Vinju.
   Testing and Analysis}, ISSTA 2013, pages 325--335, New York, NY, USA, 2013.
   ACM.
 
-\bibitem{hills2014static}
-M.~Hills, P.~Klint, and J.~J. Vinju.
-\newblock Static, lightweight includes resolution for php.
-\newblock In {\em Proceedings of the 29th ACM/IEEE international conference on
-  Automated software engineering}, pages 503--514. ACM, 2014.
-
 \bibitem{King1976}
 J.~C. King.
 \newblock Symbolic execution and program testing.
@@ -80,13 +74,6 @@ H.~V. Nguyen, H.~A. Nguyen, T.~T. Nguyen, and T.~N. Nguyen.
 \newblock In {\em Proceedings of the 2011 26th IEEE/ACM International
   Conference on Automated Software Engineering}, ASE '11, pages 13--22,
   Washington, DC, USA, 2011. IEEE Computer Society.
-
-\bibitem{multiSE}
-K.~Sen, G.~Necula, L.~Gong, and W.~Choi.
-\newblock Multise: Multi-path symbolic execution using value summaries.
-\newblock In {\em Proceedings of the 2015 10th Joint Meeting on Foundations of
-  Software Engineering}, ESEC/FSE 2015, pages 842--853, New York, NY, USA,
-  2015. ACM.
 
 \bibitem{wassermann2007sound}
 G.~Wassermann and Z.~Su.

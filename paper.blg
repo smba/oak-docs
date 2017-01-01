@@ -9,45 +9,45 @@ Warning--to sort, need author or key in tiobePHP
 Warning--to sort, need author or key in githubPHP
 Warning--to sort, need author or key in codegeekz
 Warning--can't use both volume and number fields in wassermann2007sound
-You've used 16 entries,
+You've used 14 entries,
             2118 wiz_defined-function locations,
-            602 strings with 6504 characters,
-and the built_in function-call counts, 5829 in all, are:
-= -- 628
-> -- 181
-< -- 10
-+ -- 75
-- -- 58
-* -- 355
-:= -- 830
-add.period$ -- 53
-call.type$ -- 16
-change.case$ -- 76
+            592 strings with 6150 characters,
+and the built_in function-call counts, 4803 in all, are:
+= -- 516
+> -- 140
+< -- 8
++ -- 59
+- -- 44
+* -- 289
+:= -- 682
+add.period$ -- 45
+call.type$ -- 14
+change.case$ -- 63
 chr.to.int$ -- 0
-cite$ -- 22
-duplicate$ -- 260
-empty$ -- 519
-format.name$ -- 58
-if$ -- 1347
+cite$ -- 20
+duplicate$ -- 214
+empty$ -- 439
+format.name$ -- 44
+if$ -- 1110
 int.to.chr$ -- 0
-int.to.str$ -- 16
-missing$ -- 11
-newline$ -- 79
-num.names$ -- 22
-pop$ -- 110
+int.to.str$ -- 14
+missing$ -- 9
+newline$ -- 69
+num.names$ -- 18
+pop$ -- 94
 preamble$ -- 1
-purify$ -- 61
+purify$ -- 50
 quote$ -- 0
-skip$ -- 213
+skip$ -- 176
 stack$ -- 0
-substring$ -- 397
-swap$ -- 98
-text.length$ -- 10
+substring$ -- 323
+swap$ -- 77
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 64
+type$ -- 56
 warning$ -- 6
-while$ -- 53
-width$ -- 18
-write$ -- 182
+while$ -- 43
+width$ -- 16
+write$ -- 156
 (There were 6 warnings)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  2 JAN 2017 00:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  2 JAN 2017 00:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1300,16 +1300,16 @@ Package epstopdf Info: Source file: <images-paper/approach.eps>
 (epstopdf)                    size: 16820 bytes
 (epstopdf)             Command: <repstopdf --outfile=images-paper/approach-eps-
 converted-to.pdf images-paper/approach.eps>
-(epstopdf)             \includegraphics on input line 330.
+(epstopdf)             \includegraphics on input line 328.
 Package epstopdf Info: Output file is already uptodate.
 
 <images-paper/approach-eps-converted-to.pdf, id=109, 854.19125pt x 272.01625pt>
 File: images-paper/approach-eps-converted-to.pdf Graphic file (type pdf)
 <use images-paper/approach-eps-converted-to.pdf>
 Package pdftex.def Info: images-paper/approach-eps-converted-to.pdf used on inp
-ut line 330.
+ut line 328.
 (pdftex.def)             Requested size: 226.79846pt x 72.22093pt.
-LaTeX Font Info:    Try loading font information for T1+aett on input line 336.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 334.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/ae/t1aett.fd
@@ -1320,15 +1320,15 @@ File: utf8x.def 2004/10/17 UCS: Input encoding UTF-8
 )
 
 LaTeX Font Warning: Font shape `T1/aett/bx/n' undefined
-(Font)              using `T1/aett/m/n' instead on input line 339.
+(Font)              using `T1/aett/m/n' instead on input line 337.
 
 
-Overfull \hbox (3.58495pt too wide) in paragraph at lines 358--358
+Overfull \hbox (3.58495pt too wide) in paragraph at lines 356--356
 []\secfnt SCALABLE OUT-PUT AP-PROX-I-MA-TION 
  []
 
 
-Overfull \hbox (6.97633pt too wide) in paragraph at lines 368--371
+Overfull \hbox (6.97633pt too wide) in paragraph at lines 366--369
 []\T1/ptm/m/n/9 For the eval-u-a-tion of our out-put ap-prox-i-ma-tion we re-qu
 ire a ground
  []
@@ -1337,7 +1337,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.425 
+l.423 
        [2 <./images-paper/approach-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <images-paper/coverage.eps>
 (epstopdf)                    date: 2016-12-27 19:20:26
@@ -1348,7 +1348,7 @@ Package epstopdf Info: Source file: <images-paper/coverage.eps>
 (epstopdf)                    size: 44270 bytes
 (epstopdf)             Command: <repstopdf --outfile=images-paper/coverage-eps-
 converted-to.pdf images-paper/coverage.eps>
-(epstopdf)             \includegraphics on input line 435.
+(epstopdf)             \includegraphics on input line 433.
 Package epstopdf Info: Output file is already uptodate.
 
 <images-paper/coverage-eps-converted-to.pdf, id=140, 413.545pt x 202.7575pt>
@@ -1356,19 +1356,19 @@ File: images-paper/coverage-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images-paper/coverage-eps-converted-to.pdf>
 Package pdftex.def Info: images-paper/coverage-eps-converted-to.pdf used on inp
-ut line 435.
+ut line 433.
 (pdftex.def)             Requested size: 252.0pt x 123.55504pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 435--438
+Overfull \hbox (12.0pt too wide) in paragraph at lines 433--436
  [][] 
  []
 
 
 LaTeX Warning: Reference `fig:contexts' on page \thepage  undefined on input li
-ne 449.
+ne 447.
 
 
-Overfull \hbox (7.42496pt too wide) in paragraph at lines 449--450
+Overfull \hbox (7.42496pt too wide) in paragraph at lines 447--448
 \T1/ptm/m/n/9 for al-most all sys-tems (ex-cept for \T1/ptm/m/sc/9 Ad-dress-Boo
 k \T1/ptm/m/n/9 and \T1/ptm/m/sc/9 Time-Clock\T1/ptm/m/n/9 )
  []
@@ -1377,15 +1377,15 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.476 
+l.474 
        [3 <./images-paper/coverage-eps-converted-to.pdf>]
 
 LaTeX Warning: Reference `fig:include_coverage_results2' on page \thepage  unde
-fined on input line 477.
+fined on input line 475.
 
 
 LaTeX Warning: Reference `fig:include_coverage_results1' on page \thepage  unde
-fined on input line 477.
+fined on input line 475.
 
 Package epstopdf Info: Source file: <images-paper/includes.eps>
 (epstopdf)                    date: 2016-12-27 20:36:46
@@ -1396,7 +1396,7 @@ Package epstopdf Info: Source file: <images-paper/includes.eps>
 (epstopdf)                    size: 44186 bytes
 (epstopdf)             Command: <repstopdf --outfile=images-paper/includes-eps-
 converted-to.pdf images-paper/includes.eps>
-(epstopdf)             \includegraphics on input line 499.
+(epstopdf)             \includegraphics on input line 497.
 Package epstopdf Info: Output file is already uptodate.
 
 <images-paper/includes-eps-converted-to.pdf, id=148, 455.7025pt x 201.75375pt>
@@ -1404,20 +1404,20 @@ File: images-paper/includes-eps-converted-to.pdf Graphic file (type pdf)
 
 <use images-paper/includes-eps-converted-to.pdf>
 Package pdftex.def Info: images-paper/includes-eps-converted-to.pdf used on inp
-ut line 499.
+ut line 497.
 (pdftex.def)             Requested size: 252.0pt x 111.57137pt.
 
-Overfull \hbox (12.0pt too wide) in paragraph at lines 499--500
+Overfull \hbox (12.0pt too wide) in paragraph at lines 497--498
 [][] 
  []
 
 
 LaTeX Warning: Reference `fig:callgraph_a' on page \thepage  undefined on input
- line 511.
+ line 509.
 
 
 LaTeX Warning: Reference `fig:callgraph_b' on page \thepage  undefined on input
- line 511.
+ line 509.
 
 Package epstopdf Info: Source file: <images-paper/callgraph_cases.eps>
 (epstopdf)                    date: 2016-12-22 13:56:13
@@ -1428,7 +1428,7 @@ Package epstopdf Info: Source file: <images-paper/callgraph_cases.eps>
 (epstopdf)                    size: 4779 bytes
 (epstopdf)             Command: <repstopdf --outfile=images-paper/callgraph_cas
 es-eps-converted-to.pdf images-paper/callgraph_cases.eps>
-(epstopdf)             \includegraphics on input line 516.
+(epstopdf)             \includegraphics on input line 514.
 Package epstopdf Info: Output file is already uptodate.
 
 <images-paper/callgraph_cases-eps-converted-to.pdf, id=150, 290.08376pt x 98.36
@@ -1437,7 +1437,7 @@ File: images-paper/callgraph_cases-eps-converted-to.pdf Graphic file (type pdf)
 
  <use images-paper/callgraph_cases-eps-converted-to.pdf>
 Package pdftex.def Info: images-paper/callgraph_cases-eps-converted-to.pdf used
- on input line 516.
+ on input line 514.
 (pdftex.def)             Requested size: 159.54655pt x 54.10226pt.
 
 (./diagrams/output_candidates.tex
@@ -1483,17 +1483,17 @@ Missing character: There is no , in font nullfont!
 l.62 
       [4 <./images-paper/includes-eps-converted-to.pdf> <./images-paper/callgra
 ph_cases-eps-converted-to.pdf>])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 547.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 545.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.547 \end{document}
+l.545 \end{document}
                      [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 547.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 545.
  (./paper.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 547.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 547.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 545.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 545.
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: 05E33A6652FDDF964F372650F8E63534;996.
 
@@ -1503,12 +1503,12 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 547.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 545.
  ) 
 Here is how much of TeX's memory you used:
  33133 strings out of 493105
  748297 string characters out of 6137071
- 1264674 words of memory out of 5000000
+ 1263675 words of memory out of 5000000
  35959 multiletter control sequences out of 15000+600000
  76277 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1522,7 +1522,7 @@ w/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/u
 hvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (5 pages, 231035 bytes).
+Output written on paper.pdf (5 pages, 231002 bytes).
 PDF statistics:
  226 PDF objects out of 1000 (max. 8388607)
  202 compressed objects within 3 object streams

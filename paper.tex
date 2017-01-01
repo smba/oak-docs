@@ -300,13 +300,11 @@ To investigate the question, whether we can build practical tools from the
 the symbolic execution engine, we re-implemented the engine with the specifications
 of the previous symbolic execution semantics
 \cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such as
-object-oriented programming, and extensive array support. We evaluated our
+object-oriented programming. We evaluated our
 symbolic execution engine for large-scale and modern PHP systems.
 
 During introduction of new semantics for object-orientation we encountered two main challenges. 
-First, we walked a boundary between a purely symbolic or mixed concrete and symbolic execution engine
-since concrete execution, e.g. foreach loops for arrays, increased code
-coverage significantly. Second, we had to make a trade-off between the accuracy
+First, we were bound to introduce more concrete execution features to the symbolic execution engine, e.g. foreach loops for arrays, as this increased code coverage significantly. Second, we had to make a trade-off between the accuracy
 of method calls and the scalability of this language feature as a method call
 for different program state variants can have multiple targets.
 

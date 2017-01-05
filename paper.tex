@@ -324,63 +324,28 @@ of functions from the standard library needs to be supported.
 
 Our key contributions in this paper include (1) a new tool infrastructure to statically approximate the output for PHP web applications using symbolic execution, and (2) a report of our observations with state-of-the-art web applications as well as an explanation on conceptual limitations for symbolic execution of PHP applications.
 
-\section{State Of the Art}
-Symbolic execution is one of integral analysis techniques used by the tools whose practicality we aim to evaluate. This section recaps the idea of symbolic execution, the tools which make use of it, and both conceptual and language-related limitations  of symbolic execution applied to PHP so far.
+\section{State Of the Art}\label{sec:stateoftheart}
+Symbolic execution is one of integral analysis techniques used by the tools whose practicality we aim to evaluate. This section recaps the idea of symbolic execution, the tools which make use of it, and both conceptual and language-related limitations.
 
 \subsection{Symbolic Execution}
 Symbolic execution is a static analysis technique that was proposed by James C. King in 1976 \cite{King1976}. Symbolic execution allows to explore all feasible paths in a program. Based on normal program execution, the execution semantics is extended to handle symbolic values, which are abstract, but fixed; an execution becomes symbolic by introducing symbolic values as program inputs instead of concrete values \cite{King1976,Darringer1978}. These symbolic values are then propagated and used throughout the execution. 
 
 Execution starts with a plain path condition, usually a tautology. Whenever the control-flow can be split into different branches, the corresponding path conditions (guards for instance) are conjoined with the previous path condition \cite{King1976}. Additionally, the conjoined path condition can be checked for satisfiability to exclude infeasible paths. Consequently, for a given program symbolic execution computes a mapping from (symbolic) input values to output values. 
 
-% Introduction example for symbolic execution:
-\begin{figure}
-\begin{lstlisting}
-<?php
-$x = $_POST['name'];
-$y = $x + 1;
-\end{lstlisting}
-
-\begin{lstlisting}
-<?php
-function foo($arg) {
-   echo $arg;	
-   foo($arg);
-}
-$z = foo(3);
-\end{lstlisting}
-\begin{lstlisting}
-<?php
-if ($z < 0) {
-   $r = 'A';
-} else {
-   $r = 'B';
-}
-echo $r;
-\end{lstlisting}
-\begin{lstlisting}
-<?php
-while ($z > 0) {
-   echo 'B';
-   $z = $z - 1;
-}
-\end{lstlisting}
-\caption{Example for symbolic execution of PHP code\label{fig:symbolic}}
-\end{figure}
-
-\subsection{Workflow And Existing Tools} 
+\subsection{Workflow And Existing Tools} \label{sec:workflow}
 The work-flow for all existing tools is illustrated in Figure \ref{fig:approach}. Prior to any analysis, the web application is symbolically executed which for every execution path yields its corresponding client page output variant. Next, all client page output variants are parsed and merged into a compact representation of all client page output variants. This output model, also referred to as \emph{VarDOM} (Variational Document Object Model), is similar to a DOM, yet it can contain symbolic value nodes and conditional node types to represent variants as alternatives.
 
 % Workflow Graphic
-\begin{figure}[t!]
+\begin{figure*}[t!]
 	\centerline{
-	\includegraphics[width=0.45\textwidth]{images-paper/workflow}
+	\includegraphics[width=0.95\textwidth]{images-paper/workflow}
 	}
 	\vspace{2mm}
 	\caption{
 		Overview of the workflow for tools based on static output approximation for dynamic web applications.	
 	}
 	\label{fig:approach}
-\end{figure}
+\end{figure*}
 
 All tools proposed so far leverage a representation of all possible HTML client page output. Since any variant can be analyzed in particular, this enables tool support addressing the web application as a whole in spite of its staged nature, where parts of the web application (client-side output) are generated dynamically.
 
@@ -396,16 +361,21 @@ To consider all of a dynamic web application for program slices, client page out
 \end{compactitem}
 
 \subsection{Assumptions and Limitations}
-\textcolor{blue}{
-\begin{compactitem}
-	\item Design Decisions: Single loop and recursion execution due to conceptual limitations
-	\item Conceptual Limitations: Symbolic input as form input, interaction
-	\item Language-related or implementation-specific: No OOP, array support, standard lib
-\end{compactitem}
-}
+Symbolic execution remains an analysis technique not dedicated to a particular programming language. For the implementation of the symbolic execution engine in \cite{Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872}, several assumptions have been made to adapt to the PHP language. The following symbolic execution semantics for PHP features differ from concrete execution since symbolic values need to be handled without ambiguity. 
+
+First, loops in the previous execution semantics are only executed once instead of an arbitrary number of times. Since a loop condition can contain symbolic values, it might not be feasible to determine when a loop terminates. Hence, any output constructed during the single loop iteration is highlighted to possibly be repeated  an arbitrary number of times. Second, recursive functions are also only executed once per call, and any subsequent call ot that function returns a symbolic value. This, again, is due to the difficulty to determine the exact recursion depth similar to the number of loop iterations. Finally, since the symbolic execution engine applies a static analysis, any form of user interaction providing input data as well as any form of input referred to from the deployment context of the web application, i.e. configuration files or databases, is substituted by a symbolic value. 
+
+Language-wise the symbolic execution semantics for the tools presented in Section \ref{sec:workflow} currently does not support object-oriented programming. PHP provides a large number of built-in functions to manipulate strings as well as arrays. The current symbolic execution engine only provides implementations for a small range of PHP standard library functions, mainly string operations. 
 
 \section{Scalable Output Approximation}%
+The main objective of this experience report is to investigate whether the tools described in Section \ref{sec:stateoftheart} are practical. In particular we want to find out whether symbolic execution as the underlying technique for static output approximation scales for PHP, and what may limitations restrict scalability. We may divide possible limitations into either matters of engineering or conceptual limitations where no precise execution is possible. 
 
+In the following we describe in detail our implementation procedure, practical problems we encountered and whether these are limiting scalability conceptually or just require engineering effort to be tamed.
+
+\subsection{Towards Scalable Output Approximation?}
+We re-implement\footnote{\url{https://github.com/smba/oak}} the existing symbolic execution semantics of \cite{Nguyen:2014:BCG:2635868.2635928} with the goal to support modern large-scale dynamic web applications, or at least to better understand possible limitations. For reference, we choose to aim to support  \textsf{WordPress}\footnote{\url{https://github.com/WordPress/WordPress}}, a popular Content Management System of reasonable size that is still maintained. Moreover, our implementation uses parts of Quercus\footnote{\url{http://quercus.caucho.com/}}, a pure Java implementation of the PHP interpreter, which is tested against the \textsf{WordPress} test suite. We choose a test-driven approach for our implementation with regression tests and continuous integration. Our test cases are based on both custom examples for different language features as well as \textsf{SchoolMate}, a small-scale system, and, at least in parts, \textsf{WordPress}, whose output we manually validate and then automatically re-check for each test run.
+
+Our implementation basically follows the symbolic execution semantics of \cite{Nguyen:2014:BCG:2635868.2635928}, yet we extend it with additional rules for class definitions, class instantiation, and method invocation to support object-oriented programming. Furthermore, we add rules for do-while and  foreach loops since these are not supported as yet. Note that we execute all iterations of a foreach loop since the number of iterations is known since we are traversing all items of a given array.
 
 \section{Evaluation}
 As already stated in the previous section, we encountered sevaral problems

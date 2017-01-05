@@ -4,15 +4,16 @@
 \BOOKMARK [2][-]{subsection.2.2}{Workflow And Existing Tools}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Assumptions and Limitations}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{Scalable Output Approximation}{}% 6
-\BOOKMARK [1][-]{section.4}{Evaluation}{}% 7
-\BOOKMARK [2][-]{subsection.4.1}{Measuring Approximation Success}{section.4}% 8
-\BOOKMARK [2][-]{subsection.4.2}{Experiment Setup}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.3}{Measuring Approximation Accuracy}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.4}{Understanding Limitations}{section.4}% 11
-\BOOKMARK [3][-]{subsubsection.4.4.1}{What literals did we miss?}{subsection.4.4}% 12
-\BOOKMARK [3][-]{subsubsection.4.4.2}{Inaccessible Dynamic Features}{subsection.4.4}% 13
-\BOOKMARK [3][-]{subsubsection.4.4.3}{Why did includes fail?}{subsection.4.4}% 14
-\BOOKMARK [3][-]{subsubsection.4.4.4}{Why did function calls fail?}{subsection.4.4}% 15
-\BOOKMARK [1][-]{section.5}{Lessons Learned}{}% 16
-\BOOKMARK [1][-]{section.6}{Related Work}{}% 17
-\BOOKMARK [1][-]{section.7}{References}{}% 18
+\BOOKMARK [2][-]{subsection.3.1}{Towards Scalable Output Approximation?}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Measuring Approximation Success}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.2}{Experiment Setup}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.3}{Measuring Approximation Accuracy}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.4}{Understanding Limitations}{section.4}% 12
+\BOOKMARK [3][-]{subsubsection.4.4.1}{What literals did we miss?}{subsection.4.4}% 13
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Inaccessible Dynamic Features}{subsection.4.4}% 14
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Why did includes fail?}{subsection.4.4}% 15
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Why did function calls fail?}{subsection.4.4}% 16
+\BOOKMARK [1][-]{section.5}{Lessons Learned}{}% 17
+\BOOKMARK [1][-]{section.6}{Related Work}{}% 18
+\BOOKMARK [1][-]{section.7}{References}{}% 19

@@ -7,7 +7,7 @@
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{paralist}
-\usepackage{listings}
+\usepackage{listings,multicol}
 \usepackage{lipsum}
 \usepackage{cite}
 \usepackage{enumerate}
@@ -32,17 +32,20 @@
 \usepackage{listings}  
 
 \lstset{
-language=PHP,
-basicstyle=\ttfamily\tiny,
-basewidth={0.5em,0.4em}, % for other columns settings
-%columns=fullflexible,
-numbers=left,
-numberstyle=\tiny,
-frame=single,
-showstringspaces=false,
-xleftmargin=2em,
-framexleftmargin=1.5em
+	language=PHP,
+	basicstyle=\ttfamily\tiny,
+	basewidth={0.5em,0.4em}, % for other columns settings
+	columns=fullflexible,
+	numbers=left,
+	numberstyle=\tiny,
+	frame=single,
+	showstringspaces=false,
+	xleftmargin=2em,
+	framexleftmargin=1.5em,
 }
+
+\newcommand{\dollar}{\mbox{\textdollar}}
+
 
 % ARIAL
 %\usepackage{helvet}
@@ -335,29 +338,103 @@ Execution starts with a plain path condition, usually a tautology. Whenever the 
 \subsection{Workflow And Existing Tools} \label{sec:workflow}
 The work-flow for all existing tools is illustrated in Figure \ref{fig:approach}. Prior to any analysis, the web application is symbolically executed which for every execution path yields its corresponding client page output variant. Next, all client page output variants are parsed and merged into a compact representation of all client page output variants. This output model, also referred to as \emph{VarDOM} (Variational Document Object Model), is similar to a DOM, yet it can contain symbolic value nodes and conditional node types to represent variants as alternatives.
 
-% Workflow Graphic
-\begin{figure*}[t!]
-	\centerline{
-	\includegraphics[width=0.95\textwidth]{images-paper/workflow}
-	}
-	\vspace{2mm}
-	\caption{
-		Overview of the workflow for tools based on static output approximation for dynamic web applications.	
-	}
-	\label{fig:approach}
+\begin{figure*}
+	\centering
+	\begin{subfigure}[center]{0.49\textwidth}%%[multicols=1]
+\begin{lstlisting}
+<form>
+  <input type="text" name="name">
+  <input type="submit" value="Submit">
+</form>
+
+<?php
+  function titles($arg, $n) {
+    $is = array(1,2,3);
+    while ($n < shuffle($is)) {
+      echo "<h1>" . $arg . "</h1><br>";
+      $n += 1;
+    }
+  }
+  
+  call_user_func("title", "Headline", 4);
+
+  $name = $_POST['name'];
+  if (!isset($name)) {
+    echo "No name entered!";
+  } else {
+    echo "Entered ". $name ."!";
+  }
+?>
+\end{lstlisting}
+		\caption{Snippet of server-side web application code}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[center]{0.49\textwidth}
+\begin{lstlisting}[mathescape]
+<form>
+  <input type="text" name="name">
+  <input type="submit" value="Submit">
+</form>
+
+// #repeat n < shuffle(is)
+  <h1>Headline</h1>
+// #endrepeat
+
+// #if !isset(name)
+  No name entered!
+// #else
+  Entered $\alpha$!
+// #endif
+
+\end{lstlisting}
+		\caption{Symbolic output approximation}
+    \end{subfigure}
+    \vspace{2mm}
+    \caption{Illustration of static ouptut approximation using symbolic
+    execution}
 \end{figure*}
+
+% Workflow Graphic
+%\begin{figure*}[t!]
+%	\centerline{
+%	\includegraphics[width=0.95\textwidth]{images-paper/workflow}
+%	}
+%	\vspace{2mm}
+%	\caption{
+%		Overview of the workflow for tools based on static output approximation for
+%		% dynamic web applications.
+%	}
+%	\label{fig:approach}
+%\end{figure*}
 
 All tools proposed so far leverage a representation of all possible HTML client page output. Since any variant can be analyzed in particular, this enables tool support addressing the web application as a whole in spite of its staged nature, where parts of the web application (client-side output) are generated dynamically.
 
 Based on the approximated output representation subsequent analyses can be conducted, which have been implemented in the following tools:
 
 \begin{compactitem}
-\item \emph{PhpSync}: Using all variants of  HTML client page output, every single one can be statically checked for Markup Validity, i.e., if the web page conforms to syntactical specifications for HTML and other client-side languages. After validation errors are detected, auto-fixes are provided. Otherwise, the validation error can be traced back to source code responsible for the defect, which then can be refactored manually \cite{Nguyen:2011:AFH:2190078.2190142}.
+\item \emph{PhpSync}: Using all variants of  HTML client page output, every
+single one can be statically checked for Markup Validity, i.e., if the web page
+conforms to syntactical specifications for HTML and other client-side
+languages. After validation errors are detected, auto-fixes are provided.
+Otherwise, the validation error can be traced back to source code responsible
+for the defect, which then can be refactored manually
+\cite{Nguyen:2011:AFH:2190078.2190142}.
 
-\item \emph{WebSlice}: Program slices enable to extract and understand the impact of changes in an application. 
-To consider all of a dynamic web application for program slices, client page output needs to be taken into account. WebSlice combines PHP data-flow information with an output approximation to enable program slices across different languages \cite{Nguyen:2015:CPS:2786805.2786872}.
+\item \emph{WebSlice}: Program slices enable to extract and understand the
+impact of changes in an application. To consider all of a dynamic web
+application for program slices, client page output needs to be taken into
+account. WebSlice combines PHP data-flow information with an output
+approximation to enable program slices across different languages
+\cite{Nguyen:2015:CPS:2786805.2786872}.
 
-\item \emph{Varis}: Editor services such as “jump to declaration” are nontrivial for dynamic web applications due to their staged nature. Varis provides editor services across stages for client-side code: Starting with an ouput approximation a callgraph with conditional edges is constructed, which allows navigation in client-site code (HTML, JS and CSS) although it is embedded in server-side code \cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
+\item \emph{Varis}: Editor services such as “jump to declaration” are
+nontrivial for dynamic web applications due to their staged nature. Varis
+provides editor services across stages for client-side code: Starting with an
+ouput approximation a callgraph with conditional edges is constructed, which
+allows navigation in client-site code (HTML, JS and CSS) although it is
+embedded in server-side code
+\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
 \end{compactitem}
 
 \subsection{Assumptions and Limitations}

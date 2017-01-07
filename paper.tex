@@ -42,6 +42,7 @@
 	showstringspaces=false,
 	xleftmargin=2em,
 	framexleftmargin=1.5em,
+	backgroundcolor=\color{lightgrey}
 }
 
 \newcommand{\dollar}{\mbox{\textdollar}}
@@ -58,6 +59,8 @@
 \usepackage{pgfplots, pgfplotstable}
 
 \usepackage{xcolor}
+
+\definecolor{lightgrey}{HTML}{FAFAFA}
 
 \definecolor{orange}{RGB}{230, 100, 20}
 \definecolor{gruen}{RGB}{255, 190, 69}
@@ -335,12 +338,12 @@ Symbolic execution is a static analysis technique that was proposed by James C. 
 
 Execution starts with a plain path condition, usually a tautology. Whenever the control-flow can be split into different branches, the corresponding path conditions (guards for instance) are conjoined with the previous path condition \cite{King1976}. Additionally, the conjoined path condition can be checked for satisfiability to exclude infeasible paths. Consequently, for a given program symbolic execution computes a mapping from (symbolic) input values to output values. 
 
-\subsection{Workflow And Existing Tools} \label{sec:workflow}
-The work-flow for all existing tools is illustrated in Figure \ref{fig:approach}. Prior to any analysis, the web application is symbolically executed which for every execution path yields its corresponding client page output variant. Next, all client page output variants are parsed and merged into a compact representation of all client page output variants. This output model, also referred to as \emph{VarDOM} (Variational Document Object Model), is similar to a DOM, yet it can contain symbolic value nodes and conditional node types to represent variants as alternatives.
+\subsection{Static Output Approximation for PHP} \label{sec:workflow}
+Symbolic execution is an analysis technique not dedicated to a particular programming language. For dynamic web applications, in our case for web applications written in PHP, it can be used to approximate all possible client page output. Before we present in detail existing tools that aim to ease development and maintenance of PHP web applications, we illustrate how output approximation using symbolic execution is used by starting with an example.
 
-\begin{figure*}
+\begin{figure}[t]
 	\centering
-	\begin{subfigure}[center]{0.49\textwidth}%%[multicols=1]
+	\begin{subfigure}[center]{0.48\textwidth}%%[multicols=1]
 \begin{lstlisting}
 <form>
   <input type="text" name="name">
@@ -348,29 +351,32 @@ The work-flow for all existing tools is illustrated in Figure \ref{fig:approach}
 </form>
 
 <?php
-  function titles($arg, $n) {
-    $is = array(1,2,3);
-    while ($n < shuffle($is)) {
-      echo "<h1>" . $arg . "</h1><br>";
-      $n += 1;
-    }
+function make_titles($arg, $n) {
+  $is = shuffle(array(1,2,3));
+  while ($n < $is[0]) {
+    echo "<h1>" . $arg . "</h1><br>";
+    $n = $n + 1;
   }
+}
   
-  call_user_func("title", "Headline", 4);
+call_user_func("make_titles", "Headline", 4);
 
-  $name = $_POST['name'];
-  if (!isset($name)) {
-    echo "No name entered!";
-  } else {
-    echo "Entered ". $name ."!";
-  }
+$name = "Hello " . $_POST['name'] .  "!";
+if (!isset($name)) {
+  echo "No name entered!";
+} else {
+  echo $name;
+}
 ?>
 \end{lstlisting}
-		\caption{Snippet of server-side web application code}
+		\caption{Snippet of HTML and PHP server-side web application code. \label{fig:example_code}}
     \end{subfigure}
+
+	\vspace{2mm}    
+    
     ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
       %(or a blank line to force the subfigure onto a new line)
-    \begin{subfigure}[center]{0.49\textwidth}
+    \begin{subfigure}[center]{0.48\textwidth}
 \begin{lstlisting}[mathescape]
 <form>
   <input type="text" name="name">
@@ -388,12 +394,12 @@ The work-flow for all existing tools is illustrated in Figure \ref{fig:approach}
 // #endif
 
 \end{lstlisting}
-		\caption{Symbolic output approximation}
+		\caption{Approximation client paege output of the server-side web application code in Figure \ref{fig:example_code}. Variability as well as repetition annotations are represented by preprocessor directives.\label{fig:output_example}}
     \end{subfigure}
     \vspace{2mm}
     \caption{Illustration of static ouptut approximation using symbolic
     execution}
-\end{figure*}
+\end{figure}
 
 % Workflow Graphic
 %\begin{figure*}[t!]
@@ -408,7 +414,22 @@ The work-flow for all existing tools is illustrated in Figure \ref{fig:approach}
 %	\label{fig:approach}
 %\end{figure*}
 
-All tools proposed so far leverage a representation of all possible HTML client page output. Since any variant can be analyzed in particular, this enables tool support addressing the web application as a whole in spite of its staged nature, where parts of the web application (client-side output) are generated dynamically.
+Figure \ref{fig:} shows two code listings. The snippet of server-side web application code in Figure \ref{} contains both HTML and PHP. First, the function make\_titles defined in lines XX – XY prints the string arg passed as an argument between zero and an arbitrary number of times. Second, the function is indirectly called using the built-in function call\_user\_func in line XX with the string “Headline” and 4 as arguments.  Finally, the input from the form in lines 1 – 4 is used: The variable greeting consists of three concatenated strings, “Hello ” the value of input field “name” and an exclamation mark. For this server-side code snippet there are two possible client page output variants: If the input field “name” is empty at runtime, line XX is executed and “No name entered!” is printed, or, if a name was entered, line XY is executed and the greeting constructed in line XZ is printed.
+
+The following symbolic execution semantics for PHP features  based on [BCG] illustrate the necessary modifications made to handle the extent of ambiguity that comes with handling symbolic values. In addition to normal output, the output approximation contains preprocessor-like directives to express repeatable output as well as output variants. All approximated client page output corresponding to Figure \ref{1a} consisting of two different variants is illustrated in Figure \ref{1b}. 
+
+First, loops in the previous execution semantics are only executed once instead of an arbitrary number of times. Since a loop condition can contain symbolic values, it might not be feasible to determine when a loop terminates. Hence, any output constructed during the single loop iteration is highlighted (repeat … endrepeat) to possibly be repeated an arbitrary number of times. The output in line XX is marked to be repeated an arbitrary number of times, as the number of loop iterations cannot be determined statically. Second, a similar procedure applies to recursive functions. Once called, a recursive function is  also only executed to recursion depth one per call, and any subsequent invocation of that function returns a symbolic value. This, again, is due to the difficulty to determine the exact recursion depth similar to the number of loop iterations. Third, since the symbolic execution engine applies a static analysis, any form of user interaction providing input data as well as any form of input referred to from the deployment context of the 
+Symbolic execution is an analysis technique not dedicated to a particular programming language. For dynamic web applications, in our case for web applications written in PHP, it can be used to approximate all possible client page output. Before we present in detail existing tools that aim to ease development and maintenance of PHP web applications, we illustrate how output approximation using symbolic execution is used by starting with an example.
+
+B. Explanation of Figure 1
+Figure \ref{fig:} shows two code listings. The snippet of server-side web application code in Figure \ref{} contains both HTML and PHP. First, the function make\_titles defined in lines XX – XY prints the string \$arg passed as an argument between zero and an arbitrary number of times. Second, the function is indirectly called using the built-in function call\_user\_func in line XX with the string “Headline” and 4 as arguments.  Finally, the input from the form in lines 1 – 4 is used: The variable \$greeting consists of three concatenated strings, “Hello ” the value of input field “name” and an exclamation mark. For this server-side code snippet there are two possible client page output variants: If the input field “name” is empty at runtime, line XX is executed and “No name entered!” is printed, or, if a name was entered, line XY is executed and the greeting constructed in line XZ is printed.
+
+C. Introduction to symbolic execution of PHP code
+The following symbolic execution semantics for PHP features  based on [BCG] illustrate the necessary modifications made to handle the extent of ambiguity that comes with handling symbolic values. In addition to normal output, the output approximation contains preprocessor-like directives to express repeatable output as well as output variants. All approximated client page output corresponding to Figure \ref{1a} consisting of two different variants is illustrated in Figure \ref{1b}. 
+First, loops in the previous execution semantics are only executed once instead of an arbitrary number of times. Since a loop condition can contain symbolic values, it might not be feasible to determine when a loop terminates. Hence, any output constructed during the single loop iteration is highlighted (repeat … endrepeat) to possibly be repeated an arbitrary number of times. The output in line XX is marked to be repeated an arbitrary number of times, as the number of loop iterations cannot be determined statically. Second, a similar procedure applies to recursive functions. Once called, a recursive function is  also only executed to recursion depth one per call, and any subsequent invocation of that function returns a symbolic value. This, again, is due to the difficulty to determine the exact recursion depth similar to the number of loop iterations. Third, since the symbolic execution engine applies a static analysis, any form of user interaction providing input data as well as any form of input referred to from the deployment context of the web application, i.e. configuration files or databases, is substituted by a symbolic value. The context variable \$\_POST represents input submitted to the server and, hence, is symbolic as every program input is per definition substituted by symbolic values. Finally, the output in lines and XX and XY respectively are marked as alternatives (if … else … endif), as symbolic execution of lines XX – YY in Figure 1a will explore both different branches.
+
+\subsection{Existing Tool Support for PHP}
+All tools proposed so far leverage a representation of all possible HTML client page output. Since any variant can be analyzed in particular, this enables tool support addressing the web application as a whole in spite of its staged nature, where parts of the web application (client-side output) are generated dynamically. 
 
 Based on the approximated output representation subsequent analyses can be conducted, which have been implemented in the following tools:
 
@@ -437,12 +458,14 @@ embedded in server-side code
 \cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
 \end{compactitem}
 
-\subsection{Assumptions and Limitations}
-Symbolic execution remains an analysis technique not dedicated to a particular programming language. For the implementation of the symbolic execution engine in \cite{Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872}, several assumptions have been made to adapt to the PHP language. The following symbolic execution semantics for PHP features differ from concrete execution since symbolic values need to be handled without ambiguity. 
+\textcolor{blue}{Bener}
 
-First, loops in the previous execution semantics are only executed once instead of an arbitrary number of times. Since a loop condition can contain symbolic values, it might not be feasible to determine when a loop terminates. Hence, any output constructed during the single loop iteration is highlighted to possibly be repeated  an arbitrary number of times. Second, recursive functions are also only executed once per call, and any subsequent call ot that function returns a symbolic value. This, again, is due to the difficulty to determine the exact recursion depth similar to the number of loop iterations. Finally, since the symbolic execution engine applies a static analysis, any form of user interaction providing input data as well as any form of input referred to from the deployment context of the web application, i.e. configuration files or databases, is substituted by a symbolic value. 
+%\subsection{Assumptions and Limitations}
+%Symbolic execution remains an analysis technique not dedicated to a particular programming language. For the implementation of the symbolic execution engine in \cite{Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872}, several assumptions have been made to adapt to the PHP language. The following symbolic execution semantics for PHP features differ from concrete execution since symbolic values need to be handled without ambiguity. 
 
-Language-wise the symbolic execution semantics for the tools presented in Section \ref{sec:workflow} currently does not support object-oriented programming. PHP provides a large number of built-in functions to manipulate strings as well as arrays. The current symbolic execution engine only provides implementations for a small range of PHP standard library functions, mainly string operations. 
+%First, loops in the previous execution semantics are only executed once instead of an arbitrary number of times. Since a loop condition can contain symbolic values, it might not be feasible to determine when a loop terminates. Hence, any output constructed during the single loop iteration is highlighted to possibly be repeated  an arbitrary number of times. Second, recursive functions are also only executed once per call, and any subsequent call ot that function returns a symbolic value. This, again, is due to the difficulty to determine the exact recursion depth similar to the number of loop iterations. Finally, since the symbolic execution engine applies a static analysis, any form of user interaction providing input data as well as any form of input referred to from the deployment context of the web application, i.e. configuration files or databases, is substituted by a symbolic value. 
+
+%Language-wise the symbolic execution semantics for the tools presented in Section \ref{sec:workflow} currently does not support object-oriented programming. PHP provides a large number of built-in functions to manipulate strings as well as arrays. The current symbolic execution engine only provides implementations for a small range of PHP standard library functions, mainly string operations. 
 
 \section{Scalable Output Approximation}%
 The main objective of this experience report is to investigate whether the tools described in Section \ref{sec:stateoftheart} are practical. In particular we want to find out whether symbolic execution as the underlying technique for static output approximation scales for PHP, and what may limitations restrict scalability. We may divide possible limitations into either matters of engineering or conceptual limitations where no precise execution is possible. 
@@ -623,6 +646,14 @@ For failed function calls to functions containing not-reached output candidates 
 	\label{fig:output_candidate_explanation}
 \end{figure}
 
+
+% CALLBACK CANDIDATE ACCESSIBILITY ANALYSIS
+\begin{figure}[p]
+	\input{diagrams/context_distribution}
+	\caption{Distribution dead function output candidates that are partially or
+	completely explained due to callback candidates.}
+	\label{fig:coveragestuff}
+\end{figure}
 
 
 \section{Lessons Learned}

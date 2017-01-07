@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{tikz,pgfplots,pgfplotstable}
+
+  \begin{document}
+
+    \pgfplotstableread{ % data 
+Label     Adequacy Sustainability Integrity
+Austria   21.87797  5.566584 24.85545
+Brazil    20.93009  7.937881 24.33203
+Chile     20.41148 21.126529 27.56199
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+Australia 26.83072 23.823827 28.94545
+    }\testdata
+
+    \begin{tikzpicture}
+
+    \begin{axis}[
+    xbar stacked,   % Stacked horizontal bars
+    xmin=0,         % Start x axis at 0
+    ytick=data,     % Use as many tick labels as y coordinates
+    legend style={at={(axis cs:65,0.2)},anchor=south west},
+    yticklabels from table={\testdata}{Label}  % Get the labels from the Label column of the \datatable
+    ,bar width=1ex, y=3ex
+    ]
+    \addplot [fill=green!80] table [x=Adequacy, meta=Label,y expr=\coordindex] {\testdata};   % "First" column against the data index
+    \addplot [fill=blue!60] table [x=Sustainability, meta=Label,y expr=\coordindex] {\testdata};
+    \addplot [fill=red!60,
+    point meta=x,
+    nodes near coords,
+    nodes near coords align={anchor=west},
+    every node near coord/.append style={
+        black,
+        fill=white,
+        fill opacity=0.75,
+        text opacity=1,
+        outer sep=\pgflinewidth % so the label fill doesn't overlap the plot
+    }
+    ] table [x=Integrity, meta=Label,y expr=\coordindex] {\testdata};
+    \legend{Adequacy,Sustainability,Integrity}
+
+    \end{axis}
+    \end{tikzpicture}
+\end{document}

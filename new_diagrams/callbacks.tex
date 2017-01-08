@@ -1,0 +1,68 @@
+\definecolor{bene1}{HTML}{a0c8a0}
+\definecolor{bene2}{HTML}{CFC990}
+\definecolor{bene3}{HTML}{CCCCCC}
+
+\pgfplotstableread{ % data 
+Label	Complete  Partial Not
+Adressbook	100		0		0
+Schoolmate	0		0		100
+Timeclock	0		0		100
+Webchess	79		0		21
+PhpBB		94		1		5
+Drupal		87		3		10
+phpMyAdmin	99		0		0
+Anchor		79		3		18
+Kirby		98		1		1
+Automad		100		0		0
+Monstra		100		0		0
+Nibbleblog	100		0		0
+
+    }\testdata
+
+\begin{center}
+    \begin{tikzpicture}[thick,scale=0.6, every node/.style={transform shape}]
+
+    \begin{axis}[
+    enlargelimits=0.05,
+    xbar stacked,   % Stacked horizontal bars
+    xlabel={Proportion [\%]},
+    xmin=0,         % Start x axis at 0
+    ytick=data,     % Use as many tick labels as y coordinates
+    legend style={
+       at={(1.3, 0.9)}, 
+       anchor=north,
+       legend columns = 1,
+       cells={anchor=center, fill},
+       nodes={inner sep=1.5,below=-1.1ex}
+    },
+    yticklabels from table={\testdata}{Label}  % Get the labels from the Label column of the \datatable
+    ,bar width=2ex, y=3ex,
+    nodes near coords = {%
+       \pgfmathprintnumberto[fixed,assume math mode=true]{\pgfplotspointmeta}{\myval}%
+       \pgfmathparse{\myval<101?:}\pgfmathresult%
+    },
+    area legend
+    ]
+    
+    \addplot [fill=bene1!100] table [
+    	x=Complete, 
+    	meta=Label,
+    	y expr=\coordindex
+    ] {\testdata}; 
+    
+    \addplot [fill=bene2!100] table [
+    	x=Partial, 
+    	meta=Label,
+    	y expr=\coordindex
+    ]    {\testdata}; 
+    
+    \addplot [fill=bene3!100] table [
+    	x=Not, 
+    	meta=Label,
+    	y expr=\coordindex
+    ] {\testdata};
+     
+    \legend{Complete, Partial, Not}
+    \end{axis}
+    \end{tikzpicture}
+ \end{center}

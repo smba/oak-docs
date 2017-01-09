@@ -487,7 +487,7 @@ output in lines 11 and 13 respectively are marked as alternatives
 (\texttt{if \ldots else \ldots endif}), as symbolic execution of lines 18 – 22
 in Figure \ref{fig:web_application} will explore both different branches.
 
-\subsection{Existing Tool Support for PHP}
+\subsection{Existing Tool Support for PHP}\label{sec:existing_tools}
 All tools proposed so far leverage a representation of all possible HTML client
 page output. Since any variant can be analyzed in particular, this enables tool
 support addressing the web application as a whole in spite of its staged
@@ -522,50 +522,23 @@ conducted, which have been implemented in the following tools:
 	\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
 \end{compactitem}
 
-All three tools though have only been applied to systems that are small and not
-maintained any more. Despite the functional benefits these tools provide to
-developers, their practicality for large and modern systems has not been
-studied.
+\subsection{Assumptions And Limitations}\label{sec:limitations}
+In addition to the limitations introduced by  symbolic execution, such as symbolic inputs and one-time loop execution, the symbolic execution described in \cite{Nguyen:2014:BCG:2635868.2635928} does not support advanced language features, including object-oriented programming. Moreover, the range of standard library functions supported are mostly string operations, yet PHP provides a large collection of functions for array operations.
+All three tools described in Section \ref{sec:existing_tools} though have only been applied to systems that are small and not maintained any more. Despite the functional benefits these tools provide to developers, their practicality for large and modern systems with respect to advanced language support has not been evaluated. 
 
-%
 \section{Scalable Output Approximation}%
-The main objective of this experience report is to investigate whether the
-tools described in Section \ref{sec:stateoftheart} are practical. In particular
-we want to find out whether symbolic execution as the underlying technique for
-static output approximation scales for PHP, and what may limitations restrict
-scalability. We may divide possible limitations into either matters of
-engineering or conceptual limitations where no precise execution is possible.
+The main objective of this experience report is to investigate whether we can have built practical tools that are on output approximations like the tools in Section \ref{sec:existing_tools}. In particular, we want to find out whether symbolic execution as the underlying technique for static output approximation is scalable, i.e., it computes an accurate approximation for large and modern PHP systems with reasonable time and space consumption. 
 
-In the following we describe in detail our implementation procedure, practical
-problems we encountered and whether these are limiting scalability conceptually
-or just require en gineering effort to be tamed.
+Also, we are interested in the limitations of scalable symbolic execution for PHP web applications. Limitations may either be conceptional, where symbolic execution of PHP code, in contrast to concrete execution, is inaccurate: For example an include expression evaluated to a symbolic value simply provides to little information to include a script. Or, in spite of infeasible effort required, limitations could allow an accurate symbolic execution. For example, exhaustively exploring all feasible paths in an application may result in an infeasible number of program states to store; nevertheless, this so called state explosion problem may be addressed with additional engineering.
 
 \subsection{Towards Scalable Output Approximation?}
-We re-implement\footnote{\url{https://github.com/smba/oak}} the existing
-symbolic execution semantics of \cite{Nguyen:2014:BCG:2635868.2635928} with the
-goal to support modern large-scale dynamic web applications, or at least to
-better understand possible limitations. For reference, we choose to aim to
-support  \textsf{WordPress}
-\footnote{\url{https://github.com/WordPress/WordPress }}, a popular Content
-Management System of reasonable size that is still maintained. Moreover, our
-implementation uses parts of
-Quercus\footnote{\url{http://quercus.caucho.com/}}, a pure Java implementation
-of the PHP interpreter, which is tested against the \textsf{WordPress} test
-suite. We choose a test-driven approach for our implementation with regression
-tests and continuous integration. Our test cases are based on both custom
-examples for different language features as well as \textsf{SchoolMate}, a 
-small-scale system, and, at least in parts, \textsf{WordPress}, whose output we
-manually validate and then automatically re-check for each test run.
+As our goal is to have practical tools support, we approach this question by re-implementing the symbolic execution semantics described in \cite{Nguyen:2014:BCG:2635868.2635928} and extending it with support for additional language features. We choose to aim to support symbolic execution for a real-world example system of reasonable size that incorporates the missing language features described in Section \ref{sec:limitations} and is still developed and maintained: \textsf{WordPress} is a popular open-source Content Management System (CMS) with around 300k lines that provides a vivid plug-in environment and is maintained by a large community. 
+For our implementation of a symbolic execution engine for PHP, \textsf{Oak}, we have chosen a test-driven approach with continuous integration using regression tests based on \textsf{WordPress} and \textsf{SchoolMate} (see Section \ref{sec:experiment_setup}). Oak incorporates the existing execution semantics of \cite{Nguyen:2014:BCG:2635868.2635928} and extends it with support for object-oriented orientation (class definition, class instantiation and method invocation) as well as PHP array operations. A list of the functions provided by the PHP standard library can be found at \cite{PHP}.
+Throughout the implementation we did not achieve high code coverage for WordPress, which was the main motivation to further investigate limitations in the wild.
 
-Our implementation basically follows the symbolic execution semantics of
-\cite{Nguyen:2014:BCG:2635868.2635928}, yet we extend it with additional rules
-for class definitions, class instantiation, and method invocation to support
-object-oriented programming. Furthermore, we add rules for do-while and 
-foreach loops since these are not supported as yet. Note that we execute all
-iterations of a foreach loop since the number of iterations is known since we
- are traversing all items of a given array.
+\subsection{What Went Wrong? Experience Report}
 
- \section{Evaluation}
+\section{Evaluation}
 As already stated in the previous section, we encountered sevaral problems
 during the development of the symbolic interpreter. Therefore this section
 describes our methods to evaluate practicality of the output approximation, and
@@ -597,7 +570,7 @@ classifier from, but could not do so without decreasing precision. In spite of
 missing half of the output candidates, we decided to use a simple, yet
 distinctive classifier.
 
-\subsection{Experiment Setup} 
+\subsection{Experiment Setup} \label{sec:experiment_setup}
 For the evaluation we symbolically executed a selection of PHP systems. We
 selected a corpus of twelve PHP systems with regard to system size and recency
 as the corpus of the case study for \cite{Nguyen:2014:BCG:2635868.2635928} only

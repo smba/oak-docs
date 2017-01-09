@@ -1,0 +1,21 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{State Of the Art}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Symbolic Execution}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Static Output Approximation for PHP}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Existing Tool Support for PHP}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Assumptions And Limitations}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Scalable Output Approximation}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Towards Scalable Output Approximation?}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{What Went Wrong? Experience Report}{section.3}% 9
+\BOOKMARK [1][-]{section.4}{Evaluation}{}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Measuring Approximation Success}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.2}{Experiment Setup}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.3}{Measuring Approximation Accuracy}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.4}{Understanding Limitations}{section.4}% 14
+\BOOKMARK [3][-]{subsubsection.4.4.1}{What literals did we miss?}{subsection.4.4}% 15
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Inaccessible Dynamic Features}{subsection.4.4}% 16
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Why did includes fail?}{subsection.4.4}% 17
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Why did function calls fail?}{subsection.4.4}% 18
+\BOOKMARK [1][-]{section.5}{Lessons Learned}{}% 19
+\BOOKMARK [1][-]{section.6}{Related Work}{}% 20
+\BOOKMARK [1][-]{section.7}{References}{}% 21

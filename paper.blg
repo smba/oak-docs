@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/dev/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: paper.aux
+The style file: abbrv.bst
+Database file #1: bibliography.bib
+Warning--to sort, need author or key in phpNET
+Warning--to sort, need author or key in alexaPHP
+Warning--to sort, need author or key in tiobePHP
+Warning--to sort, need author or key in githubPHP
+Warning--to sort, need author or key in codegeekz
+Warning--can't use both volume and number fields in wassermann2007sound
+You've used 14 entries,
+            2118 wiz_defined-function locations,
+            592 strings with 6150 characters,
+and the built_in function-call counts, 4803 in all, are:
+= -- 516
+> -- 140
+< -- 8
++ -- 59
+- -- 44
+* -- 289
+:= -- 682
+add.period$ -- 45
+call.type$ -- 14
+change.case$ -- 63
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 214
+empty$ -- 439
+format.name$ -- 44
+if$ -- 1110
+int.to.chr$ -- 0
+int.to.str$ -- 14
+missing$ -- 9
+newline$ -- 69
+num.names$ -- 18
+pop$ -- 94
+preamble$ -- 1
+purify$ -- 50
+quote$ -- 0
+skip$ -- 176
+stack$ -- 0
+substring$ -- 323
+swap$ -- 77
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 56
+warning$ -- 6
+while$ -- 43
+width$ -- 16
+write$ -- 156
+(There were 6 warnings)

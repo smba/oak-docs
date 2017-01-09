@@ -527,13 +527,7 @@ maintained any more. Despite the functional benefits these tools provide to
 developers, their practicality for large and modern systems has not been
 studied.
 
-%\subsection{Assumptions and Limitations}
-%Symbolic execution remains an analysis technique not dedicated to a particular programming language. For the implementation of the symbolic execution engine in \cite{Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872}, several assumptions have been made to adapt to the PHP language. The following symbolic execution semantics for PHP features differ from concrete execution since symbolic values need to be handled without ambiguity. 
-
-%First, loops in the previous execution semantics are only executed once instead of an arbitrary number of times. Since a loop condition can contain symbolic values, it might not be feasible to determine when a loop terminates. Hence, any output constructed during the single loop iteration is highlighted to possibly be repeated  an arbitrary number of times. Second, recursive functions are also only executed once per call, and any subsequent call ot that function returns a symbolic value. This, again, is due to the difficulty to determine the exact recursion depth similar to the number of loop iterations. Finally, since the symbolic execution engine applies a static analysis, any form of user interaction providing input data as well as any form of input referred to from the deployment context of the web application, i.e. configuration files or databases, is substituted by a symbolic value. 
-
-%Language-wise the symbolic execution semantics for the tools presented in Section \ref{sec:workflow} currently does not support object-oriented programming. PHP provides a large number of built-in functions to manipulate strings as well as arrays. The current symbolic execution engine only provides implementations for a small range of PHP standard library functions, mainly string operations. 
-
+%
 \section{Scalable Output Approximation}%
 The main objective of this experience report is to investigate whether the
 tools described in Section \ref{sec:stateoftheart} are practical. In particular

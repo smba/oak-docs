@@ -1,84 +1,190 @@
-\begin{thebibliography}{10}
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\bibitem{codegeekz}
-\url{https://codegeekz.com/12-lightweight-cms-for-building-websites/}.
-\newblock Accessed: 2016-09-30.
+\begin{thebibliography}{00}
 
-\bibitem{phpNET}
-Php.
-\newblock \url{http://php.net/}.
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
 
-\bibitem{githubPHP}
-Php usage on github.
-\newblock \url{https://github.com/languages/php}.
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{{\tt DOI:}\penalty0{#1}\ }
+  \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       #1{#1}          \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
 
-\bibitem{alexaPHP}
-Php usage statistics.
-\newblock \url{http://w3techs.com/technologies/details/p1-php/all/all}.
-\newblock Accessed: 2016-1-12.
+\bibitem[\protect\citeauthoryear{??}{cod}{}]%
+        {codegeekz}
+\bibinfo{howpublished}{\url{https://codegeekz.com/12-lightweight-cms-for-building-websites/}}.
+    (\bibinfo{year}{????}).
+\newblock
+\newblock
+\shownote{Accessed: 2016-09-30.}
 
-\bibitem{tiobePHP}
-Tiobe index for php.
-\newblock \url{}.
 
-\bibitem{Darringer1978}
-J.~A. Darringer and J.~C. King.
-\newblock Applications of symbolic execution to program testing.
-\newblock {\em Computer}, 11(4):51--60, Apr. 1978.
+\bibitem[\protect\citeauthoryear{??}{git}{}]%
+        {githubPHP}
+\bibinfo{title}{PHP Usage on GitHub}.
+\newblock \bibinfo{howpublished}{\url{https://github.com/languages/php}}.
+  (\bibinfo{year}{????}).
+\newblock
 
-\bibitem{Hills:2013:ESP:2483760.2483786}
-M.~Hills, P.~Klint, and J.~Vinju.
-\newblock An empirical study of php feature usage: A static analysis
-  perspective.
-\newblock In {\em Proceedings of the 2013 International Symposium on Software
-  Testing and Analysis}, ISSTA 2013, pages 325--335, New York, NY, USA, 2013.
-  ACM.
 
-\bibitem{King1976}
-J.~C. King.
-\newblock Symbolic execution and program testing.
-\newblock {\em Commun. ACM}, 19(7):385--394, July 1976.
+\bibitem[\protect\citeauthoryear{??}{ale}{}]%
+        {alexaPHP}
+\bibinfo{title}{PHP Usage Statistics}.
+\newblock
+  \bibinfo{howpublished}{\url{http://w3techs.com/technologies/details/p1-php/all/all}}.
+    (\bibinfo{year}{????}).
+\newblock
+\newblock
+\shownote{Accessed: 2016-1-12.}
 
-\bibitem{minamide2005static}
-Y.~Minamide.
-\newblock Static approximation of dynamically generated web pages.
-\newblock In {\em Proceedings of the 14th international conference on World
-  Wide Web}, pages 432--441. ACM, 2005.
 
-\bibitem{Nguyen:2014:BCG:2635868.2635928}
-H.~V. Nguyen, C.~K\"{a}stner, and T.~N. Nguyen.
-\newblock Building call graphs for embedded client-side code in dynamic web
-  applications.
-\newblock In {\em Proceedings of the 22Nd ACM SIGSOFT International Symposium
-  on Foundations of Software Engineering}, FSE 2014, pages 518--529, New York,
-  NY, USA, 2014. ACM.
+\bibitem[\protect\citeauthoryear{??}{tio}{}]%
+        {tiobePHP}
+\bibinfo{title}{TIOBE Index for PHP}.
+\newblock \bibinfo{howpublished}{\url{}}.   (\bibinfo{year}{????}).
+\newblock
 
-\bibitem{Nguyen:2015:CPS:2786805.2786872}
-H.~V. Nguyen, C.~K\"{a}stner, and T.~N. Nguyen.
-\newblock Cross-language program slicing for dynamic web applications.
-\newblock In {\em Proceedings of the 2015 10th Joint Meeting on Foundations of
-  Software Engineering}, ESEC/FSE 2015, pages 369--380, New York, NY, USA,
-  2015. ACM.
 
-\bibitem{Nguyen:2015:VIS:2819009.2819140}
-H.~V. Nguyen, C.~K\"{a}stner, and T.~N. Nguyen.
-\newblock Varis: Ide support for embedded client code in php web applications.
-\newblock In {\em Proceedings of the 37th International Conference on Software
-  Engineering - Volume 2}, ICSE '15, pages 693--696, Piscataway, NJ, USA, 2015.
-  IEEE Press.
+\bibitem[\protect\citeauthoryear{Darringer and King}{Darringer and
+  King}{1978}]%
+        {Darringer1978}
+\bibfield{author}{\bibinfo{person}{J.~A. Darringer} {and}
+  \bibinfo{person}{J.~C. King}.} \bibinfo{year}{1978}\natexlab{}.
+\newblock \showarticletitle{Applications of Symbolic Execution to Program
+  Testing}.
+\newblock \bibinfo{journal}{{\em Computer\/}} \bibinfo{volume}{11},
+  \bibinfo{number}{4} (\bibinfo{date}{April} \bibinfo{year}{1978}),
+  \bibinfo{pages}{51--60}.
+\newblock
+\showISSN{0018-9162}
+\showDOI{%
+\url{http://dx.doi.org/10.1109/C-M.1978.218139}}
 
-\bibitem{Nguyen:2011:AFH:2190078.2190142}
-H.~V. Nguyen, H.~A. Nguyen, T.~T. Nguyen, and T.~N. Nguyen.
-\newblock Auto-locating and fix-propagating for html validation errors to php
-  server-side code.
-\newblock In {\em Proceedings of the 2011 26th IEEE/ACM International
-  Conference on Automated Software Engineering}, ASE '11, pages 13--22,
-  Washington, DC, USA, 2011. IEEE Computer Society.
 
-\bibitem{wassermann2007sound}
-G.~Wassermann and Z.~Su.
-\newblock Sound and precise analysis of web applications for injection
-  vulnerabilities.
-\newblock In {\em ACM Sigplan Notices}, volume~42, pages 32--41. ACM, 2007.
+\bibitem[\protect\citeauthoryear{Hills, Klint, and Vinju}{Hills
+  et~al\mbox{.}}{2013}]%
+        {Hills:2013:ESP:2483760.2483786}
+\bibfield{author}{\bibinfo{person}{Mark Hills}, \bibinfo{person}{Paul Klint},
+  {and} \bibinfo{person}{Jurgen Vinju}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{An Empirical Study of PHP Feature Usage: A Static
+  Analysis Perspective}. In \bibinfo{booktitle}{{\em Proceedings of the 2013
+  International Symposium on Software Testing and Analysis}} {\em
+  (\bibinfo{series}{ISSTA 2013})}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{325--335}.
+\newblock
+\showISBNx{978-1-4503-2159-4}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2483760.2483786}}
+
+
+\bibitem[\protect\citeauthoryear{King}{King}{1976}]%
+        {King1976}
+\bibfield{author}{\bibinfo{person}{James~C. King}.}
+  \bibinfo{year}{1976}\natexlab{}.
+\newblock \showarticletitle{Symbolic Execution and Program Testing}.
+\newblock \bibinfo{journal}{{\em Commun. ACM\/}} \bibinfo{volume}{19},
+  \bibinfo{number}{7} (\bibinfo{date}{July} \bibinfo{year}{1976}),
+  \bibinfo{pages}{385--394}.
+\newblock
+\showISSN{0001-0782}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/360248.360252}}
+
+
+\bibitem[\protect\citeauthoryear{Nguyen, K\"{a}stner, and Nguyen}{Nguyen
+  et~al\mbox{.}}{2014}]%
+        {Nguyen:2014:BCG:2635868.2635928}
+\bibfield{author}{\bibinfo{person}{Hung~Viet Nguyen},
+  \bibinfo{person}{Christian K\"{a}stner}, {and} \bibinfo{person}{Tien~N.
+  Nguyen}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Building Call Graphs for Embedded Client-side Code
+  in Dynamic Web Applications}. In \bibinfo{booktitle}{{\em Proceedings of the
+  22Nd ACM SIGSOFT International Symposium on Foundations of Software
+  Engineering}} {\em (\bibinfo{series}{FSE 2014})}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{518--529}.
+\newblock
+\showISBNx{978-1-4503-3056-5}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2635868.2635928}}
+
+
+\bibitem[\protect\citeauthoryear{Nguyen, K\"{a}stner, and Nguyen}{Nguyen
+  et~al\mbox{.}}{2015a}]%
+        {Nguyen:2015:CPS:2786805.2786872}
+\bibfield{author}{\bibinfo{person}{Hung~Viet Nguyen},
+  \bibinfo{person}{Christian K\"{a}stner}, {and} \bibinfo{person}{Tien~N.
+  Nguyen}.} \bibinfo{year}{2015}\natexlab{a}.
+\newblock \showarticletitle{Cross-language Program Slicing for Dynamic Web
+  Applications}. In \bibinfo{booktitle}{{\em Proceedings of the 2015 10th Joint
+  Meeting on Foundations of Software Engineering}} {\em
+  (\bibinfo{series}{ESEC/FSE 2015})}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{369--380}.
+\newblock
+\showISBNx{978-1-4503-3675-8}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2786805.2786872}}
+
+
+\bibitem[\protect\citeauthoryear{Nguyen, K\"{a}stner, and Nguyen}{Nguyen
+  et~al\mbox{.}}{2015b}]%
+        {Nguyen:2015:VIS:2819009.2819140}
+\bibfield{author}{\bibinfo{person}{Hung~Viet Nguyen},
+  \bibinfo{person}{Christian K\"{a}stner}, {and} \bibinfo{person}{Tien~N.
+  Nguyen}.} \bibinfo{year}{2015}\natexlab{b}.
+\newblock \showarticletitle{Varis: IDE Support for Embedded Client Code in PHP
+  Web Applications}. In \bibinfo{booktitle}{{\em Proceedings of the 37th
+  International Conference on Software Engineering - Volume 2}} {\em
+  (\bibinfo{series}{ICSE '15})}. \bibinfo{publisher}{IEEE Press},
+  \bibinfo{address}{Piscataway, NJ, USA}, \bibinfo{pages}{693--696}.
+\newblock
+\showURL{%
+\url{http://dl.acm.org/citation.cfm?id=2819009.2819140}}
+
+
+\bibitem[\protect\citeauthoryear{Nguyen, Nguyen, Nguyen, and Nguyen}{Nguyen
+  et~al\mbox{.}}{2011}]%
+        {Nguyen:2011:AFH:2190078.2190142}
+\bibfield{author}{\bibinfo{person}{Hung~Viet Nguyen}, \bibinfo{person}{Hoan~Anh
+  Nguyen}, \bibinfo{person}{Tung~Thanh Nguyen}, {and} \bibinfo{person}{Tien~N.
+  Nguyen}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Auto-locating and Fix-propagating for HTML
+  Validation Errors to PHP Server-side Code}. In \bibinfo{booktitle}{{\em
+  Proceedings of the 2011 26th IEEE/ACM International Conference on Automated
+  Software Engineering}} {\em (\bibinfo{series}{ASE '11})}.
+  \bibinfo{publisher}{IEEE Computer Society}, \bibinfo{address}{Washington, DC,
+  USA}, \bibinfo{pages}{13--22}.
+\newblock
+\showISBNx{978-1-4577-1638-6}
+\showDOI{%
+\url{http://dx.doi.org/10.1109/ASE.2011.6100047}}
+
 
 \end{thebibliography}

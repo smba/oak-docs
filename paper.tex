@@ -1,26 +1,31 @@
-\documentclass[preprint]{sig-alternate-05-2015}
+\documentclass[sigconf]{acmart}
 
 \setlength\parindent{0pt}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
+\usepackage{blindtext}
 \usepackage{booktabs}
 \usepackage{paralist}
 \usepackage{listings,multicol}
 \usepackage{lipsum}
-\usepackage{cite}
+%\usepackage{cite}
 \usepackage{enumerate}
 \usepackage{subcaption}
 \usepackage{cleveref}
 \usepackage{ucs}
 \usepackage{framed}
 
+\renewcommand{\sf}[1]{\textsf{#1}}
+\renewcommand{\tt}[1]{\texttt{#1}}
+
 \usepackage[zerostyle=d]{newtxtt}
 %\renewcommand*\familydefault{\ttfamily} %% Only if the base font of the document is to be typewriter style
 \usepackage[T1]{fontenc}
 
-\usepackage[labelfont=bf]{caption}
+%\usepackage[labelfont=bf]{caption}
+
+\definecolor{lightgrey}{HTML}{FFFFFF}
 
 \hypersetup{
     colorlinks,
@@ -33,20 +38,29 @@
 
 \lstset{
 	language=PHP,
-	basicstyle=\ttfamily\tiny,
+	extendedchars = \true,
+	basicstyle=\ttfamily\footnotesize,
 	basewidth={0.5em,0.4em}, % for other columns settings
+	commentstyle = \color{gray},
 	columns=fullflexible,
 	numbers=left,
 	numberstyle=\tiny,
-	frame=single,
+	frame=tb,
 	showstringspaces=false,
 	xleftmargin=2em,
 	framexleftmargin=1.5em,
-	backgroundcolor=\color{lightgrey}
+	backgroundcolor=\color{lightgrey},
+	inputencoding = utf8x,
+    keepspaces = true,
+    keywordstyle = \bfseries,
 }
 
 \newcommand{\dollar}{\mbox{\textdollar}}
 
+
+\newcommand*{\origrightarrow}{}
+\let\oldarrow\textrightarrow
+\renewcommand*{\textrightarrow}{\fontfamily{cmr}\selectfont\origrightarrow}
 
 % ARIAL
 %\usepackage{helvet}
@@ -54,69 +68,17 @@
 
 
 % TIMES
-\usepackage{mathptmx}% http://ctan.org/pkg/mathptmx
+%\usepackage{mathptmx}% http://ctan.org/pkg/mathptmx
 
 \usepackage{pgfplots, pgfplotstable}
 
 \usepackage{xcolor}
-%\usepackage[dvipsnames]{xcolor}
-
-
-
-\definecolor{lightgrey}{HTML}{EEEEEE}
-
-\definecolor{orange}{RGB}{230, 100, 20}
-\definecolor{gruen}{RGB}{255, 190, 69}
-
-\definecolor{RYB1}{HTML}{DCDCDC}
-\definecolor{RYB2}{HTML}{C0C0C0}
-\definecolor{RYB3}{HTML}{808080}
-
-\definecolor{RYB4}{HTML}{DCDCDC}
-\definecolor{RYB5}{HTML}{C0C0C0}
-\definecolor{RYB6}{HTML}{808080}
-
-\definecolor{RYB7}{HTML}{DCDCDC}
-\definecolor{RYB8}{HTML}{C0C0C0}
-\definecolor{RYB9}{HTML}{808080}
-
-\definecolor{RYB10}{HTML}{D3D3D3}
-\definecolor{RYB11}{HTML}{A9A9A9}
-
-\pgfplotscreateplotcyclelist{ColorListBar}{
-{fill=RYB1},
-{fill=RYB2},
-{fill=RYB3},
-}
-
-\pgfplotscreateplotcyclelist{ColorListBar2}{
-{fill=RYB4},
-{fill=RYB5},
-{fill=RYB6},
-}
-
-\pgfplotscreateplotcyclelist{ColorListBar3}{
-{fill=RYB7},
-{fill=RYB8},
-{fill=RYB9},
-}
-
-\begin{document}
-\lstset{
-	language=PHP,
-	basicstyle=\footnotesize\ttfamily,
-    commentstyle = \color{gray},
-    extendedchars = \true,
-    inputencoding = utf8x,
-    keepspaces = true,
-    keywordstyle = \bfseries,
-    frame = tb
-}
 
 % Copyright
-\setcopyright{acmcopyright}
+%\setcopyright{none}
+%\setcopyright{acmcopyright}
 %\setcopyright{acmlicensed}
-%\setcopyright{rightsretained}
+\setcopyright{rightsretained}
 %\setcopyright{usgov}
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
@@ -124,74 +86,65 @@
 
 
 % DOI
-\doi{10.475/123_4}
+\acmDOI{10.475/123_4}
 
 % ISBN
-\isbn{123-4567-24-567/08/06}
+\acmISBN{123-4567-24-567/08/06}
 
 %Conference
-\conferenceinfo{ISSTA '17}{July 9--13, 2013, Santa Barbara, CA, USA}
+\acmConference[ISSTA'17]{ACM Woodstock conference}{July 2017}{Santa Barbara,
+California, USA}
+\acmYear{1997}
+\copyrightyear{2016}
 
-\acmPrice{\$15.00}
+\acmPrice{15.00}
 
-%
-% --- Author Metadata here ---
-\conferenceinfo{ISSTA '17}{July 9--13, 2013, Santa Barbara, CA, USA}
-%\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
-%\crdata{0-12345-67-8/90/01}  % Allows default copyright data
-% (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
-% --- End of Author Metadata ---
 
+\begin{document}
 \title{Does It Scale? Static Output Approximation of PHP Web Applications Using
-Symbolic Execution} 
+Symbolic Execution}
+\titlenote{Produces the permission block, and copyright information}
+%\subtitle{Extended Abstract}
+%\subtitlenote{The full version of the author's guide is available as  \texttt{acmart.pdf} document}
 
-%
 
-
-\numberofauthors{3} %  in this sample file, there are a *total*
-% of EIGHT authors. SIX appear on the 'first-page' (for formatting
-% reasons) and the remaining two appear in the \additionalauthors section.
-%
-\author{
-% You can go ahead and credit any number of authors here,
-% e.g. one 'row of three' or two rows (consisting of one row of three
-% and a second row of one, two or three).
-%
-% The command \alignauthor (no curly braces needed) should
-% precede each author name, affiliation/snail-mail address and
-% e-mail address. Additionally, tag each line of
-% affiliation/address with \affaddr, and tag the
-% e-mail address with \email.
-%
-% 1st. author
-\alignauthor
-Stefan Mühlbauer\\
-       \affaddr{TU Braunschweig, Germany}\\
-       %\email{s.muehlbauer@tu-bs.de}
-% 2nd. author
-\alignauthor
-Christian Kästner\\
-      \affaddr{Carnegie Mellon University, USA}\\
-       %\email{ckaestner@cs.cmu.edu}
-% 3rd. author
-\alignauthor
-Tien N. Nguyen\\
-       \affaddr{University of Texas, USA}\\
-%      %\email{tien.n.nguyen@utdallas.edu}
+\author{Stefan Mühlbauer}
+\affiliation{%
+  \institution{Technische Universität Braunschweig}
+  %\streetaddress{P.O. Box 1212}
+  %\city{Braunschweig} 
+  %\state{Germany} 
+  %\postcode{43017-6221}
 }
-% There's nothing stopping you putting the seventh, eighth, etc.
-% author on the opening page (as the 'third row') but we ask,
-% for aesthetic reasons that you place these 'additional authors'
-% in the \additional authors block, viz.
-\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
-% Just remember to make sure that the TOTAL number of authors
-% is the number that will appear on the first page PLUS the
-% number that will appear in the \additionalauthors section.
+%\email{s.muehlbauer@tu-bs.de}
 
-\maketitle
+\author{Christian Kästner}
+%\orcid{1234-5678-9012}
+\affiliation{%
+  \institution{Carnegie Mellon University}
+  %\streetaddress{5000 Forbes Avenue}
+  %\city{Pittsburgh} 
+  %\state{PA} 
+  %\postcode{15217}
+}
+%\email{s.muehlbauer@tu-bs.de}
+
+\author{Tien N. Nguyen}
+%\orcid{1234-5678-9012}
+\affiliation{%
+  \institution{University of Texas at Dallas}
+  %\streetaddress{P.O. Box 1212}
+  %\city{Braunschweig} 
+  %\state{Germany} 
+  %\postcode{43017-6221}
+}
+%\email{s.muehlbauer@tu-bs.de}
+
+
+% The default list of authors is too long for headers}
+\renewcommand{\shortauthors}{S. Mühlbauer et al.}
+
+
 \begin{abstract}
 Dynamic web applications have become widely popular and are to
 a large proportion based on the scripting language PHP. Output approximation of web
@@ -211,7 +164,6 @@ symbolic execution. Our findings provide useful guidelines to design new
 tools and also to improve the development process of statically analyzable web
 applications.
 \end{abstract}
-
 
 %
 % The code below should be generated by the tool at
@@ -248,32 +200,32 @@ applications.
 \ccsdesc{Computer systems organization~Robotics}
 \ccsdesc[100]{Networks~Network reliability}
 
-
-
-%
-%  Use this command to print the description
-%
-\printccsdesc
-
 % We no longer use \terms command
 %\terms{Theory}
 
-\keywords{Static program behavior, Static metrics, Dynamic language features,
-Static Analysis, PHP}
+\keywords{ACM proceedings, \LaTeX, text tagging}
+
+\maketitle
 
 \section{Introduction}
 With the emerging world wide web, dynamic web applications have become
 widely popular. Various different implementation techniques have emerged,
 ranging from technologies for programming languages (JSP, ASP .NET) and web
 application frameworks for  script languages (Ruby On Rails, Django) to
-languages tailored specifically to the domain of web applications. PHP \cite{phpNET} is
-a programming language focused on server-side application development. As of 2012,
-it was used by 78.8 percent of the ten million most popular websites (according
+languages tailored specifically to the domain of web applications. PHP
+cite{phpNET} is a programming language focused on server-side application
+development. As of 2012, it was used by 78.8 percent of the ten million most popular websites (according
 to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE
-programming community index \cite{tiobePHP}, and was the ranked as the 6th most
-popular language on GitHub \cite{githubPHP}.
+programming community index \cite{tiobePHP}, and was the ranked as the 6th
+most popular language on GitHub \cite{githubPHP}.
 
-One common property of all technologies for dynamic web applications is \emph{staged computation} of output: A dynamic web application as a whole consists of both static code, such as scripts, and dynamically generated code, such as responses to HTTP requests. The latter code, although assembled at runtime, may contain client-side parts of the web application, such as JavaScript. So, to study dynamic web applications in its entirety, we need to consider both static as well as dynamic aspects of systems.
+One common property of all technologies for dynamic web applications is
+\emph{staged computation} of output: A dynamic web application as a whole
+consists of both static code, such as scripts, and dynamically generated code,
+such as responses to HTTP requests. The latter code, although assembled at
+runtime, may contain client-side parts of the web application, such as
+JavaScript. So, to study dynamic web applications in its entirety, we need to
+consider both static as well as dynamic aspects of systems.
 
 %Since based on both static values and runtime values, output code is generated step by step
 %dynamically, output can be dependent on application inputs. Dynamic web
@@ -292,12 +244,6 @@ inputs, this analysis technique helps unfold the \emph{staged} nature of web
 applications: Since every feasible path is executed all possible output is
 contained in the symbolic output, and all dynamically generated variational
 parts of the web application can be analyzed.
-
-%Symbolic execution extends concrete execution semantics with semantics to
-%handle symbolic values. Hence, concrete execution semantics is contained in
-%symbolic execution semantics. Symbolic execution has been used and studied for generating test suites, but
-%has more recently also been applied for approximating the output of web
-%applications. 
 
 Knowledge about different output variants enabled useful analyses
 for the domain of web applications, such as detecting and locating HTML
@@ -318,8 +264,8 @@ and space consumption.
 To investigate the question, whether we can build practical tools from the
 the symbolic execution engine, we re-implemented the engine with the specifications
 of the previous symbolic execution semantics
-\cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such as
-object-oriented programming. We evaluated our
+\cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such
+as object-oriented programming. We evaluated our
 symbolic execution engine for large-scale and modern PHP systems.
 
 During introduction of new semantics for object-orientation we encountered two
@@ -497,14 +443,14 @@ dynamically.
 Based on the approximated output representation subsequent analyses can be
 conducted, which have been implemented in the following tools:
 
-\begin{compactitem}
-	\item \emph{PhpSync}: Using all variants of  HTML client page output, every
+\begin{itemize}
+	\item {\emph{PhpSync}: Using all variants of  HTML client page output, every
 	single one can be statically checked for Markup Validity, i.e., if the web page
 	conforms to syntactical specifications for HTML and other client-side
 	languages. After validation errors are detected, auto-fixes are provided.
 	Otherwise, the validation error can be traced back to source code responsible
 	for the defect, which then can be refactored manually
-	\cite{Nguyen:2011:AFH:2190078.2190142}.
+	\cite{Nguyen:2011:AFH:2190078.2190142}. }
 
 	\item \emph{WebSlice}: Program slices enable to extract and understand the
 	impact of changes in an application. To consider all of a dynamic web
@@ -520,23 +466,205 @@ conducted, which have been implemented in the following tools:
 	allows navigation in client-site code (HTML, JS and CSS) although it is
 	embedded in server-side code
 	\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
-\end{compactitem}
+\end{itemize}
 
 \subsection{Assumptions And Limitations}\label{sec:limitations}
-In addition to the limitations introduced by  symbolic execution, such as symbolic inputs and one-time loop execution, the symbolic execution described in \cite{Nguyen:2014:BCG:2635868.2635928} does not support advanced language features, including object-oriented programming. Moreover, the range of standard library functions supported are mostly string operations, yet PHP provides a large collection of functions for array operations.
-All three tools described in Section \ref{sec:existing_tools} though have only been applied to systems that are small and not maintained any more. Despite the functional benefits these tools provide to developers, their practicality for large and modern systems with respect to advanced language support has not been evaluated. 
+In addition to the limitations introduced by  symbolic execution, such as
+symbolic inputs and one-time loop execution, the symbolic execution described
+in \cite{Nguyen:2014:BCG:2635868.2635928} does not support advanced language
+features, including object-oriented programming. Moreover, the range of
+standard library functions supported are mostly string operations, yet PHP
+provides a large collection of functions for array operations.
+All three tools described in Section \ref{sec:existing_tools} though have only
+been applied to systems that are small and not maintained any more. Despite the
+functional benefits these tools provide to developers, their practicality for
+large and modern systems with respect to advanced language support has not been
+evaluated.
 
 \section{Scalable Output Approximation}%
-The main objective of this experience report is to investigate whether we can have built practical tools that are on output approximations like the tools in Section \ref{sec:existing_tools}. In particular, we want to find out whether symbolic execution as the underlying technique for static output approximation is scalable, i.e., it computes an accurate approximation for large and modern PHP systems with reasonable time and space consumption. 
+The main objective of this experience report is to investigate whether we can
+have built practical tools that are on output approximations like the tools in
+Section \ref{sec:existing_tools}. In particular, we want to find out whether
+symbolic execution as the underlying technique for static output approximation
+is scalable, i.e., it computes an accurate approximation for large and modern
+PHP systems with reasonable time and space consumption.
 
-Also, we are interested in the limitations of scalable symbolic execution for PHP web applications. Limitations may either be conceptional, where symbolic execution of PHP code, in contrast to concrete execution, is inaccurate: For example an include expression evaluated to a symbolic value simply provides to little information to include a script. Or, in spite of infeasible effort required, limitations could allow an accurate symbolic execution. For example, exhaustively exploring all feasible paths in an application may result in an infeasible number of program states to store; nevertheless, this so called state explosion problem may be addressed with additional engineering.
+Also, we are interested in the limitations of scalable symbolic execution for
+PHP web applications. Limitations may either be conceptional, where symbolic
+execution of PHP code, in contrast to concrete execution, is inaccurate: For
+example an include expression evaluated to a symbolic value simply provides to
+little information to include a script. Or, in spite of infeasible effort
+required, limitations could allow an accurate symbolic execution. For example,
+exhaustively exploring all feasible paths in an application may result in an
+infeasible number of program states to store; nevertheless, this so called
+state explosion problem may be addressed with additional engineering.
 
 \subsection{Towards Scalable Output Approximation?}
-As our goal is to have practical tools support, we approach this question by re-implementing the symbolic execution semantics described in \cite{Nguyen:2014:BCG:2635868.2635928} and extending it with support for additional language features. We choose to aim to support symbolic execution for a real-world example system of reasonable size that incorporates the missing language features described in Section \ref{sec:limitations} and is still developed and maintained: \textsf{WordPress} is a popular open-source Content Management System (CMS) with around 300k lines that provides a vivid plug-in environment and is maintained by a large community. 
-For our implementation of a symbolic execution engine for PHP, \textsf{Oak}, we have chosen a test-driven approach with continuous integration using regression tests based on \textsf{WordPress} and \textsf{SchoolMate} (see Section \ref{sec:experiment_setup}). Oak incorporates the existing execution semantics of \cite{Nguyen:2014:BCG:2635868.2635928} and extends it with support for object-oriented orientation (class definition, class instantiation and method invocation) as well as PHP array operations. A list of the functions provided by the PHP standard library can be found at \cite{PHP}.
-Throughout the implementation we did not achieve high code coverage for WordPress, which was the main motivation to further investigate limitations in the wild.
+As our goal is to have practical tools support, we approach this question by
+re-implementing the symbolic execution semantics described in
+\cite{Nguyen:2014:BCG:2635868.2635928} and extending it with support for
+additional language features. We choose to aim to support symbolic execution
+for a real-world example system of reasonable size that incorporates the
+missing language features described in Section \ref{sec:limitations} and is
+still developed and maintained: \textsf{WordPress} is a popular open-source
+Content Management System (CMS) with around 300k lines that provides a vivid
+plug-in environment and is maintained by a large community.
+For our implementation of a symbolic execution engine for PHP, \textsf{Oak}, we
+have chosen a test-driven approach with continuous integration using regression
+tests based on \textsf{WordPress} and \textsf{SchoolMate} (see Section
+\ref{sec:experiment_setup}). Oak incorporates the existing execution semantics
+of \cite{Nguyen:2014:BCG:2635868.2635928} and extends it with support for
+object-oriented orientation (class definition, class instantiation and method
+invocation) as well as PHP array operations. A list of the functions provided
+by the PHP standard library can be found at \cite{PHP}.
+Throughout the implementation we did not achieve high code coverage for
+WordPress, which was the main motivation to further investigate limitations in
+the wild.
 
-\subsection{What Went Wrong? Experience Report}
+\subsection{Things We Learned The Hard Way}
+\textcolor{blue}{\blindtext}
+
+\subsubsection{Symbolic vs Concrete Execution}
+\textcolor{blue}{\blindtext}
+
+\subsubsection{Multi-Target Method Calls}
+The first non-conceptual problem we encountered, in particular for
+\sf{WordPress} is related to object-oriented programming. While exploring
+different execution paths when the control flow is split, a variable can have
+different values depending on the path condition under which a value has been
+assigned to it (see the code example in Figure \ref{fig:output_example}). Similar, a variable
+can point to different objects depending on the path condition as the snippet in
+Figure \ref{fig:multi_target} illustrates. The variable \tt{\$person} can either
+point to object \tt{Alice} or \tt{Bob}. In addition, for any method invocated on
+that variable, the actual target is ambiguous as there are two, depending on the
+path condition. In order to have a sound symbolic execution, both method calls
+need to be executed. Nevertheless, the number of contexts for a method can grow
+rapidly, and easily become infeasible to execute.
+
+We implemented several heuristic approaches to tame this state space explosion
+for multi-target method calls, including executing a method only for a subset or
+just a single object. This trade-off between accuracy and soundness
+of the symbolic execution and performance time required.
+
+\subsubsection{Dynamic Language Features}
+Conceptually, symbolic execution failed for two types of language features. As
+stated in Section \ref{sec:workflow}, dynamic web applications are staged and client page
+output is computed at runtime. Symbolic execution hand has shown to be a useful
+technique to approximate dynamically generated output, it is challenged by
+language features that require concrete information rather than symbolic
+information at runtime. In particular, this applies to language features that
+provide access to reusable code of the web application: include expressions and
+function calls.
+
+First, include expressions in PHP usually require a string value representing
+the path to the script file or template to include. If this string value is
+statically provided by a string literal or can be constructed unambiguously, the
+symbolic execution engine was able to resolve the include expression and include
+the desired file. However, it is also common to assemble include expressions not
+only static string literals, but from several sources including user input
+information, database query results or configuration files. Figure
+\ref{fig:dynamic_includes} shows a small example of a dynamic include containing
+information retrieved from a database. Since any input for a symbolically
+executed application is symbolic this information leads to include expressions
+containing symbolic values. Also, configuration files represent only one
+particular configuration or even just default values or placeholders. Hence, 
+symbolic execuion is prone to fail for dynamic includes if symbolic information
+is contained.
+
+Second, function calls can either be direct by statically providing the name of
+the function (or method), or indirect. Indirect function calls in PHP are
+enabled by using built-in functions like \tt{call\_user\_func},
+\tt{call\_user\_func\_array} or simply passing a string value with a direct
+function call to the \tt{eval} function. The first two functions take as
+arguments the name of the function two call, and all arguments to that functions either as additional arguments or
+array respectively. The eval function evaluates a given PHP expression passed
+as a string literal.
+Again, we encountered similar issues to dynamic include expressions with
+indirect function call mechanisms. The example in Figure
+\ref{fig:indirect_calls} illustrates two functions \tt{header\_serif} and
+\tt{header\_sserif} which both print a HTML headline. Depending on whether the
+value of the variable \tt{\$style} retrieved from a database is \tt{serif} or
+\tt{sserif}, a different function is called. Given that the function name is 
+concrete at runtime, the desired function can be called. Otherwise, if the
+function name is assembled at runtime and contains symbolic values, no function
+can be called as the name is ambiguous or unknown. For this example, symbolic
+execution is not able to determine which function to call indirectly.
+
+% code examples for 3.3 experience report
+\begin{figure}[t]
+	\begin{subfigure}[b]{0.48\textwidth}
+	
+\begin{lstlisting}
+<?php
+class Person {
+   function __construct__($name) {
+      $this->name = $name;
+   }
+   function greet($greeting) {
+      echo $greeting . $this->name;
+   }
+}
+
+if (...) {
+   $person = new Person("Alice");
+} else {
+   $person = new Person("Bob");
+}
+$person->greet("Good Morning, ");
+\end{lstlisting}
+	\caption{
+		Dynamic dispatch: Multiple targets for method calls
+		\label{fig:multi_target}
+	}
+	\end{subfigure}
+	\vspace{2mm}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+
+\begin{lstlisting}
+<?php
+define("ROOT", getcwd());
+define("TEMPLATES", ROOT . "templates/")
+
+$template = mysql_result(...);
+
+require_once TEMPLATE . $template;
+\end{lstlisting}
+	\caption{
+		Dynamic Include Resolution
+		\label{fig:dynamic_includes}
+	}
+	\end{subfigure}
+	\vspace{2mm}
+	\hfill
+	\begin{subfigure}[b]{0.48\textwidth}
+
+\begin{lstlisting}
+<?php
+function header_serif($title) {
+   $style = "font-family: serif;";
+   echo "<h1 style = '$style'>$title</h1>";
+}
+function header_sserif($title) {
+   $style = "font-family: sans-serif;";
+   echo "<h1 style = '$style'>$title</h1>";
+}
+\end{lstlisting}
+	\caption{
+		Function calls by indirect invocation mechanisms
+		\label{fig:indirect_calls}
+	}
+	
+	\end{subfigure}
+	\caption{
+		Code Examples of defective code features
+		\label{fig:defective_code_features}
+	}
+\end{figure}
+
+\subsection{Things We Tried\ldots}
+\textcolor{blue}{\blindtext\blindtext}
+
 
 \section{Evaluation}
 As already stated in the previous section, we encountered sevaral problems
@@ -579,7 +707,7 @@ of PHP systems is shown in Table \ref{corpus}. Our selection of PHP systems
 includes
 
 %
-\begin{compactitem}
+\begin{itemize}
 	\item four small-scale systems that selected from the previously mentioned case
 	study in order to compare our results with the previous symbolic execution
 	engine \cite{Nguyen:2014:BCG:2635868.2635928},
@@ -589,7 +717,7 @@ includes
 	
 	\item four small-scale systems selected from a list of recent Content
 	Management Systems \cite{codegeekz}.
-\end{compactitem}
+\end{itemize}
 
 As for for the last two cases, we limited our selection since the parser we
 used did not support all language features used. For the experimental evaluation we symbolically executed per system each script file or entry point (files with a \texttt{.php}, \texttt{.inc}, \texttt{.bit} or \texttt{.module} extension). All following measurements are cumulated per system for each entry point. 
@@ -804,16 +932,16 @@ For failed function calls to functions containing not-reached
 	\end{subfigure}
 	\caption{Results}
 \end{figure}
+
 \section{Lessons Learned}
+\textcolor{blue}{\Blindtext}
 
 \section{Related Work}
-\begin{itemize}
-	\item Hills et al. \cite{Hills:2013:ESP:2483760.2483786}
-	\item Output approximation using context-free grammar construction; applications \cite{minamide2005static,wassermann2007sound}
-\end{itemize}
+\textcolor{blue}{\blindtext\blindtext}
+
 
 %References
-\bibliographystyle{abbrv}
-\bibliography{bibliography}
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{bibliography} 
 
 \end{document}

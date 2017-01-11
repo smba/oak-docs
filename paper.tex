@@ -1,6 +1,13 @@
 \documentclass[sigconf]{acmart}
 
-\setlength\parindent{0pt}
+% just in case
+\usepackage{etex}
+
+% does not seem to work with sigconf template
+%\usepackage{cite}
+
+
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -9,12 +16,14 @@
 \usepackage{paralist}
 \usepackage{listings,multicol}
 \usepackage{lipsum}
-%\usepackage{cite}
+
 \usepackage{enumerate}
 \usepackage{subcaption}
 \usepackage{cleveref}
 \usepackage{ucs}
 \usepackage{framed}
+
+\setlength\parindent{0pt}
 
 \renewcommand{\sf}[1]{\textsf{#1}}
 \renewcommand{\tt}[1]{\texttt{#1}}
@@ -52,10 +61,10 @@
 	backgroundcolor=\color{lightgrey},
 	inputencoding = utf8x,
     keepspaces = true,
-    keywordstyle = \bfseries,
+    keywordstyle = \bfseries
 }
 
-\newcommand{\dollar}{\mbox{\textdollar}}
+%\newcommand{\dollar}{\mbox{\textdollar}}
 
 
 \newcommand*{\origrightarrow}{}
@@ -442,7 +451,6 @@ dynamically.
 
 Based on the approximated output representation subsequent analyses can be
 conducted, which have been implemented in the following tools:
-
 \begin{itemize}
 	\item {\emph{PhpSync}: Using all variants of  HTML client page output, every
 	single one can be statically checked for Markup Validity, i.e., if the web page
@@ -509,10 +517,10 @@ missing language features described in Section \ref{sec:limitations} and is
 still developed and maintained: \textsf{WordPress} is a popular open-source
 Content Management System (CMS) with around 300k lines that provides a vivid
 plug-in environment and is maintained by a large community.
-For our implementation of a symbolic execution engine for PHP, \textsf{Oak}, we
-have chosen a test-driven approach with continuous integration using regression
-tests based on \textsf{WordPress} and \textsf{SchoolMate} (see Section
-\ref{sec:experiment_setup}). Oak incorporates the existing execution semantics
+For our implementation of a symbolic execution engine for PHP,
+\textsf{Oak}\footnote{The implementation can be found
+at \url{github.com/smba/oak}.}, we have chosen a test-driven approach with
+continuous integration using regression tests based on \textsf{WordPress} and \textsf{SchoolMate} (see Section \ref{sec:experiment_setup}). Oak incorporates the existing execution semantics
 of \cite{Nguyen:2014:BCG:2635868.2635928} and extends it with support for
 object-oriented orientation (class definition, class instantiation and method
 invocation) as well as PHP array operations. A list of the functions provided
@@ -521,11 +529,45 @@ Throughout the implementation we did not achieve high code coverage for
 WordPress, which was the main motivation to further investigate limitations in
 the wild.
 
-\subsection{Things We Learned The Hard Way}
+\subsection{Experience Report}
+This sections sums up 
 \textcolor{blue}{\blindtext}
 
 \subsubsection{Symbolic vs Concrete Execution}
-\textcolor{blue}{\blindtext}
+Throughout the implementation, we basically followed the symbolic execution
+semantics described in \cite{Nguyen:2014:BCG:2635868.2635928}. Nevertheless, for additional language features as
+well as standard library functions we experienced it to be beneficial to the
+approximation to execute them as concretely as possible.
+For instance, \sf{WordPress} uses a text filter mechanism, where different
+filter functions are applied sequentially to a string literal. All filters can
+be linked to a hook using  associative arrays so that when the hook is
+triggered, all filters linked to it are applied. As described in Section \ref{}
+we execute loops, in particular while loops, only once due to an possibly
+indeterminable number of iterations. PHP yet offers more loop constructs: the
+do-while loop and the foreach loop. While for the do-while loop as well as for
+the while loop the number of iterations is possibly indeterminable, the foreach
+loop iterates over all items of a given array whose number of items is known at
+runtime. For \sf{WordPress}, we are able to achieve a more accurate
+approximation and higher code coverage results by concretely executing foreach
+loops as more server-side code (filter functions in our case) are accessed and
+executed. In turn, exhaustively executing foreach loops and filter functions
+concretely is a trade-off between accuracy and performance, as single hook can
+be called for different contexts as we are exploring multiple execution paths.
+
+An additional aspect on the boundary of concrete and symbolic execution, or
+effort and accuracy respectively, is the extent to which program inputs are
+assumed to be symbolic. As shown in Section \ref{} introducing symbolic values
+can be problematic if they are propagated to language features requiring
+concrete information, such as include expressions or indirect function calls.
+We manually scaled the number of sources of symbolic inputs by providing static
+dummy inputs such as a concrete form input, file name or configuration entry.
+For specific cases, where concrete information is inevitably required, we can
+achieve higher code coverage and a more accurate approximation, as more code
+becomes accessible. Nevertheless, while detecting dynamic features can be
+automated, it requires manual inspection and understanding of the web
+application to provide appropriate dummy input data. Again, this is a trade-off
+between the effort to provide input data and accuracy of the approximation and
+code coverage respectively.
 
 \subsubsection{Multi-Target Method Calls}
 The first non-conceptual problem we encountered, in particular for
@@ -704,9 +746,7 @@ selected a corpus of twelve PHP systems with regard to system size and recency
 as the corpus of the case study for \cite{Nguyen:2014:BCG:2635868.2635928} only
 contained small-scale systems that are not maintained any more. The full list
 of PHP systems is shown in Table \ref{corpus}. Our selection of PHP systems
-includes
-
-%
+includes%
 \begin{itemize}
 	\item four small-scale systems that selected from the previously mentioned case
 	study in order to compare our results with the previous symbolic execution
@@ -936,10 +976,13 @@ For failed function calls to functions containing not-reached
 \section{Lessons Learned}
 \textcolor{blue}{\Blindtext}
 
+
 \section{Related Work}
+\cite{Hills:2013:ESP:2483760.2483786}
+\cite{wassermann2007sound,minamide2005static}
 \textcolor{blue}{\blindtext\blindtext}
 
-
+\newpage
 %References
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography} 

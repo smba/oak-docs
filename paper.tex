@@ -530,8 +530,12 @@ WordPress, which was the main motivation to further investigate limitations in
 the wild.
 
 \subsection{Experience Report}
-This sections sums up 
-\textcolor{blue}{\blindtext}
+We identified a number of trade-offs between accuracy and performance that may
+cause the approximation to be impractical, yet possible. Also, we identified
+limitations impeding symbolic execution conceptually. For certain language
+features, concrete information rather than symbolic values may be required to
+actually be executed properly as this defective execution can impact subsequent
+parts of the program which may become inaccessible and may be missed.
 
 \subsubsection{Symbolic vs Concrete Execution}
 Throughout the implementation, we basically followed the symbolic execution
@@ -691,6 +695,9 @@ function header_sserif($title) {
    $style = "font-family: sans-serif;";
    echo "<h1 style = '$style'>$title</h1>";
 }
+
+$font_style = mysql_result(...);
+call_user_func('header_' . $font_style, 'Title');
 \end{lstlisting}
 	\caption{
 		Function calls by indirect invocation mechanisms
@@ -704,8 +711,30 @@ function header_sserif($title) {
 	}
 \end{figure}
 
-\subsection{Things We Tried\ldots}
-\textcolor{blue}{\blindtext\blindtext}
+\subsubsection{Interpreter Customization}
+We have approached issues we encountered in different ways, including
+multiple-target method calls and foreach loops, as these represent a trade-off
+between accuracy of execution and performance.
+For method calls having ambiguous targets, we implemented different modes of
+execution, ranging from a complete mode where a method is executed for all
+possible targets to abstract modes with either a subset of targets or only a
+single target. In the latter cases where targets are discarded, we assumed
+symbolic values as method return values. Our symbolic interpreter can be
+customized to work in the desired mode to scale accuracy or performance.
+Nevertheless, for \sf{WordPress} these variations did not have significant
+impact on the output approximation as symbolic execution was rather impeded by
+dynamic features.
+Also, for foreach loops we are able to toggle between a single iteration mode
+and a complete iteration mode. Although we were able to increase code coverage
+by accessing more code, it did not significantly increase our output
+approximation.
+Note that these variants have only been tested for \sf{WordPress} to better
+understand possible trade-offs or simply achieve any output approximation in a
+reasonable period of time. We believe based on our experience dynamic features
+to be the main conceptual limitation impeding code coverage as well as output
+approximation quality. In the next Section we analyze in detail the impact of
+dynamic features with concrete foreach loop execution and complete
+multiple-target execution for method calls.
 
 
 \section{Evaluation}

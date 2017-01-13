@@ -293,26 +293,29 @@ web applications as well as an empirical evaluation of conceptual limitations
 of symbolic executions for PHP web applications.
 
 \section{State Of the Art}\label{sec:stateoftheart}
-Symbolic execution is one of integral analysis techniques used by the tools
+Symbolic execution is an analysis techniques used by the tools
 whose practicality we aim to evaluate. This section recaps the idea of symbolic
 execution, the tools which make use of it, and both conceptual and
 language-related limitations.
 
 \subsection{Symbolic Execution}
 Symbolic execution is a static analysis technique that was proposed by James C.
-King in 1976 \cite{King1976}. Symbolic execution allows to explore all feasible
+King in 1976 \cite{King1976}. Symbolic execution allows to explore feasible
 paths in a program. Based on normal program execution, the execution semantics
-is extended to handle symbolic values, which are abstract, but fixed; an
-execution becomes symbolic by introducing symbolic values as program inputs
-instead of concrete values \cite{King1976,Darringer1978}. These symbolic values
-are then propagated and used throughout the execution.
+is extended to handle symbolic values. An execution becomes symbolic by
+assuming symbolic values as program inputs rather than obtaining concrete
+values \cite{King1976,Darringer1978}. These symbolic values are then propagated
+and used throughout the execution. 
 
-Execution starts with a plain path condition, usually a tautology. Whenever the
-control-flow can be split into different branches, the corresponding path
-conditions (guards for instance) are conjoined with the previous path condition
-\cite{King1976}. Additionally, the conjoined path condition can be checked for
-satisfiability to exclude infeasible paths. Consequently, for a given program
-symbolic execution computes a mapping from (symbolic) input values to output values.
+Execution starts with a tautology path
+condition. The control-flow can be split whenever the decision between branches
+is ambiguous. This is the case, when conditional expressions, for example for
+if-statements, evaluate to a symbolic value rather than an actual result.
+The corresponding path conditions (guards for instance) are conjoined with the
+previous path condition \cite{King1976}. Additionally, the conjoined path
+condition can be checked for satisfiability in order to exclude infeasible
+paths. 
+
 
 \subsection{Static Output Approximation for PHP} \label{sec:workflow}
 Symbolic execution is an analysis technique not dedicated to a particular
@@ -438,21 +441,20 @@ in Figure \ref{fig:web_application} will explore both different branches.
 
 \subsection{Existing Tool Support for PHP}\label{sec:existing_tools}
 All tools proposed so far leverage a representation of all possible HTML client
-page output. Since any variant can be analyzed in particular, this enables tool
-support addressing the web application as a whole in spite of its staged
-nature, where parts of the web application (client-side output) are generated
-dynamically.
-
-Based on the approximated output representation subsequent analyses can be
-conducted, which have been implemented in the following tools:
+page output. Since any single client page output variant can be analyzed this
+enables tool support addressing the web application as a whole in spite of its
+staged nature, where parts of the web application are
+generated dynamically.
+Based on the approximated output representation, subsequent analyses can be
+conducted:
 \begin{itemize}
-	\item {\emph{PhpSync}: Using all variants of  HTML client page output, every
-	single one can be statically checked for Markup Validity, i.e., if the web page
+	\item \emph{PhpSync}: Using all variants of  HTML client page output, every
+	single one can be statically checked for markup validity, i.e., if the web page
 	conforms to syntactical specifications for HTML and other client-side
-	languages. After validation errors are detected, auto-fixes are provided.
-	Otherwise, the validation error can be traced back to source code responsible
-	for the defect, which then can be refactored manually
-	\cite{Nguyen:2011:AFH:2190078.2190142}. }
+	languages. After the tool detects validation errors, auto-fixes
+	can be provided. Otherwise, it traces validation errors back to
+	source code responsible for the defect, which then can be refactored manually
+	\cite{Nguyen:2011:AFH:2190078.2190142}. 
 
 	\item \emph{WebSlice}: Program slices enable to extract and understand the
 	impact of changes in an application. To consider all of a dynamic web
@@ -471,14 +473,14 @@ conducted, which have been implemented in the following tools:
 \end{itemize}
 
 \subsection{Assumptions And Limitations}\label{sec:limitations}
-In addition to the limitations introduced by  symbolic execution, such as
-symbolic inputs and one-time loop execution, the symbolic execution described
-in \cite{Nguyen:2014:BCG:2635868.2635928} does not support advanced language
-features, including object-oriented programming. Moreover, the range of
+In addition to the assumptions introduced by symbolic execution, such as
+symbolic inputs and one-time loop execution, the symbolic execution
+engine described in previous work \cite{Nguyen:2014:BCG:2635868.2635928} does
+not support advanced language features, including object-oriented programming. Moreover, the range of
 standard library functions supported are mostly string operations, yet PHP
 provides a large collection of functions for array operations.
-All three tools described in Section \ref{sec:existing_tools} though have only
-been applied to systems that are small and not maintained any more. Despite the
+All three analyses described in Section \ref{sec:existing_tools} though have
+only been applied to systems that are small and not maintained any more. Despite the
 functional benefits these tools provide to developers, their practicality for
 large and modern systems with respect to advanced language support has not been
 evaluated.

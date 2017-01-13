@@ -229,74 +229,68 @@ programming community index \cite{tiobePHP}, and was the ranked as the 6th
 most popular language on GitHub \cite{githubPHP}.
 
 One common property of all technologies for dynamic web applications is
-\emph{staged computation} of output: A dynamic web application as a whole
+\emph{staged computation}: A dynamic web application as a whole
 consists of both static code, such as scripts, and dynamically generated code,
-such as responses to HTTP requests. The latter code, although assembled at
+such as client page output. The latter code, although assembled at
 runtime, may contain client-side parts of the web application, such as
 JavaScript. So, to study dynamic web applications in its entirety, we need to
 consider both static as well as dynamic aspects of systems.
 
-%Since based on both static values and runtime values, output code is generated step by step
-%dynamically, output can be dependent on application inputs. Dynamic web
-%applications incorporate various both server-side inputs (databases,
-%configuration) and client-side inputs respectively. Static
-%analysis of dynamic web applications, hence, has to consider different input
-%sources.
-
 \emph{Symbolic execution} is a static analysis technique between program testing
-and program proving. For a program, symbolic, i.e., abstract, yet fixed inputs are
-applied instead of concrete inputs \cite{Darringer1978,King1976}. The underlying
-concept is to map program input (symbolically) to program output. Different classes of inputs may
-result in variational output, representing dependencies of output and input.
-As symbolic execution of a program returns an input-output-mapping for symbolic
-inputs, this analysis technique helps unfold the \emph{staged} nature of web
-applications: Since every feasible path is executed all possible output is
-contained in the symbolic output, and all dynamically generated variational
-parts of the web application can be analyzed.
+and program proving. For a program, symbolic values are
+used instead of concrete inputs \cite{Darringer1978,King1976}. The underlying
+concept is to map program input to program output: Symbolic values are used and
+propagated throughout the symbolic execution and keep dependencies for program
+output traceable. This analysis technique helps unfold the \emph{staged} nature
+of dynamic web applications. Since every feasible path can be executed the
+symbolic output contains both invariant output as well as output variants that
+depend on program input.
 
-Knowledge about different output variants enabled useful analyses
-for the domain of web applications, such as detecting and locating HTML
-validation errors \cite{Nguyen:2011:AFH:2190078.2190142}. As for developers,
-from an output model, outlines and callgraphs for easier IDE code navigation
-\cite{Nguyen:2014:BCG:2635868.2635928}, or program slices
-\cite{Nguyen:2015:CPS:2786805.2786872} can be computed. Existing work has been
-integrated in the Varis plugin for the Eclipse IDE \cite{Nguyen:2015:VIS:2819009.2819140}.
+Knowledge about different output output variants is leveraged by a number of
+analyses for the domain of web applications. Previous work presented tools
+for detecting and locating HTML validation errors
+\cite{Nguyen:2011:AFH:2190078.2190142}, computing program slices across
+server-side and client-page code \cite{Nguyen:2015:CPS:2786805.2786872}, or
+easing development and maintenance by extending IDE support for web applications
+with code navigation
+\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
 
 Despite the various use cases for analyses based on an approximated output
 model, static output approximation for PHP web applications using symbolic
-execution has so far only been evaluated for smaller systems that are not
-maintained anymore. The previously mentioned tools though are only practical, if
-for a given system the symbolic execution engine is scalable, i.e., will also
-approximate output accurately for larger and more recent systems with good time
-and space consumption.
+execution has so far only been evaluated for small systems that are not
+maintained anymore. The tools presented by previous work
+\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2011:AFH:2190078.2190142}
+though are only practical, if for a given system the symbolic execution engine
+is scalable, i.e., will also approximate output accurately for larger and more
+recent systems with acceptable time and space consumption.
 
-To investigate the question, whether we can build practical tools from the
-the symbolic execution engine, we re-implemented the engine with the specifications
-of the previous symbolic execution semantics
-\cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such
-as object-oriented programming. We evaluated our
+To investigate the question, whether we can have a practical and scalable
+symbolic executoin engine, we re-implemented the engine with the specifications
+of the previous symbolic execution semantics \cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such
+as object-oriented programming. We evaluate our
 symbolic execution engine for large-scale and modern PHP systems.
 
-During introduction of new semantics for object-orientation we encountered two
-main challenges. First, we were bound to introduce more concrete execution features to the
-symbolic execution engine, e.g. foreach loops for arrays, as this increased
-code coverage significantly. Second, we had to make a trade-off between the
-accuracy of method calls and the scalability of this language feature as a
-method call for different program state variants can have multiple targets.
+During the introduction of new semantics, we addressed two  trade-offs between
+accuracy of our e xecution and performance: For method calls with ambiguous
+targets as well as concrete execution of loops the number of program states can
+become infeasible. This may require additional engineering adjustments to tame
+the state space explosion at cost of accuracy.
 
-Based on our observations and evaluation results, we learned that for dynamic
-PHP constructs, expressions that are assembled dynamically, in combination with
-symbolic values symbolic execution can be impractical. For object-orientation
-and method calls, symbolic execution semantics can be a tightrope walk between
-state space explosion and imprecision. Moreover, the nature of PHP challenges a
-practical symbolic execution engine since for it to be accurate, a large number
-of functions from the standard library needs to be supported.
+Based on out observations we identify conceptual limitations of symbolic
+execution for PHP.  Dynamic features such as indirect function calls and
+include expression require concrete information to be evaluated properly. Since
+these expressions may be assembled at runtime and can contain symbolic
+information, for many cases this restricts our engine from further execution.
+Although some effort to statically approximate include expression can be spent,
+it is often non-trivial since expressions can contain information coming from
+various inputs including databases, user inputs or configuration files. We
+empirically evaluate our observations for a corpus including large PHP systems that are still maintained.
 
-Our key contributions in this paper include (1) a new tool infrastructure to
-statically approximate the output for PHP web applications using symbolic
-execution, and (2) a report of our observations with state-of-the-art web
-applications as well as an explanation on conceptual limitations for symbolic
-execution of PHP applications.
+Our key contribution in this paper include (1)  a new tool infrastructure to
+statically approximate the client-page output for PHP web applications using
+symbolic execution and (2) a report of out observations for state-of-the-art
+web applications as well as an empirical evaluation of conceptual limitations
+of symbolic executions for PHP web applications.
 
 \section{State Of the Art}\label{sec:stateoftheart}
 Symbolic execution is one of integral analysis techniques used by the tools

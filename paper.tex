@@ -872,20 +872,20 @@ our approximation results and conducted three more measurements.
 \subsubsection{What literals did we miss?}\label{WhatLiteralsDidWeMiss?}
 Our initial approach to understand missed output candidates is to find out
 whether their surrounding program code was not accessed/accessible, and if so,
-why. Of special interest are those output candidates that are located in HTML
+why. We are interested in those output candidates that are located in HTML
 files (possibly with nested PHP), or located in a function definition. Plain
-HTML files do not require any further execution (of course, unless PHP scripts
-are embedded) and represent output candidates that just need to be included
-properly to be part of the output. Aside, output candidates that are part of a
-function definition are only missed if the corresponding function is never
-called at runtime.
+HTML files do not require any further execution and represent output candidates
+that just need to be included properly to be part of the output. Aside, output
+candidates that are part of a function definition are only missed if the
+corresponding function is never called at runtime.
 
 We started classifying missed output candidates by their string literal
 context. As the classification statistics in Figure \ref{coverage} illustrate,
 for almost all systems (except for \textsf{AddressBook} and \textsf{TimeClock})
-not-reached output candidates had a function context. Note that
-\textsf{SchoolMate} was excluded from the diagram since our analysis reached
-all output candidates for that system.
+not-reached output candidates had a function context. 
+
+%Note that \textsf{SchoolMate} was excluded from the diagram since our analysis
+% reached all output candidates for that system.
 
 \subsubsection{Inaccessible Dynamic Features}
 \label{sec:inaccessible}
@@ -1023,6 +1023,8 @@ For failed function calls to functions containing not-reached
 \cite{Hills:2013:ESP:2483760.2483786}
 \cite{wassermann2007sound,minamide2005static}
 \textcolor{blue}{\blindtext\blindtext}
+
+\section{Conclusion}
 
 \newpage
 %References

@@ -34,7 +34,7 @@
 
 %\usepackage[labelfont=bf]{caption}
 
-\definecolor{lightgrey}{HTML}{FFFFFF}
+\definecolor{lightgrey}{HTML}{FFFFFC}
 
 \hypersetup{
     colorlinks,
@@ -484,11 +484,10 @@ evaluated.
 
 \section{Scalable Output Approximation}%
 The main objective of this experience report is to investigate whether we can
-have built practical tools that are on output approximations like the tools in
-Section \ref{sec:existing_tools}. In particular, we want to find out whether
-symbolic execution as the underlying technique for static output approximation
-is scalable, i.e., it computes an accurate approximation for large and modern
-PHP systems with reasonable time and space consumption.
+have a scalable symbolic execution engine as it is the underlying technique for
+static output approximation in previous work
+\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}.
+Our vision is a practical symbolic execution, i.e., it computes an accurate approximation for large and modern PHP systems with reasonable time and space consumption.
 
 Also, we are interested in the limitations of scalable symbolic execution for
 PHP web applications. Limitations may either be conceptional, where symbolic
@@ -501,45 +500,46 @@ infeasible number of program states to store; nevertheless, this so called
 state explosion problem may be addressed with additional engineering.
 
 \subsection{Towards Scalable Output Approximation?}
-As our goal is to have practical tools support, we approach this question by
-re-implementing the symbolic execution semantics described in
-\cite{Nguyen:2014:BCG:2635868.2635928} and extending it with support for
-additional language features. We choose to aim to support symbolic execution
+As our goal is to have a scalable symbolic execution engine, we approach this
+question by re-implementing the symbolic execution semantics described in
+previous work \cite{Nguyen:2014:BCG:2635868.2635928} and extending it with
+support for additional language features. We aim to support symbolic execution
 for a real-world example system of reasonable size that incorporates the
 missing language features described in Section \ref{sec:limitations} and is
-still developed and maintained: \textsf{WordPress} is a popular open-source
-Content Management System (CMS) with around 300k lines that provides a vivid
-plug-in environment and is maintained by a large community.
+still developed and maintained. \textsf{WordPress} is a popular open-source
+Content Management System (CMS) with around \textcolor{blue}{300.000} lines of
+code that provides a vivid plug-in environment and is maintained by a large
+community.
 For our implementation of a symbolic execution engine for PHP,
 \textsf{Oak}\footnote{The implementation can be found
 at \url{github.com/smba/oak}.}, we have chosen a test-driven approach with
 continuous integration using regression tests based on \textsf{WordPress} and \textsf{SchoolMate} (see Section \ref{sec:experiment_setup}). Oak incorporates the existing execution semantics
 of \cite{Nguyen:2014:BCG:2635868.2635928} and extends it with support for
 object-oriented orientation (class definition, class instantiation and method
-invocation) as well as PHP array operations. A list of the functions provided
-by the PHP standard library can be found at \cite{PHP}.
+invocation) as well as most PHP array operations. A list of the functions
+provided by the PHP standard library can be found at \cite{PHP}.
 Throughout the implementation we did not achieve high code coverage for
-WordPress, which was the main motivation to further investigate limitations in
-the wild.
+\sf{WordPress}. In the following we present our observations we made thorughout
+the implementation regarding issues impeding symbolic execution.
 
 \subsection{Experience Report}
-We identified a number of trade-offs between accuracy and performance that may
-cause the approximation to be impractical, yet possible. Also, we identified
-limitations impeding symbolic execution conceptually. For certain language
-features, concrete information rather than symbolic values may be required to
+We identified trade-offs between accuracy and performance that may
+cause the approximation to be impractical, yet possible. Additionally, we
+detected limitations impeding symbolic execution conceptually: For certain
+language features, concrete information rather than symbolic values may be required to
 actually be executed properly as this defective execution can impact subsequent
 parts of the program which may become inaccessible and may be missed.
 
 \subsubsection{Symbolic vs Concrete Execution}
 Throughout the implementation, we basically followed the symbolic execution
-semantics described in \cite{Nguyen:2014:BCG:2635868.2635928}. Nevertheless, for additional language features as
-well as standard library functions we experienced it to be beneficial to the
-approximation to execute them as concretely as possible.
+semantics described in previous work \cite{Nguyen:2014:BCG:2635868.2635928}.
+Nevertheless, for additional language features we experienced it to be beneficial to the
+approximation to execute them as precisely as possible.
 For instance, \sf{WordPress} uses a text filter mechanism, where different
-filter functions are applied sequentially to a string literal. All filters can
+filter functions are applied sequentially to a string literal. Filters can
 be linked to a hook using  associative arrays so that when the hook is
-triggered, all filters linked to it are applied. As described in Section \ref{}
-we execute loops, in particular while loops, only once due to an possibly
+triggered, all filters that are linked to it are applied. As described in
+Section \ref{} we execute loops only once due to an possibly
 indeterminable number of iterations. PHP yet offers more loop constructs: the
 do-while loop and the foreach loop. While for the do-while loop as well as for
 the while loop the number of iterations is possibly indeterminable, the foreach
@@ -548,11 +548,12 @@ runtime. For \sf{WordPress}, we are able to achieve a more accurate
 approximation and higher code coverage results by concretely executing foreach
 loops as more server-side code (filter functions in our case) are accessed and
 executed. In turn, exhaustively executing foreach loops and filter functions
-concretely is a trade-off between accuracy and performance, as single hook can
-be called for different contexts as we are exploring multiple execution paths.
+concretely is a trade-off between accuracy and performance, as a single hook
+call site can be called from various contexts since we are exploring multiple
+execution paths.
 
-An additional aspect on the boundary of concrete and symbolic execution, or
-effort and accuracy respectively, is the extent to which program inputs are
+An additional aspect on the trade-off between concrete and symbolic execution,
+or effort and accuracy respectively, is the extent to which program inputs are
 assumed to be symbolic. As shown in Section \ref{} introducing symbolic values
 can be problematic if they are propagated to language features requiring
 concrete information, such as include expressions or indirect function calls.
@@ -567,59 +568,60 @@ between the effort to provide input data and accuracy of the approximation and
 code coverage respectively.
 
 \subsubsection{Multi-Target Method Calls}
-The first non-conceptual problem we encountered, in particular for
-\sf{WordPress} is related to object-oriented programming. While exploring
+A non-conceptual problem we encountere is related to object-oriented programming. While exploring
 different execution paths when the control flow is split, a variable can have
 different values depending on the path condition under which a value has been
-assigned to it (see the code example in Figure \ref{fig:output_example}). Similar, a variable
-can point to different objects depending on the path condition as the snippet in
-Figure \ref{fig:multi_target} illustrates. The variable \tt{\$person} can either
+assigned to it (see the code example in Figure \ref{fig:output_example}).
+Similarly, a variable can point to different objects depending on the path
+condition as the snippet in Figure \ref{fig:multi_target} illustrates. The variable \tt{\$person} can either
 point to object \tt{Alice} or \tt{Bob}. In addition, for any method invocated on
-that variable, the actual target is ambiguous as there are two, depending on the
+that variable the actual target is ambiguous as there are two, depending on the
 path condition. In order to have a sound symbolic execution, both method calls
-need to be executed. Nevertheless, the number of contexts for a method can grow
-rapidly, and easily become infeasible to execute.
+need to be executed. Nevertheless, the number of contexts for which a method can
+be called can grow rapidly, and easily become infeasible to execute
+exhaustively.
 
 We implemented several heuristic approaches to tame this state space explosion
-for multi-target method calls, including executing a method only for a subset or
-just a single object. This trade-off between accuracy and soundness
-of the symbolic execution and performance time required.
+for multi-target method calls, including executing a method only for a subset of
+target objects, or just a single object. This is a trade-off between accuracy
+and soundness of the symbolic execution and performance time required.
 
 \subsubsection{Dynamic Language Features}
-Conceptually, symbolic execution failed for two types of language features. As
-stated in Section \ref{sec:workflow}, dynamic web applications are staged and client page
-output is computed at runtime. Symbolic execution hand has shown to be a useful
-technique to approximate dynamically generated output, it is challenged by
-language features that require concrete information rather than symbolic
-information at runtime. In particular, this applies to language features that
-provide access to reusable code of the web application: include expressions and
-function calls.
+Conceptually, we identified two language features for which symbolic execution
+failed frequently. As stated in Section \ref{sec:workflow}, dynamic web
+applications are staged and client page output is computed at runtime. Symbolic
+execution has shown to be a useful technique to approximate dynamically
+generated output in theory, though it is challenged by language features that
+require concrete information rather than symbolic information at runtime. In particular, this
+applies to language features that provide access to reusable code of the web
+application: include expressions and function calls.
 
 First, include expressions in PHP usually require a string value representing
 the path to the script file or template to include. If this string value is
 statically provided by a string literal or can be constructed unambiguously, the
 symbolic execution engine was able to resolve the include expression and include
 the desired file. However, it is also common to assemble include expressions not
-only static string literals, but from several sources including user input
+only from static string literals, but from several sources including user input
 information, database query results or configuration files. Figure
 \ref{fig:dynamic_includes} shows a small example of a dynamic include containing
 information retrieved from a database. Since any input for a symbolically
-executed application is symbolic this information leads to include expressions
-containing symbolic values. Also, configuration files represent only one
-particular configuration or even just default values or placeholders. Hence, 
-symbolic execuion is prone to fail for dynamic includes if symbolic information
-is contained.
+executed application is symbolic this information can be propagated to include
+expressions. Also, configuration files represent only one particular
+configuration or even just default values or placeholders. Hence, symbolic
+execuion is prone to fail for dynamic includes if symbolic information is contained.
 
-Second, function calls can either be direct by statically providing the name of
-the function (or method), or indirect. Indirect function calls in PHP are
+Second, function can either be called directly by statically providing the name
+of the function (or method), or indirectly. Indirect function calls in PHP are
 enabled by using built-in functions like \tt{call\_user\_func},
 \tt{call\_user\_func\_array} or simply passing a string value with a direct
 function call to the \tt{eval} function. The first two functions take as
-arguments the name of the function two call, and all arguments to that functions either as additional arguments or
-array respectively. The eval function evaluates a given PHP expression passed
-as a string literal.
-Again, we encountered similar issues to dynamic include expressions with
-indirect function call mechanisms. The example in Figure
+arguments the name of the function two call, and all arguments to that
+functions either as additional arguments or a single associative array
+respectively.
+The \tt{eval} function evaluates a given PHP expression passed as a string
+literal.
+Again, we encountered issues similar to dynamic include expressions with
+indirect function call mechanisms: The example in Figure
 \ref{fig:indirect_calls} illustrates two functions \tt{header\_serif} and
 \tt{header\_sserif} which both print a HTML headline. Depending on whether the
 value of the variable \tt{\$style} retrieved from a database is \tt{serif} or
@@ -705,9 +707,9 @@ call_user_func('header_' . $font_style, 'Title');
 \end{figure}
 
 \subsubsection{Interpreter Customization}
-We have approached issues we encountered in different ways, including
-multiple-target method calls and foreach loops, as these represent a trade-off
-between accuracy of execution and performance.
+We have approached issues we encountered, including
+multiple-target method calls and foreach loops, in different ways as these
+represent a trade-off between accuracy of execution and performance.
 For method calls having ambiguous targets, we implemented different modes of
 execution, ranging from a complete mode where a method is executed for all
 possible targets to abstract modes with either a subset of targets or only a

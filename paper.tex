@@ -34,7 +34,7 @@
 
 %\usepackage[labelfont=bf]{caption}
 
-\definecolor{lightgrey}{HTML}{FFFFFC}
+\definecolor{lightgrey}{HTML}{CCFFEE}
 
 \hypersetup{
     colorlinks,
@@ -522,7 +522,7 @@ Throughout the implementation we did not achieve high code coverage for
 \sf{WordPress}. In the following we present our observations we made thorughout
 the implementation regarding issues impeding symbolic execution.
 
-\subsection{Experience Report}
+\subsection{Experience Report}\label{sec:experience_report}
 We identified trade-offs between accuracy and performance that may
 cause the approximation to be impractical, yet possible. Additionally, we
 detected limitations impeding symbolic execution conceptually: For certain
@@ -733,66 +733,53 @@ multiple-target execution for method calls.
 
 
 \section{Evaluation}
-As already stated in the previous section, we encountered sevaral problems
-during the development of the symbolic interpreter. Therefore this section
-describes our methods to evaluate practicality of the output approximation, and
-possible explanations.
-
-\subsection{Measuring Approximation Success} \label{heuristic}
-For the evaluation of our output approximation we require a ground truth output
-model to compare our approximation against. Since output literals are embedded
-in server-side code and scattered, it is nontrivial to determine whether a
-string literal is part of the ouput or not. So, in the absence of ground truth
-for the approximated output we are bound to choose a \emph{heuristic approach}
-in order to measure the accuracy of our aproximation. We define a string
-literal to be an \emph{output candidate} if there exists an execution path
-reaching the string literal and evantually passing it to an output-generating
-statement (e.g., \texttt{echo} or \texttt{print}).
-
-We approximate output candidates as those string literals containing the
-characters \texttt{<}, \texttt{>}, or both since we expect output to contain
-HTML tags. We evaluated this heuristic manually with a sample of 400 string
-literals randomly selected from the entire corpus.
-We measured for our heuristic classifier a precision of 94 percent, and a
-recall of 50 percent. This means that six percent of the string literals are
-classified incorrectly as false positives. In turn, the classifier is highly
-distinctive as 96 percent of the string literals are classified correctly. The
-recall of 50 percent means that half of the string literals, which we manually 
-classified as output, actually were responsive to the classifier. We attempted
-to increase recall by looking for further distinctive properties to build a
-classifier from, but could not do so without decreasing precision. In spite of
-missing half of the output candidates, we decided to use a simple, yet
-distinctive classifier.
+As already stated in the previous Section \ref{sec:experience_report}, we
+encountered several problems during the implementation of our symbolic
+execution engine for \sf{WordPress}. The main items of critique of the symbolic
+execution engine and tools described in previous work
+\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}
+are the missing support for widely-used language features, and the evaluation
+only using small-scale systems. Although evaluating a tool for a small systems can be a valuable proof-of-concept, it does not necessarily cover the question of whether a tool is practical on a larger-scale. Therefore in the following we present our
+methods to evaluate practicality of our symbolic output approximation.
+Moreover, we investigate to which extent the conceptual limitations encountered
+with \sf{WordPress} apply for a wider choice of PHP systems.
 
 \subsection{Experiment Setup} \label{sec:experiment_setup}
-For the evaluation we symbolically executed a selection of PHP systems. We
-selected a corpus of twelve PHP systems with regard to system size and recency
-as the corpus of the case study for \cite{Nguyen:2014:BCG:2635868.2635928} only
-contained small-scale systems that are not maintained any more. The full list
-of PHP systems is shown in Table \ref{corpus}. Our selection of PHP systems
-includes%
-\begin{itemize}
-	\item four small-scale systems that selected from the previously mentioned case
-	study in order to compare our results with the previous symbolic execution
-	engine \cite{Nguyen:2014:BCG:2635868.2635928},
+We have encountered several issues for \sf{WordPress} that conceptually limit
+the scalability of symbolic execution. Since our observations so far only considers
+one example system an, we evaluate our symbolic execution engine for a wider
+range of PHP systems with regard to the following questions. The metrics to
+approach those questions are explained in Sections
+\ref{HowAccurateIsOurApproximation} and \ref{sec:understanding_limitations}.
 
-	\item three recent large-scale systems selected from the case study corpus of
-	\cite{Hills:2013:ESP:2483760.2483786}, and
-	
-	\item four small-scale systems selected from a list of recent Content
-	Management Systems \cite{codegeekz}.
-\end{itemize}
+First, the evaluation of the output approximation using the symbolic execution
+engine, \sf{Symex}, in previous work \cite{Nguyen:2014:BCG:2635868.2635928} has
+shown high code coverage for small systems. As our symbolic execution
+re-implements \sf{Symex} and extends with support for additional language
+features, we ask whether we can replicate high coverage results at least on a small-scale. Therefore, our PHP
+corpus contains four small-scale systems used in previous work \cite{Nguyen:2014:BCG:2635868.2635928}.
 
-As for for the last two cases, we limited our selection since the parser we
-used did not support all language features used. For the experimental evaluation we symbolically executed per system each script file or entry point (files with a \texttt{.php}, \texttt{.inc}, \texttt{.bit} or \texttt{.module} extension). All following measurements are cumulated per system for each entry point. 
+Second, we ask whether system size and usage of modern language features are
+factors affecting the practicality of our symbolic execution engine. We
+selected both a range of large-scale and small-scale modern PHP systems to
+better separate and understand the circumstances under which conceptual
+limitations might affect practicality. For the selection of large-scale systems
+we borrow three systems from a case study addressing the feature usage in PHP
+systems. Some more detailed description of this case study can be found in
+Section \ref{sec:related_work}. For the small-scale systems we selected five systems from
+a list of recent Content Management Systems (CMS) written in PHP \cite{codegeekz}. For both
+selections we were bound to select a smaller number of system than we intended
+to since the parser used in our implementation, \sf{Quercus}\footnote{Quercus
+footnote}, did not support a number of language features. The full list of PHP
+systems for that we evaluate our symbolic execution engine along with
+descriptive code metrics can be found in Table \ref{corpus}.
 
 \begin{table*}[t]
 \centering 
 	\begin{tabular}{lrp{4cm}rrrr}
 	\toprule
 	\textbf{System} & \textbf{Version} & \textbf{Classification} & \textbf{SLOC} &
-	\textbf{\#files} & \textbf{\#OCs} & \textbf{\#includes}
-	\\
+	\textbf{\#files} & \textbf{\#OCs} & \textbf{\#includes}\\
 	\midrule
 	AddressBook & 8.2.5.2 &  & 51,907 & 239  & 1009 & 186\\
 	SchoolMate & 1.5.4 &  & 8,118 & 65  & 853 & 88\\
@@ -814,6 +801,36 @@ used did not support all language features used. For the experimental evaluation
 	.inc, .bit or .module extension.}
 	\label{corpus}
 \end{table*}
+
+\subsection{Measuring Approximation Success} \label{heuristic}
+In order to accurately answer the question how good our symbolic execution
+engine approximates client page output, we would require knowledge of all
+possible variants to compare our approximation against. Since we do not have
+any ground truth information alike, we approach this demand by using a
+heuristic. Rather than having knowledge about all client page output variants
+we say our approximation is sound if all string literals (which are embedded in
+and  scattered across server-side code) that may eventually become part of any
+client page output variant (in the following referred to as \emph{output
+candidate}) is contained in our symbolic output approximation.
+It is non-trivial to determine whether a string literal is an output candidate,
+so we heuristically classify string literals as output candidates if they
+contain the characters \tt{<}, \tt{>}, or both since we expect output to contain
+HTML tags.
+
+We evaluated this heuristic manually with a sample of 400 string
+literals randomly selected from our corpus of PHP systems (see Table
+\ref{corpus}). We measured for our heuristic classifier a precision of 94 percent, and a
+recall of 50 percent. This means that six percent of the string literals are
+classified incorrectly as false positives. In turn, the classifier is highly
+distinctive as 96 percent of the string literals are classified correctly. The
+recall of 50 percent means that half of the string literals, which we manually 
+classified as output candidates, actually were responsive to the classifier. We
+attempted to increase recall by looking for further distinctive properties to build a
+classifier from, but could not do so without decreasing precision. 
+\textcolor{blue}{In spite of missing half of the output candidates, we decided to use a simple, yet
+precise and distinctive classifier.}
+
+
 
 
 \subsection{Measuring Approximation Accuracy}
@@ -845,7 +862,7 @@ We measured medium to high coverage for the more recent small-scale systems:
 reach coverage ranging from 43 to 85 percent, output coverage ranging from 40
 to 85 percent.
 
-\subsection{Understanding Limitations}
+\subsection{Understanding Limitations} \label{sec:understanding_limitations}
 As we have seen in Section \ref{HowAccurateIsOurApproximation} both measured
 coverage metrics were poor for large-scale and small-scale/recent systems. To
 understand what output candidates we missed and why, we further investigated
@@ -1001,7 +1018,7 @@ For failed function calls to functions containing not-reached
 \textcolor{blue}{\Blindtext}
 
 
-\section{Related Work}
+\section{Related Work} \label{sec:related_work}
 \cite{Hills:2013:ESP:2483760.2483786}
 \cite{wassermann2007sound,minamide2005static}
 \textcolor{blue}{\blindtext\blindtext}

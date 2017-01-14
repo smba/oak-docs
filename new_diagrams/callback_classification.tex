@@ -1,0 +1,22 @@
+% X, Y, Z = target nodes
+% XS, YS, ZS = source nodes
+% M = 'main' context node
+
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,
+                    semithick,thick,scale=0.7, every node/.style={transform
+                    shape}] \tikzstyle{every state}=[fill=white,draw=black,text=black]
+
+  \node[state] 	(XS)                    {};
+  \node[state]  (YS) [right of = XS]    {};
+  \node[state]  (M)  [right of = YS]    {\tt{main}};
+  \node[state]  (ZS) [right of = M]     {};
+  \node[state]  (X)  [below of = XS] 	{\tt{X()}};
+  \node[state]  (Y)  [below of = YS]    {\tt{Y()}};
+  \node[state]  (Z)  [below of = ZS]    {\tt{Z()}};
+
+  \path (XS) edge node {} (X)
+  		(YS) edge node {} (Y)
+  		(M)  edge [bend right] node {} (Y)
+  		(M)  edge node {} (ZS)
+  		(ZS) edge node {} (Z);
+\end{tikzpicture}

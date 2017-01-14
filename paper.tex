@@ -82,6 +82,10 @@
 
 \usepackage{pgfplots, pgfplotstable}
 
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
 \usepackage{xcolor}
 
 % Copyright
@@ -999,9 +1003,10 @@ accessed by callback candidates, whereas function \tt{Z} is never accessible
 through callback candidates.
 
 % Callback candidate description
-\begin{figure}[t!]
+\begin{figure}
 	%\centering
-	\includegraphics[scale=0.55]{images-paper/callgraph_cases}
+	%\includegraphics[scale=0.55]{images-paper/callgraph_cases}
+    \input{new_diagrams/callback_classification}
     \caption{Callgraph analysis: The bottom nodes represent functions
     containing missed output candidates, the top nodes depict entry points to
     them.}

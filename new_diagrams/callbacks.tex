@@ -44,19 +44,29 @@ Nibbleblog	100		0		0
     area legend
     ]
     
-    \addplot [fill=bene1!100] table [
+    \addplot +[
+    	black,
+    	fill=white,
+    	postaction={
+        pattern=crosshatch%north east lines
+    }] table [
     	x=Complete, 
     	meta=Label,
     	y expr=\coordindex
     ] {\testdata}; 
     
-    \addplot [fill=bene2!100] table [
+    \addplot +[
+    	black,
+    	fill=white,
+    	postaction={
+        pattern=north east lines
+    }] table [
     	x=Partial, 
     	meta=Label,
     	y expr=\coordindex
     ]    {\testdata}; 
     
-    \addplot [fill=bene3!100] table [
+    \addplot [fill=white!100] table [
     	x=Not, 
     	meta=Label,
     	y expr=\coordindex

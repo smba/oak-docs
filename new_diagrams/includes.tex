@@ -44,19 +44,29 @@ Nibbleblog	91	9	0
     area legend
     ]
     
-    \addplot [fill=bena1!100] table [
+    \addplot +[
+    	black,
+    	fill=white,
+    	postaction={
+        pattern=crosshatch%north east lines
+    }] table [
     	x=Reached/Resolved, 
     	meta=Label,
     	y expr=\coordindex
     ] {\testdata}; 
     
-    \addplot [fill=bena2!100] table [
+    \addplot +[
+    	black,
+    	fill=white,
+    	postaction={
+        pattern=north east lines
+    }] table [
     	x=OnlyReached, 
     	meta=Label,
     	y expr=\coordindex
     ]    {\testdata}; 
     
-    \addplot [fill=bena3!100] table [
+    \addplot [fill=white!100] table [
     	x=NotReached, 
     	meta=Label,
     	y expr=\coordindex

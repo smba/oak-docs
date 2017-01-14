@@ -1,8 +1,8 @@
 \definecolor{bener1}{HTML}{a0c8a0}
 \definecolor{bener2}{HTML}{CFC990}
 \definecolor{bener3}{HTML}{FFFF99}
-\definecolor{bener4}{HTML}{FFCC66}
-\definecolor{bener5}{HTML}{FF9933}
+\definecolor{bener4}{HTML}{CCCCCC}
+\definecolor{bener5}{HTML}{000000}
 
 \pgfplotstableread{ % data 
 Label     Reached/Output OnlyReached FunctionContext NotImported Misc
@@ -45,19 +45,29 @@ Nibbleblog 		59	12	26	0	3
     area legend
     ]
     
-    \addplot [fill=bener1!100] table [
+    \addplot +[
+    	black,
+    	fill=white,
+    	postaction={
+        pattern=crosshatch%north east lines
+    }] table [
     	x=Reached/Output, 
     	meta=Label,
     	y expr=\coordindex
     ] {\testdata}; 
     
-    \addplot [fill=bener2!100] table [
+    \addplot +[
+    	black,
+    	fill=white,
+    	postaction={
+        pattern=north east lines
+    }] table [
     	x=OnlyReached, 
     	meta=Label,
     	y expr=\coordindex
     ]    {\testdata}; 
     
-    \addplot [fill=bener3!100] table [
+    \addplot [fill=white!100] table [
     	x=FunctionContext, 
     	meta=Label,
     	y expr=\coordindex

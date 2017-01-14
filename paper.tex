@@ -6,7 +6,8 @@
 % does not seem to work with sigconf template
 %\usepackage{cite}
 
-
+\usepackage{tikz}
+\usetikzlibrary{patterns}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -34,7 +35,7 @@
 
 %\usepackage[labelfont=bf]{caption}
 
-\definecolor{lightgrey}{HTML}{CCFFEE}
+\definecolor{lightgrey}{HTML}{FFFFFF}
 
 \hypersetup{
     colorlinks,
@@ -731,7 +732,6 @@ approximation quality. In the next Section we analyze in detail the impact of
 dynamic features with concrete foreach loop execution and complete
 multiple-target execution for method calls.
 
-
 \section{Evaluation}
 As already stated in the previous Section \ref{sec:experience_report}, we
 encountered several problems during the implementation of our symbolic
@@ -739,9 +739,11 @@ execution engine for \sf{WordPress}. The main items of critique of the symbolic
 execution engine and tools described in previous work
 \cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}
 are the missing support for widely-used language features, and the evaluation
-only using small-scale systems. Although evaluating a tool for a small systems can be a valuable proof-of-concept, it does not necessarily cover the question of whether a tool is practical on a larger-scale. Therefore in the following we present our
-methods to evaluate practicality of our symbolic output approximation.
-Moreover, we investigate to which extent the conceptual limitations encountered
+only using small-scale systems. Although evaluating a tool for a small systems
+can be a valuable proof-of-concept, it does not necessarily cover the question
+of whether a tool is practical on a larger-scale. Therefore in the following we
+present our methods to evaluate practicality of our symbolic output
+approximation. Moreover, we investigate to which extent the conceptual limitations encountered
 with \sf{WordPress} apply for a wider choice of PHP systems.
 
 \subsection{Experiment Setup} \label{sec:experiment_setup}
@@ -808,8 +810,8 @@ engine approximates client page output, we would require knowledge of all
 possible variants to compare our approximation against. Since we do not have
 any ground truth information alike, we approach this demand by using a
 heuristic. Rather than having knowledge about all client page output variants
-we say our approximation is sound if all string literals (which are embedded in
-and  scattered across server-side code) that may eventually become part of any
+we say our approximation is accurate if all string literals (which are embedded
+in and  scattered across server-side code) that may eventually become part of any
 client page output variant (in the following referred to as \emph{output
 candidate}) is contained in our symbolic output approximation.
 It is non-trivial to determine whether a string literal is an output candidate,
@@ -830,31 +832,30 @@ classifier from, but could not do so without decreasing precision.
 \textcolor{blue}{In spite of missing half of the output candidates, we decided to use a simple, yet
 precise and distinctive classifier.}
 
-
-
-
 \subsection{Measuring Approximation Accuracy}
 \label{HowAccurateIsOurApproximation} 
 In Section \ref{heuristic} we introduced the definition of output candidates as
-expected output. As a most accurate approximation contains all output
-candidates, we define two metrics to measure accuracy of our approximation.
+expected output. For an approximation to be most accurate, it needs to contain
+all output candidates of a system analyzed. Based on whether output
+candidates are reached by an execution path and part of the output
+approximatiopn define two metrics to approach measuring accuracy.
 
-First, we measure how much of the expected output was actually processed by the
+We measure how much of the expected output was actually processed by the
 symbolic interpreter.  Once a line of code, a statement or expression
 containing an output candidate is actually an element in an execution path, we
-define this output candidate as reached. We define the metric \emph{reach
+define this output candidate as \emph{reached}. We define the metric \emph{reach
 coverage} as the ratio of output candidates that are reached and the total
 number of output candidates in the analyzed system. Although a reached output
 candidate is processed by the symbolic interpreter, it does not guarantee we
-will see that output candidate in the symbolic output. Second, we define the
+will see that output candidate in the symbolic output. Therefore, we define the
 metric \emph{output coverage} as the ratio of output candidates that are
 contained in the output of the symbolic interpreter and the total number of
-output candidates in the analyzed system.  For an imprecise approximation, we
-may see loss of output candidate information resulting in a output coverage
-lower than the reach coverage.
+output candidates in the analyzed system.  
+%For an imprecise approximation, we may see loss of output candidate information
+% resulting in a output coverage lower than the reach coverage.
 
-The coverage results are illustrated in Figure \ref{coverage}. We could
-replicate high coverage results for the four small-scale systems with a reach
+The coverage results for our case study are illustrated in Figure
+\ref{coverage}. We could replicate high coverage results for the four small-scale systems with a reach
 coverage and output coverage over 80 percent respectively. For the three
 modern/large-scale systems we measured poor coverage with reach coverage
 ranging from 5 to 30 percent and output coverage ranging from 4 to 20 percent.

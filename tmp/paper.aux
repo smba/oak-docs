@@ -16,20 +16,22 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{phpNET}
 \citation{alexaPHP}
 \citation{tiobePHP}
 \citation{githubPHP}
 \citation{Darringer1978,King1976}
 \citation{Nguyen:2011:AFH:2190078.2190142}
-\citation{Nguyen:2014:BCG:2635868.2635928}
 \citation{Nguyen:2015:CPS:2786805.2786872}
-\citation{Nguyen:2015:VIS:2819009.2819140}
+\citation{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}
+\citation{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2011:AFH:2190078.2190142}
 \citation{Nguyen:2014:BCG:2635868.2635928}
 \@writefile{toc}{\contentsline {section}{Abstract}{1}{section*.2}}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}}
 \citation{King1976}
 \citation{King1976,Darringer1978}
 \citation{King1976}
+\citation{Nguyen:2014:BCG:2635868.2635928}
 \citation{Nguyen:2014:BCG:2635868.2635928}
 \@writefile{toc}{\contentsline {section}{\numberline {2}State Of the Art}{2}{section.2}}
 \newlabel{sec:stateoftheart}{{2}{2}{State Of the Art}{section.2}{}}
@@ -39,13 +41,13 @@
 \newlabel{sec:workflow}{{2.2}{2}{Static Output Approximation for PHP}{subsection.2.2}{}}
 \newlabel{sec:workflow@cref}{{[subsection][2][2]2.2}{2}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:web_application}{{1a}{2}{Snippet of HTML and PHP server-side web application code. \relax }{figure.caption.5}{}}
+\newlabel{fig:web_application}{{1a}{2}{Snippet of server-side HTML and PHP web application code. \relax }{figure.caption.5}{}}
 \newlabel{fig:web_application@cref}{{[subfigure][1][1]1a}{2}}
-\newlabel{sub@fig:web_application}{{a}{2}{Snippet of HTML and PHP server-side web application code. \relax }{figure.caption.5}{}}
+\newlabel{sub@fig:web_application}{{a}{2}{Snippet of server-side HTML and PHP web application code. \relax }{figure.caption.5}{}}
 \newlabel{sub@fig:web_application@cref}{{[subfigure][1][1]1a}{2}}
-\newlabel{fig:output_example}{{1b}{2}{Approximation client paege output of the server-side web application code in Figure \ref {fig:web_application}. Variability as well as repetition annotations are represented by preprocessor directives.  \relax }{figure.caption.5}{}}
+\newlabel{fig:output_example}{{1b}{2}{Approximated client page output of the server-side code in Figure \ref {fig:web_application}. The directives in lines 6 and 8 highlight output that can be repeated an arbitrary number of times, the directives in line 10 and 14 mark two alternative output parts.  \relax }{figure.caption.5}{}}
 \newlabel{fig:output_example@cref}{{[subfigure][2][1]1b}{2}}
-\newlabel{sub@fig:output_example}{{b}{2}{Approximation client paege output of the server-side web application code in Figure \ref {fig:web_application}. Variability as well as repetition annotations are represented by preprocessor directives.  \relax }{figure.caption.5}{}}
+\newlabel{sub@fig:output_example}{{b}{2}{Approximated client page output of the server-side code in Figure \ref {fig:web_application}. The directives in lines 6 and 8 highlight output that can be repeated an arbitrary number of times, the directives in line 10 and 14 mark two alternative output parts.  \relax }{figure.caption.5}{}}
 \newlabel{sub@fig:output_example@cref}{{[subfigure][2][1]1b}{2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  Illustration of static ouptut approximation using symbolic execution  \relax }}{2}{figure.caption.5}}
 \newlabel{fig:code_example}{{1}{2}{Illustration of static ouptut approximation using symbolic execution  \relax }{figure.caption.5}{}}
@@ -53,26 +55,38 @@
 \citation{Nguyen:2011:AFH:2190078.2190142}
 \citation{Nguyen:2015:CPS:2786805.2786872}
 \citation{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}
+\citation{Alshahwan2011}
+\citation{Nguyen:2014:BCG:2635868.2635928}
+\citation{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}
 \citation{Nguyen:2014:BCG:2635868.2635928}
 \citation{Nguyen:2014:BCG:2635868.2635928}
-\citation{Nguyen:2014:BCG:2635868.2635928}
-\citation{PHP}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Existing Tool Support for PHP}{3}{subsection.2.3}}
-\newlabel{sec:existing_tools}{{2.3}{3}{Existing Tool Support for PHP}{subsection.2.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Symbolic-Execution-based Tools For PHP}{3}{subsection.2.3}}
+\newlabel{sec:existing_tools}{{2.3}{3}{Symbolic-Execution-based Tools For PHP}{subsection.2.3}{}}
 \newlabel{sec:existing_tools@cref}{{[subsection][3][2]2.3}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Assumptions And Limitations}{3}{subsection.2.4}}
 \newlabel{sec:limitations}{{2.4}{3}{Assumptions And Limitations}{subsection.2.4}{}}
 \newlabel{sec:limitations@cref}{{[subsection][4][2]2.4}{3}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Scalable Output Approximation}{3}{section.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Towards Scalable Output Approximation?}{3}{subsection.3.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Things We Learned The Hard Way}{4}{subsection.3.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Symbolic vs Concrete Execution}{4}{subsubsection.3.2.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Multi-Target Method Calls}{4}{subsubsection.3.2.2}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Dynamic Language Features}{4}{subsubsection.3.2.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Things We Tried\ldots  }{4}{subsection.3.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Scalable Output Approximation?}{3}{section.3}}
+\newlabel{sec:3}{{3}{3}{Scalable Output Approximation?}{section.3}{}}
+\newlabel{sec:3@cref}{{[section][3][]3}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Experience Report}{3}{subsection.3.1}}
+\newlabel{sec:experience_report}{{3.1}{3}{Experience Report}{subsection.3.1}{}}
+\newlabel{sec:experience_report@cref}{{[subsection][1][3]3.1}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Symbolic/Concrete Loop Execution}{3}{subsubsection.3.1.1}}
+\citation{Sen:2015:MMS:2786805.2786830}
+\citation{Nguyen:2014:BCG:2635868.2635928}
+\citation{hills2015variable}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Method Target Space Explosion}{4}{subsubsection.3.1.2}}
+\newlabel{sec:experiment_dynamicfeatures}{{3.1.3}{4}{Dynamic Language Features}{subsubsection.3.1.3}{}}
+\newlabel{sec:experiment_dynamicfeatures@cref}{{[subsubsection][3][3,1]3.1.3}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Dynamic Language Features}{4}{subsubsection.3.1.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Symbolic/Concrete Input}{4}{subsubsection.3.1.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Experience Results}{4}{subsection.3.2}}
+\newlabel{sec:experience_results}{{3.2}{4}{Experience Results}{subsection.3.2}{}}
+\newlabel{sec:experience_results@cref}{{[subsection][2][3]3.2}{4}}
+\citation{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}
 \citation{Nguyen:2014:BCG:2635868.2635928}
 \citation{Nguyen:2014:BCG:2635868.2635928}
-\citation{Hills:2013:ESP:2483760.2483786}
 \citation{codegeekz}
 \newlabel{fig:multi_target}{{2a}{5}{Dynamic dispatch: Multiple targets for method calls  \relax }{figure.caption.6}{}}
 \newlabel{fig:multi_target@cref}{{[subfigure][1][2]2a}{5}}
@@ -90,66 +104,107 @@
 \newlabel{fig:defective_code_features}{{2}{5}{Code Examples of defective code features  \relax }{figure.caption.6}{}}
 \newlabel{fig:defective_code_features@cref}{{[figure][2][]2}{5}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Evaluation}{5}{section.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Measuring Approximation Success}{5}{subsection.4.1}}
-\newlabel{heuristic}{{4.1}{5}{Measuring Approximation Success}{subsection.4.1}{}}
-\newlabel{heuristic@cref}{{[subsection][1][4]4.1}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Experiment Setup}{5}{subsection.4.2}}
-\newlabel{sec:experiment_setup}{{4.2}{5}{Experiment Setup}{subsection.4.2}{}}
-\newlabel{sec:experiment_setup@cref}{{[subsection][2][4]4.2}{5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Measuring Approximation Accuracy}{5}{subsection.4.3}}
-\newlabel{HowAccurateIsOurApproximation}{{4.3}{5}{Measuring Approximation Accuracy}{subsection.4.3}{}}
-\newlabel{HowAccurateIsOurApproximation@cref}{{[subsection][3][4]4.3}{5}}
+\newlabel{sec:evaluation}{{4}{5}{Evaluation}{section.4}{}}
+\newlabel{sec:evaluation@cref}{{[section][4][]4}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Experiment Setup}{5}{subsection.4.1}}
+\newlabel{sec:experiment_setup}{{4.1}{5}{Experiment Setup}{subsection.4.1}{}}
+\newlabel{sec:experiment_setup@cref}{{[subsection][1][4]4.1}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Measuring Approximation Success}{5}{subsection.4.2}}
+\newlabel{heuristic}{{4.2}{5}{Measuring Approximation Success}{subsection.4.2}{}}
+\newlabel{heuristic@cref}{{[subsection][2][4]4.2}{5}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Corpus of twelve PHP systems. The file count includes files with a .php, .inc, .bit or .module extension.\relax }}{6}{table.caption.7}}
 \newlabel{corpus}{{1}{6}{Corpus of twelve PHP systems. The file count includes files with a .php, .inc, .bit or .module extension.\relax }{table.caption.7}{}}
 \newlabel{corpus@cref}{{[table][1][]1}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Measuring Approximation Accuracy}{6}{subsection.4.3}}
+\newlabel{HowAccurateIsOurApproximation}{{4.3}{6}{Measuring Approximation Accuracy}{subsection.4.3}{}}
+\newlabel{HowAccurateIsOurApproximation@cref}{{[subsection][3][4]4.3}{6}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Understanding Limitations}{6}{subsection.4.4}}
+\newlabel{sec:understanding_limitations}{{4.4}{6}{Understanding Limitations}{subsection.4.4}{}}
+\newlabel{sec:understanding_limitations@cref}{{[subsection][4][4]4.4}{6}}
 \newlabel{WhatLiteralsDidWeMiss?}{{4.4.1}{6}{What literals did we miss?}{subsubsection.4.4.1}{}}
 \newlabel{WhatLiteralsDidWeMiss?@cref}{{[subsubsection][1][4,4]4.4.1}{6}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}What literals did we miss?}{6}{subsubsection.4.4.1}}
-\newlabel{sec:inaccessible}{{4.4.2}{6}{Inaccessible Dynamic Features}{subsubsection.4.4.2}{}}
-\newlabel{sec:inaccessible@cref}{{[subsubsection][2][4,4]4.4.2}{6}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Inaccessible Dynamic Features}{6}{subsubsection.4.4.2}}
-\newlabel{WhyDidIncludesFail}{{4.4.3}{6}{Why did includes fail?}{subsubsection.4.4.3}{}}
-\newlabel{WhyDidIncludesFail@cref}{{[subsubsection][3][4,4]4.4.3}{6}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Why did includes fail?}{6}{subsubsection.4.4.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Callgraph analysis: The bottom nodes represent functions containing missed output candidates, the top nodes depict entry points to them.\relax }}{7}{figure.caption.8}}
-\newlabel{fig:callgraph}{{3}{7}{Callgraph analysis: The bottom nodes represent functions containing missed output candidates, the top nodes depict entry points to them.\relax }{figure.caption.8}{}}
-\newlabel{fig:callgraph@cref}{{[figure][3][]3}{7}}
-\newlabel{WhyDidFunctionCallsFail}{{4.4.4}{7}{Why did function calls fail?}{subsubsection.4.4.4}{}}
-\newlabel{WhyDidFunctionCallsFail@cref}{{[subsubsection][4][4,4]4.4.4}{7}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Why did function calls fail?}{7}{subsubsection.4.4.4}}
-\newlabel{coverage}{{4a}{7}{\relax }{figure.caption.9}{}}
-\newlabel{coverage@cref}{{[subfigure][1][4]4a}{7}}
-\newlabel{sub@coverage}{{a}{7}{\relax }{figure.caption.9}{}}
-\newlabel{sub@coverage@cref}{{[subfigure][1][4]4a}{7}}
-\newlabel{fig:include_coverage_results}{{4b}{7}{Include coverage and accuracy.  \relax }{figure.caption.9}{}}
-\newlabel{fig:include_coverage_results@cref}{{[subfigure][2][4]4b}{7}}
-\newlabel{sub@fig:include_coverage_results}{{b}{7}{Include coverage and accuracy.  \relax }{figure.caption.9}{}}
-\newlabel{sub@fig:include_coverage_results@cref}{{[subfigure][2][4]4b}{7}}
-\newlabel{fig:output_candidate_explanation}{{4c}{7}{Distribution dead function output candidates that are par- tially or completely explained due to callback candidates.  \relax }{figure.caption.9}{}}
-\newlabel{fig:output_candidate_explanation@cref}{{[subfigure][3][4]4c}{7}}
-\newlabel{sub@fig:output_candidate_explanation}{{c}{7}{Distribution dead function output candidates that are par- tially or completely explained due to callback candidates.  \relax }{figure.caption.9}{}}
-\newlabel{sub@fig:output_candidate_explanation@cref}{{[subfigure][3][4]4c}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Results\relax }}{7}{figure.caption.9}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Lessons Learned}{7}{section.5}}
+\newlabel{coverage}{{3a}{7}{\relax }{figure.caption.8}{}}
+\newlabel{coverage@cref}{{[subfigure][1][3]3a}{7}}
+\newlabel{sub@coverage}{{a}{7}{\relax }{figure.caption.8}{}}
+\newlabel{sub@coverage@cref}{{[subfigure][1][3]3a}{7}}
+\newlabel{fig:include_coverage_results}{{3b}{7}{Include coverage and accuracy.  \relax }{figure.caption.8}{}}
+\newlabel{fig:include_coverage_results@cref}{{[subfigure][2][3]3b}{7}}
+\newlabel{sub@fig:include_coverage_results}{{b}{7}{Include coverage and accuracy.  \relax }{figure.caption.8}{}}
+\newlabel{sub@fig:include_coverage_results@cref}{{[subfigure][2][3]3b}{7}}
+\newlabel{fig:output_candidate_explanation}{{3c}{7}{Distribution dead function output candidates that are par- tially or completely explained due to callback candidates.  \relax }{figure.caption.8}{}}
+\newlabel{fig:output_candidate_explanation@cref}{{[subfigure][3][3]3c}{7}}
+\newlabel{sub@fig:output_candidate_explanation}{{c}{7}{Distribution dead function output candidates that are par- tially or completely explained due to callback candidates.  \relax }{figure.caption.8}{}}
+\newlabel{sub@fig:output_candidate_explanation@cref}{{[subfigure][3][3]3c}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Results\relax }}{7}{figure.caption.8}}
+\newlabel{WhyDidIncludesFail}{{4.4.2}{7}{Why did includes fail?}{subsubsection.4.4.2}{}}
+\newlabel{WhyDidIncludesFail@cref}{{[subsubsection][2][4,4]4.4.2}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Why did includes fail?}{7}{subsubsection.4.4.2}}
+\newlabel{WhyDidFunctionCallsFail}{{4.4.3}{7}{Why did function calls fail?}{subsubsection.4.4.3}{}}
+\newlabel{WhyDidFunctionCallsFail@cref}{{[subsubsection][3][4,4]4.4.3}{7}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Why did function calls fail?}{7}{subsubsection.4.4.3}}
+\citation{artzi_finding_2008,artzi_finding_2010}
+\citation{DynamicWassermann}
+\citation{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,minamide_static_2005,wassermann2007sound}
+\citation{minamide_static_2005,Nguyen:2014:BCG:2635868.2635928,wang_automating_2012}
+\citation{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,wassermann2007sound,wassermann_static_2008}
+\citation{Nguyen:2014:BCG:2635868.2635928}
+\citation{tonella_web_2005,tonella_2001,tonella_2002}
+\citation{minamide_static_2005}
+\citation{wassermann_static_2008}
+\citation{wassermann2007sound}
+\citation{wang_locating_2010}
+\citation{wang_automating_2012}
+\citation{Hills:2013:ESP:2483760.2483786}
+\citation{hills2014static,hills2014php}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Callgraph analysis: The bottom nodes represent functions containing missed output candidates, the top nodes depict entry points to them.\relax }}{8}{figure.caption.9}}
+\newlabel{fig:callgraph}{{4}{8}{Callgraph analysis: The bottom nodes represent functions containing missed output candidates, the top nodes depict entry points to them.\relax }{figure.caption.9}{}}
+\newlabel{fig:callgraph@cref}{{[figure][4][]4}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Lessons Learned}{8}{section.5}}
+\@writefile{toc}{\contentsline {paragraph}{Dynamic features are problematic.}{8}{section*.10}}
+\@writefile{toc}{\contentsline {paragraph}{Bypassing conceptual limitations.}{8}{section*.11}}
+\@writefile{toc}{\contentsline {paragraph}{Practical tools require practical evaluation.}{8}{section*.12}}
+\@writefile{toc}{\contentsline {paragraph}{The road so far.}{8}{section*.13}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Related Work}{8}{section.6}}
+\newlabel{sec:related_work}{{6}{8}{Related Work}{section.6}{}}
+\newlabel{sec:related_work@cref}{{[section][6][]6}{8}}
+\@writefile{toc}{\contentsline {paragraph}{Static Output Approximation}{8}{section*.14}}
+\@writefile{toc}{\contentsline {paragraph}{Dynamic Features}{8}{section*.15}}
 \bibstyle{ACM-Reference-Format}
 \bibdata{bibliography}
 \bibcite{codegeekz}{{1}{cod}{{??}}{{}}}
-\bibcite{githubPHP}{{2}{git}{{??}}{{}}}
-\bibcite{alexaPHP}{{3}{ale}{{??}}{{}}}
-\bibcite{tiobePHP}{{4}{tio}{{??}}{{}}}
-\bibcite{Darringer1978}{{5}{1978}{{Darringer and King}}{{Darringer and King}}}
-\bibcite{Hills:2013:ESP:2483760.2483786}{{6}{2013}{{Hills et~al\unhbox \voidb@x \hbox {.}}}{{Hills, Klint, and Vinju}}}
-\bibcite{King1976}{{7}{1976}{{King}}{{King}}}
-\bibcite{Nguyen:2014:BCG:2635868.2635928}{{8}{2014}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, K\"{a}stner, and Nguyen}}}
-\bibcite{Nguyen:2015:CPS:2786805.2786872}{{9}{2015a}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, K\"{a}stner, and Nguyen}}}
-\bibcite{Nguyen:2015:VIS:2819009.2819140}{{10}{2015b}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, K\"{a}stner, and Nguyen}}}
-\bibcite{Nguyen:2011:AFH:2190078.2190142}{{11}{2011}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, Nguyen, Nguyen, and Nguyen}}}
+\bibcite{phpNET}{{2}{php}{{??}}{{}}}
+\bibcite{githubPHP}{{3}{git}{{??}}{{}}}
+\bibcite{alexaPHP}{{4}{ale}{{??}}{{}}}
+\bibcite{tiobePHP}{{5}{tio}{{??}}{{}}}
+\bibcite{Alshahwan2011}{{6}{2011}{{Alshahwan and Harman}}{{Alshahwan and Harman}}}
+\bibcite{artzi_finding_2008}{{7}{2008}{{Artzi et~al\unhbox \voidb@x \hbox {.}}}{{Artzi, Kiezun, Dolby, Tip, Dig, Paradkar, and Ernst}}}
+\bibcite{artzi_finding_2010}{{8}{2010}{{Artzi et~al\unhbox \voidb@x \hbox {.}}}{{Artzi, Kiezun, Dolby, Tip, Dig, Paradkar, and Ernst}}}
+\bibcite{Darringer1978}{{9}{1978}{{Darringer and King}}{{Darringer and King}}}
+\bibcite{hills2015variable}{{10}{2015}{{Hills}}{{Hills}}}
+\bibcite{hills2014php}{{11}{2014}{{Hills and Klint}}{{Hills and Klint}}}
+\bibcite{Hills:2013:ESP:2483760.2483786}{{12}{2013}{{Hills et~al\unhbox \voidb@x \hbox {.}}}{{Hills, Klint, and Vinju}}}
+\bibcite{hills2014static}{{13}{2014}{{Hills et~al\unhbox \voidb@x \hbox {.}}}{{Hills, Klint, and Vinju}}}
+\bibcite{King1976}{{14}{1976}{{King}}{{King}}}
+\bibcite{minamide_static_2005}{{15}{2005}{{Minamide}}{{Minamide}}}
+\bibcite{Nguyen:2014:BCG:2635868.2635928}{{16}{2014}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, K\"{a}stner, and Nguyen}}}
+\bibcite{Nguyen:2015:CPS:2786805.2786872}{{17}{2015a}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, K\"{a}stner, and Nguyen}}}
+\bibcite{Nguyen:2015:VIS:2819009.2819140}{{18}{2015b}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, K\"{a}stner, and Nguyen}}}
+\bibcite{Nguyen:2011:AFH:2190078.2190142}{{19}{2011}{{Nguyen et~al\unhbox \voidb@x \hbox {.}}}{{Nguyen, Nguyen, Nguyen, and Nguyen}}}
+\bibcite{tonella_2001}{{20}{2001}{{Ricca and Tonella}}{{Ricca and Tonella}}}
+\bibcite{tonella_2002}{{21}{2002}{{Ricca and Tonella}}{{Ricca and Tonella}}}
+\bibcite{Sen:2015:MMS:2786805.2786830}{{22}{2015}{{Sen et~al\unhbox \voidb@x \hbox {.}}}{{Sen, Necula, Gong, and Choi}}}
+\bibcite{tonella_web_2005}{{23}{2005}{{Tonella and Ricca}}{{Tonella and Ricca}}}
+\bibcite{wang_locating_2010}{{24}{2010}{{Wang et~al\unhbox \voidb@x \hbox {.}}}{{Wang, Zhang, Xie, Mei, and Sun}}}
+\bibcite{wang_automating_2012}{{25}{2012}{{Wang et~al\unhbox \voidb@x \hbox {.}}}{{Wang, Zhang, Xie, Xiong, and Mei}}}
+\bibcite{wassermann2007sound}{{26}{2007}{{Wassermann and Su}}{{Wassermann and Su}}}
+\bibcite{wassermann_static_2008}{{27}{2008}{{Wassermann and Su}}{{Wassermann and Su}}}
+\bibcite{DynamicWassermann}{{28}{2008}{{Wassermann et~al\unhbox \voidb@x \hbox {.}}}{{Wassermann, Yu, Chander, Dhurjati, Inamura, and Su}}}
 \newlabel{tocindent-1}{0pt}
 \newlabel{tocindent0}{0pt}
 \newlabel{tocindent1}{0pt}
 \newlabel{tocindent2}{0pt}
 \newlabel{tocindent3}{0pt}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Related Work}{8}{section.6}}
-\@writefile{toc}{\contentsline {section}{References}{8}{section*.11}}
-\newlabel{TotPages}{{8}{8}{}{page.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{9}{section.7}}
+\@writefile{toc}{\contentsline {section}{References}{9}{section*.17}}
+\newlabel{TotPages}{{9}{9}{}{page.9}{}}

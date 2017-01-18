@@ -47,6 +47,14 @@
 \shownote{Accessed: 2016-09-30.}
 
 
+\bibitem[\protect\citeauthoryear{??}{php}{}]%
+        {phpNET}
+\bibinfo{title}{PHP}.
+\newblock \bibinfo{howpublished}{\url{http://php.net/}}.
+  (\bibinfo{year}{????}).
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{??}{git}{}]%
         {githubPHP}
 \bibinfo{title}{PHP Usage on GitHub}.
@@ -73,6 +81,56 @@
 \newblock
 
 
+\bibitem[\protect\citeauthoryear{Alshahwan and Harman}{Alshahwan and
+  Harman}{2011}]%
+        {Alshahwan2011}
+\bibfield{author}{\bibinfo{person}{Nadia Alshahwan} {and} \bibinfo{person}{Mark
+  Harman}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Automated Web Application Testing Using Search
+  Based Software Engineering}. In \bibinfo{booktitle}{{\em Proceedings of the
+  2011 26th IEEE/ACM International Conference on Automated Software
+  Engineering}} {\em (\bibinfo{series}{ASE '11})}. \bibinfo{publisher}{IEEE
+  Computer Society}, \bibinfo{address}{Washington, DC, USA},
+  \bibinfo{pages}{3--12}.
+\newblock
+\showISBNx{978-1-4577-1638-6}
+\showDOI{%
+\url{http://dx.doi.org/10.1109/ASE.2011.6100082}}
+
+
+\bibitem[\protect\citeauthoryear{Artzi, Kiezun, Dolby, Tip, Dig, Paradkar, and
+  Ernst}{Artzi et~al\mbox{.}}{2008}]%
+        {artzi_finding_2008}
+\bibfield{author}{\bibinfo{person}{Shay Artzi}, \bibinfo{person}{Adam Kiezun},
+  \bibinfo{person}{Julian Dolby}, \bibinfo{person}{Frank Tip},
+  \bibinfo{person}{Danny Dig}, \bibinfo{person}{Amit Paradkar}, {and}
+  \bibinfo{person}{Michael~D. Ernst}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Finding bugs in dynamic web applications}.
+  \bibinfo{publisher}{ACM Press}, \bibinfo{pages}{261}.
+\newblock
+\showISBNx{978-1-60558-050-0}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1390630.1390662}}
+
+
+\bibitem[\protect\citeauthoryear{Artzi, Kiezun, Dolby, Tip, Dig, Paradkar, and
+  Ernst}{Artzi et~al\mbox{.}}{2010}]%
+        {artzi_finding_2010}
+\bibfield{author}{\bibinfo{person}{S Artzi}, \bibinfo{person}{A Kiezun},
+  \bibinfo{person}{J Dolby}, \bibinfo{person}{F Tip}, \bibinfo{person}{D Dig},
+  \bibinfo{person}{A Paradkar}, {and} \bibinfo{person}{M~D Ernst}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Finding {Bugs} in {Web} {Applications} {Using}
+  {Dynamic} {Test} {Generation} and {Explicit}-{State} {Model} {Checking}}.
+\newblock \bibinfo{journal}{{\em IEEE Transactions on Software Engineering\/}}
+  \bibinfo{volume}{36}, \bibinfo{number}{4} (\bibinfo{date}{July}
+  \bibinfo{year}{2010}), \bibinfo{pages}{474--494}.
+\newblock
+\showISSN{0098-5589}
+\showDOI{%
+\url{http://dx.doi.org/10.1109/TSE.2010.31}}
+
+
 \bibitem[\protect\citeauthoryear{Darringer and King}{Darringer and
   King}{1978}]%
         {Darringer1978}
@@ -87,6 +145,27 @@
 \showISSN{0018-9162}
 \showDOI{%
 \url{http://dx.doi.org/10.1109/C-M.1978.218139}}
+
+
+\bibitem[\protect\citeauthoryear{Hills}{Hills}{2015}]%
+        {hills2015variable}
+\bibfield{author}{\bibinfo{person}{Mark Hills}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Variable Feature Usage Patterns in PHP (T)}. In
+  \bibinfo{booktitle}{{\em Automated Software Engineering (ASE), 2015 30th
+  IEEE/ACM International Conference on}}. IEEE, \bibinfo{pages}{563--573}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Hills and Klint}{Hills and Klint}{2014}]%
+        {hills2014php}
+\bibfield{author}{\bibinfo{person}{Mark Hills} {and} \bibinfo{person}{Paul
+  Klint}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{PHP AiR: Analyzing PHP Systems with Rascal}. In
+  \bibinfo{booktitle}{{\em Software Maintenance, Reengineering and Reverse
+  Engineering (CSMR-WCRE), 2014 Software Evolution Week-IEEE Conference on}}.
+  IEEE, \bibinfo{pages}{454--457}.
+\newblock
 
 
 \bibitem[\protect\citeauthoryear{Hills, Klint, and Vinju}{Hills
@@ -105,6 +184,18 @@
 \url{http://dx.doi.org/10.1145/2483760.2483786}}
 
 
+\bibitem[\protect\citeauthoryear{Hills, Klint, and Vinju}{Hills
+  et~al\mbox{.}}{2014}]%
+        {hills2014static}
+\bibfield{author}{\bibinfo{person}{Mark Hills}, \bibinfo{person}{Paul Klint},
+  {and} \bibinfo{person}{Jurgen~J Vinju}.} \bibinfo{year}{2014}\natexlab{}.
+\newblock \showarticletitle{Static, lightweight includes resolution for PHP}.
+  In \bibinfo{booktitle}{{\em Proceedings of the 29th ACM/IEEE international
+  conference on Automated software engineering}}. ACM,
+  \bibinfo{pages}{503--514}.
+\newblock
+
+
 \bibitem[\protect\citeauthoryear{King}{King}{1976}]%
         {King1976}
 \bibfield{author}{\bibinfo{person}{James~C. King}.}
@@ -117,6 +208,18 @@
 \showISSN{0001-0782}
 \showDOI{%
 \url{http://dx.doi.org/10.1145/360248.360252}}
+
+
+\bibitem[\protect\citeauthoryear{Minamide}{Minamide}{2005}]%
+        {minamide_static_2005}
+\bibfield{author}{\bibinfo{person}{Yasuhiko Minamide}.}
+  \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Static approximation of dynamically generated {Web}
+  pages}. \bibinfo{publisher}{ACM Press}, \bibinfo{pages}{432}.
+\newblock
+\showISBNx{978-1-59593-046-0}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1060745.1060809}}
 
 
 \bibitem[\protect\citeauthoryear{Nguyen, K\"{a}stner, and Nguyen}{Nguyen
@@ -185,6 +288,138 @@
 \showISBNx{978-1-4577-1638-6}
 \showDOI{%
 \url{http://dx.doi.org/10.1109/ASE.2011.6100047}}
+
+
+\bibitem[\protect\citeauthoryear{Ricca and Tonella}{Ricca and Tonella}{2001}]%
+        {tonella_2001}
+\bibfield{author}{\bibinfo{person}{Filippo Ricca} {and} \bibinfo{person}{Paolo
+  Tonella}.} \bibinfo{year}{2001}\natexlab{}.
+\newblock \showarticletitle{Web Application Slicing}. In
+  \bibinfo{booktitle}{{\em Proceedings of the IEEE International Conference on
+  Software Maintenance (ICSM'01)}} {\em (\bibinfo{series}{ICSM '01})}.
+  \bibinfo{publisher}{IEEE Computer Society}, \bibinfo{address}{Washington, DC,
+  USA}, \bibinfo{pages}{148--}.
+\newblock
+\showISBNx{0-7695-1189-9}
+\showDOI{%
+\url{http://dx.doi.org/10.1109/ICSM.2001.972725}}
+
+
+\bibitem[\protect\citeauthoryear{Ricca and Tonella}{Ricca and Tonella}{2002}]%
+        {tonella_2002}
+\bibfield{author}{\bibinfo{person}{Filippo Ricca} {and} \bibinfo{person}{Paolo
+  Tonella}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{Construction of the System Dependence Graph for Web
+  Application Slicing}. In \bibinfo{booktitle}{{\em Proceedings of the Second
+  IEEE International Workshop on Source Code Analysis and Manipulation}} {\em
+  (\bibinfo{series}{SCAM '02})}. \bibinfo{publisher}{IEEE Computer Society},
+  \bibinfo{address}{Washington, DC, USA}, \bibinfo{pages}{123--}.
+\newblock
+\showISBNx{0-7695-1793-5}
+\showURL{%
+\url{http://dl.acm.org/citation.cfm?id=827253.827727}}
+
+
+\bibitem[\protect\citeauthoryear{Sen, Necula, Gong, and Choi}{Sen
+  et~al\mbox{.}}{2015}]%
+        {Sen:2015:MMS:2786805.2786830}
+\bibfield{author}{\bibinfo{person}{Koushik Sen}, \bibinfo{person}{George
+  Necula}, \bibinfo{person}{Liang Gong}, {and} \bibinfo{person}{Wontae Choi}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{{M}ulti{SE}: {M}ulti-path {S}ymbolic {E}xecution
+  {U}sing {V}alue {S}ummaries}. In \bibinfo{booktitle}{{\em Proceedings of the
+  2015 10th Joint Meeting on Foundations of Software Engineering}} {\em
+  (\bibinfo{series}{ESEC/FSE 2015})}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{842--853}.
+\newblock
+\showISBNx{978-1-4503-3675-8}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2786805.2786830}}
+
+
+\bibitem[\protect\citeauthoryear{Tonella and Ricca}{Tonella and Ricca}{2005}]%
+        {tonella_web_2005}
+\bibfield{author}{\bibinfo{person}{Paolo Tonella} {and}
+  \bibinfo{person}{Filippo Ricca}.} \bibinfo{year}{2005}\natexlab{}.
+\newblock \showarticletitle{Web application slicing in presence of dynamic code
+  generation}.
+\newblock \bibinfo{journal}{{\em Automated Software Engineering\/}}
+  \bibinfo{volume}{12}, \bibinfo{number}{2} (\bibinfo{year}{2005}),
+  \bibinfo{pages}{259--288}.
+\newblock
+\showURL{%
+\url{http://link.springer.com/article/10.1007/s10515-005-6208-8}}
+
+
+\bibitem[\protect\citeauthoryear{Wang, Zhang, Xie, Mei, and Sun}{Wang
+  et~al\mbox{.}}{2010}]%
+        {wang_locating_2010}
+\bibfield{author}{\bibinfo{person}{Xiaoyin Wang}, \bibinfo{person}{Lu Zhang},
+  \bibinfo{person}{Tao Xie}, \bibinfo{person}{Hong Mei}, {and}
+  \bibinfo{person}{Jiasu Sun}.} \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Locating need-to-translate constant strings in web
+  applications}. \bibinfo{publisher}{ACM Press}, \bibinfo{pages}{87}.
+\newblock
+\showISBNx{978-1-60558-791-2}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1882291.1882306}}
+
+
+\bibitem[\protect\citeauthoryear{Wang, Zhang, Xie, Xiong, and Mei}{Wang
+  et~al\mbox{.}}{2012}]%
+        {wang_automating_2012}
+\bibfield{author}{\bibinfo{person}{Xiaoyin Wang}, \bibinfo{person}{Lu Zhang},
+  \bibinfo{person}{Tao Xie}, \bibinfo{person}{Yingfei Xiong}, {and}
+  \bibinfo{person}{Hong Mei}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Automating presentation changes in dynamic web
+  applications via collaborative hybrid analysis}. In \bibinfo{booktitle}{{\em
+  Proceedings of the {ACM} {SIGSOFT} 20th {International} {Symposium} on the
+  {Foundations} of {Software} {Engineering}}}. \bibinfo{publisher}{ACM},
+  \bibinfo{pages}{16}.
+\newblock
+\showURL{%
+\url{http://dl.acm.org/citation.cfm?id=2393614}}
+
+
+\bibitem[\protect\citeauthoryear{Wassermann and Su}{Wassermann and Su}{2007}]%
+        {wassermann2007sound}
+\bibfield{author}{\bibinfo{person}{Gary Wassermann} {and}
+  \bibinfo{person}{Zhendong Su}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Sound and precise analysis of web applications for
+  injection vulnerabilities}. In \bibinfo{booktitle}{{\em ACM Sigplan
+  Notices}}, Vol.~\bibinfo{volume}{42}. ACM, \bibinfo{pages}{32--41}.
+\newblock
+
+
+\bibitem[\protect\citeauthoryear{Wassermann and Su}{Wassermann and Su}{2008}]%
+        {wassermann_static_2008}
+\bibfield{author}{\bibinfo{person}{Gary Wassermann} {and}
+  \bibinfo{person}{Zhendong Su}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Static detection of cross-site scripting
+  vulnerabilities}. In \bibinfo{booktitle}{{\em 2008 {ACM}/{IEEE} 30th
+  {International} {Conference} on {Software} {Engineering}}}.
+  \bibinfo{publisher}{IEEE}, \bibinfo{pages}{171--180}.
+\newblock
+\showURL{%
+\url{http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=4814128}}
+
+
+\bibitem[\protect\citeauthoryear{Wassermann, Yu, Chander, Dhurjati, Inamura,
+  and Su}{Wassermann et~al\mbox{.}}{2008}]%
+        {DynamicWassermann}
+\bibfield{author}{\bibinfo{person}{Gary Wassermann}, \bibinfo{person}{Dachuan
+  Yu}, \bibinfo{person}{Ajay Chander}, \bibinfo{person}{Dinakar Dhurjati},
+  \bibinfo{person}{Hiroshi Inamura}, {and} \bibinfo{person}{Zhendong Su}.}
+  \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Dynamic Test Input Generation for Web
+  Applications}. In \bibinfo{booktitle}{{\em Proceedings of the 2008
+  International Symposium on Software Testing and Analysis}} {\em
+  (\bibinfo{series}{ISSTA '08})}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{249--260}.
+\newblock
+\showISBNx{978-1-60558-050-0}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1390630.1390661}}
 
 
 \end{thebibliography}

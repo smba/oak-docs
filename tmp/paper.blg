@@ -1,11 +1,13 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2015/dev/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper.aux
 The style file: ACM-Reference-Format.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Database file #1: bibliography.bib
-Warning--I didn't find a database entry for "PHP"
+Warning--no key, author in phpNET
+Warning--no author, editor, organization, or key in phpNET
+Warning--to sort, need author or key in phpNET
 Warning--no key, author in alexaPHP
 Warning--no author, editor, organization, or key in alexaPHP
 Warning--to sort, need author or key in alexaPHP
@@ -24,12 +26,17 @@ Warning--no key, author in codegeekz
 Warning--no key, author in codegeekz
 Warning--no key, author in githubPHP
 Warning--no key, author in githubPHP
+Warning--no key, author in phpNET
+Warning--no key, author in phpNET
 Warning--no key, author in tiobePHP
 Warning--no key, author in tiobePHP
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--no key, author in codegeekz
 Warning--no author, editor, organization, or key in codegeekz
 Warning--empty year in codegeekz
+Warning--no key, author in phpNET
+Warning--no author, editor, organization, or key in phpNET
+Warning--empty year in phpNET
 Warning--no key, author in githubPHP
 Warning--no author, editor, organization, or key in githubPHP
 Warning--empty year in githubPHP
@@ -39,52 +46,72 @@ Warning--empty year in alexaPHP
 Warning--no key, author in tiobePHP
 Warning--no author, editor, organization, or key in tiobePHP
 Warning--empty year in tiobePHP
+Warning--require articleno with numpages field in Alshahwan2011
+Warning--empty booktitle in artzi_finding_2008
+Warning--empty address in artzi_finding_2008
 Warning--require articleno with numpages field in Darringer1978
+Warning--empty publisher in hills2015variable
+Warning--empty address in hills2015variable
+Warning--empty publisher in hills2014php
+Warning--empty address in hills2014php
 Warning--require articleno with numpages field in Hills:2013:ESP:2483760.2483786
+Warning--empty publisher in hills2014static
+Warning--empty address in hills2014static
 Warning--require articleno with numpages field in King1976
+Warning--empty booktitle in minamide_static_2005
+Warning--empty address in minamide_static_2005
 Warning--require articleno with numpages field in Nguyen:2014:BCG:2635868.2635928
 Warning--require articleno with numpages field in Nguyen:2015:CPS:2786805.2786872
 Warning--require articleno with numpages field in Nguyen:2015:VIS:2819009.2819140
 Warning--require articleno with numpages field in Nguyen:2011:AFH:2190078.2190142
-You've used 11 entries,
+Warning--require articleno with numpages field in Sen:2015:MMS:2786805.2786830
+Warning--empty booktitle in wang_locating_2010
+Warning--empty address in wang_locating_2010
+Warning--empty address in wang_automating_2012
+Warning--can't use both volume and number fields in wassermann2007sound
+Warning--empty publisher in wassermann2007sound
+Warning--empty address in wassermann2007sound
+Warning--empty address in wassermann_static_2008
+Warning--require articleno with numpages field in DynamicWassermann
+You've used 28 entries,
             5551 wiz_defined-function locations,
-            1385 strings with 17736 characters,
-and the built_in function-call counts, 10695 in all, are:
-= -- 1225
-> -- 273
+            1504 strings with 21699 characters,
+and the built_in function-call counts, 31627 in all, are:
+= -- 3586
+> -- 1042
 < -- 0
-+ -- 83
-- -- 137
-* -- 811
-:= -- 1000
-add.period$ -- 48
-call.type$ -- 11
-change.case$ -- 63
-chr.to.int$ -- 10
-cite$ -- 66
-duplicate$ -- 946
-empty$ -- 693
-format.name$ -- 111
-if$ -- 2521
++ -- 323
+- -- 619
+* -- 2436
+:= -- 3247
+add.period$ -- 131
+call.type$ -- 28
+change.case$ -- 184
+chr.to.int$ -- 27
+cite$ -- 115
+duplicate$ -- 2566
+empty$ -- 1827
+format.name$ -- 443
+if$ -- 7169
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 33
-newline$ -- 142
-num.names$ -- 55
-pop$ -- 450
+missing$ -- 111
+newline$ -- 296
+num.names$ -- 183
+pop$ -- 1150
 preamble$ -- 1
-purify$ -- 117
+purify$ -- 323
 quote$ -- 0
-skip$ -- 228
+skip$ -- 675
 stack$ -- 0
-substring$ -- 974
-swap$ -- 95
-text.length$ -- 99
+substring$ -- 3120
+swap$ -- 269
+text.length$ -- 515
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 154
-warning$ -- 39
-while$ -- 58
+type$ -- 392
+warning$ -- 67
+while$ -- 202
 width$ -- 0
-write$ -- 250
-(There were 40 warnings)
+write$ -- 578
+(There were 67 warnings)

@@ -7,7 +7,9 @@
 %\usepackage{cite}
 
 \usepackage{tikz}
-\usetikzlibrary{patterns}
+	\usepackage{pgf, pgfplots, pgfplotstable}
+	\usetikzlibrary{arrows,automata}
+	\usetikzlibrary{patterns}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -30,7 +32,6 @@
 \renewcommand{\tt}[1]{\texttt{#1}}
 
 \usepackage[zerostyle=d]{newtxtt}
-%\renewcommand*\familydefault{\ttfamily} %% Only if the base font of the document is to be typewriter style
 \usepackage[T1]{fontenc}
 
 %\usepackage[labelfont=bf]{caption}
@@ -51,7 +52,7 @@
 	extendedchars = \true,
 	basicstyle=\ttfamily\footnotesize,
 	basewidth={0.5em,0.4em}, % for other columns settings
-	commentstyle = \color{gray},
+	commentstyle = \color{black},
 	columns=fullflexible,
 	numbers=left,
 	numberstyle=\tiny,
@@ -80,11 +81,7 @@
 % TIMES
 %\usepackage{mathptmx}% http://ctan.org/pkg/mathptmx
 
-\usepackage{pgfplots, pgfplotstable}
 
-\usepackage{pgf}
-\usepackage{tikz}
-\usetikzlibrary{arrows,automata}
 
 \usepackage{xcolor}
 
@@ -100,24 +97,23 @@
 
 
 % DOI
-\acmDOI{10.475/123_4}
+%\acmDOI{10.475/123_4}
 
 % ISBN
-\acmISBN{123-4567-24-567/08/06}
+%\acmISBN{123-4567-24-567/08/06}
 
 %Conference
 \acmConference[ISSTA'17]{ACM Woodstock conference}{July 2017}{Santa Barbara,
-California, USA}
-\acmYear{1997}
-\copyrightyear{2016}
+ California, USA}
+%\acmYear{1997}
+%\copyrightyear{2016}
 
-\acmPrice{15.00}
+%\acmPrice{15.00}
 
 
 \begin{document}
-\title{Does It Scale? Static Output Approximation of PHP Web Applications Using
-Symbolic Execution}
-\titlenote{Produces the permission block, and copyright information}
+\title{Does It Scale? Symbolic Execution of PHP Web Applications}
+%\titlenote{Produces the permission block, and copyright information}
 %\subtitle{Extended Abstract}
 %\subtitlenote{The full version of the author's guide is available as  \texttt{acmart.pdf} document}
 
@@ -162,13 +158,13 @@ Symbolic Execution}
 
 
 \begin{abstract}
+\textcolor{gray}{
 Dynamic web applications have become widely popular and are to
 a large proportion based on the scripting language PHP. Output approximation of web
 applications enables a range of additional tool support as well as possibilities
 for vulnerability detection. Unfortunately, recent approximation approaches have
-only been evaluated for smaller systems.
-
-This paper presents an experience report about the scalability of output
+only been evaluated for smaller systems.}
+\textcolor{gray}{This paper presents an experience report about the scalability of output
 approximation using symbolic execution of state-of-the-art PHP web
 applications. For a symbolic execution engine extended with support for
 object-oriented programming and arrays, we identified language features and
@@ -178,7 +174,7 @@ functions and includes are prone to fail for certain programming patterns. (2)
 Expressions containing elements from I/O, databases or files can heavily impede
 symbolic execution. Our findings provide useful guidelines to design new
 tools and also to improve the development process of statically analyzable web
-applications.
+applications.}
 \end{abstract}
 
 %
@@ -229,7 +225,7 @@ widely popular. Various different implementation techniques have emerged,
 ranging from technologies for programming languages (JSP, ASP .NET) and web
 application frameworks for  script languages (Ruby On Rails, Django) to
 languages tailored specifically to the domain of web applications. PHP
-cite{phpNET} is a programming language focused on server-side application
+\cite{phpNET} is a programming language focused on server-side application
 development. As of 2012, it was used by 78.8 percent of the ten million most popular websites (according
 to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE
 programming community index \cite{tiobePHP}, and was the ranked as the 6th
@@ -253,7 +249,7 @@ of dynamic web applications. Since every feasible path can be executed the
 symbolic output contains both invariant output as well as output variants that
 depend on program input.
 
-Knowledge about different output output variants is leveraged by a number of
+Knowledge about different output variants is leveraged by a number of
 analyses for the domain of web applications. Previous work presented tools
 for detecting and locating HTML validation errors
 \cite{Nguyen:2011:AFH:2190078.2190142}, computing program slices across
@@ -275,40 +271,39 @@ To investigate the question, whether we can have a practical and scalable
 symbolic executoin engine, we re-implemented the engine with the specifications
 of the previous symbolic execution semantics \cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such
 as object-oriented programming. We evaluate our
-symbolic execution engine for large-scale and modern PHP systems.
+symbolic execution engine for several large-scale and modern PHP systems.
 
 During the introduction of new semantics, we addressed two  trade-offs between
-accuracy of our e xecution and performance: For method calls with ambiguous
+accuracy of our execution and performance: For method calls with ambiguous
 targets as well as concrete execution of loops the number of program states can
 become infeasible. This may require additional engineering adjustments to tame
 the state space explosion at cost of accuracy.
 
-Based on out observations we identify conceptual limitations of symbolic
+Based on observations we identify conceptual limitations of symbolic
 execution for PHP.  Dynamic features such as indirect function calls and
 include expression require concrete information to be evaluated properly. Since
 these expressions may be assembled at runtime and can contain symbolic
-information, for many cases this restricts our engine from further execution.
+information, for many cases this restricts a symbolic execution engine from
+further execution.
 Although some effort to statically approximate include expression can be spent,
 it is often non-trivial since expressions can contain information coming from
 various inputs including databases, user inputs or configuration files. We
-empirically evaluate our observations for a corpus including large PHP systems that are still maintained.
+empirically evaluate our observations for a corpus including large, actively maintained PHP systems.
 
 Our key contribution in this paper include (1)  a new tool infrastructure to
 statically approximate the client-page output for PHP web applications using
-symbolic execution and (2) a report of out observations for state-of-the-art
+symbolic execution and (2) a report of observations for state-of-the-art
 web applications as well as an empirical evaluation of conceptual limitations
 of symbolic executions for PHP web applications.
 
 \section{State Of the Art}\label{sec:stateoftheart}
-Symbolic execution is an analysis techniques used by the tools
-whose practicality we aim to evaluate. This section recaps the idea of symbolic
+This section recaps the idea of symbolic
 execution, the tools which make use of it, and both conceptual and
 language-related limitations.
 
 \subsection{Symbolic Execution}
-Symbolic execution is a static analysis technique that was proposed by James C.
-King in 1976 \cite{King1976}. Symbolic execution allows to explore feasible
-paths in a program. Based on normal program execution, the execution semantics
+Symbolic execution is a static analysis technique that was proposed by King
+\cite{King1976} in 1976. Symbolic execution allows to explore feasible paths in a program. Based on normal program execution, the execution semantics
 is extended to handle symbolic values. An execution becomes symbolic by
 assuming symbolic values as program inputs rather than obtaining concrete
 values \cite{King1976,Darringer1978}. These symbolic values are then propagated
@@ -337,7 +332,7 @@ example.
 	\centering
 	\begin{subfigure}[center]{0.48\textwidth}%%[multicols=1]
 \begin{lstlisting}
-<form>
+<form method="POST">
   <input type="text" name="name">
   <input type="submit" value="Submit">
 </form>
@@ -361,7 +356,7 @@ if (!isset($_POST['name'])) {
 }
 ?>
 \end{lstlisting}
-		\caption{Snippet of HTML and PHP server-side web application code.
+		\caption{Snippet of server-side HTML and PHP web application code.
 		\label{fig:web_application}}
     \end{subfigure}
 
@@ -371,7 +366,7 @@ if (!isset($_POST['name'])) {
       %(or a blank line to force the subfigure onto a new line)
     \begin{subfigure}[center]{0.48\textwidth}
 \begin{lstlisting}[mathescape]
-<form>
+<form method="POST">
   <input type="text" name="name">
   <input type="submit" value="Submit">
 </form>
@@ -388,9 +383,10 @@ Entered $\alpha$!
 
 \end{lstlisting}
 		\caption{
-			Approximation client paege output of the server-side web application code in
-			Figure \ref{fig:web_application}. Variability as well as repetition annotations
-			are represented by preprocessor directives.
+			Approximated client page output of the server-side code in Figure
+			\ref{fig:web_application}. The directives in lines 6 and 8 highlight output
+			that can be repeated an arbitrary number of times, the directives in line 10
+			and 14 mark two alternative output parts.
 			\label{fig:output_example}
 		}
     \end{subfigure}
@@ -423,16 +419,23 @@ output approximation contains preprocessor directives to express
 repeatable parts as well as output variants. All approximated client page
 output corresponding to Figure \ref{fig:web_application} consisting of two different variants
 is illustrated in Figure \ref{fig:output_example}.
+
 First, for loops in the previous execution semantics
 \cite{Nguyen:2014:BCG:2635868.2635928} only one iteration is executed instead of
 an arbitrary number of iterations. Since a loop condition can contain symbolic
 values, it might not be feasible to determine whether, and if so, when a loop
 execution terminates. Hence, any output constructed during the single loop
-iteration is highlighted (\texttt{repeat \ldots endrepeat}) to possibly be repeated an arbitrary number of times. The output in line 7 is marked to be repeated an arbitrary number of times, as the number of loop iterations cannot be determined statically. Second, a similar procedure
-applies to recursive functions. Once called, a recursive function is  also only
-executed to recursion depth one per call, and any subsequent invocation of that
-function returns a symbolic value. This, again, is due to the difficulty to
-determine the exact recursion depth similar to the number of loop iterations.
+iteration is highlighted (\texttt{repeat \ldots endrepeat}) to possibly be
+repeated an arbitrary number of times. The output in line 7 is marked to be
+repeated an arbitrary number of times, as the number of loop iterations cannot
+be determined statically. 
+
+Second, a similar procedure applies to recursive
+functions. Once called, a recursive function is  also only executed to recursion
+depth one per call, and any subsequent invocation of that function returns a
+symbolic value. This, again, is due to the difficulty to determine the exact
+recursion depth similar to the number of loop iterations.
+
 Third, any form of user interaction providing input data as well as any form of input referred
 to from the deployment context of the web application, i.e. configuration files
 or databases, is assumed to be symbolic. The context variable
@@ -442,7 +445,7 @@ output in lines 11 and 13 respectively are marked as alternative variants
 (\texttt{if \ldots else \ldots endif}) as symbolic execution of lines 18 – 22
 in Figure \ref{fig:web_application} will explore both different branches.
 
-\subsection{Existing Tool Support for PHP}\label{sec:existing_tools}
+\subsection{Symbolic-Execution-based Tools For PHP}\label{sec:existing_tools}
 All tools proposed so far leverage a representation of all possible HTML client
 page output. Since any single client page output variant can be analyzed this
 enables tool support addressing the web application as a whole in spite of its
@@ -473,7 +476,8 @@ conducted:
 	allows navigation in client-site code (HTML, JS and CSS) although it is
 	embedded in server-side code
 	\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
-	
+	\item \textcolor{gray}{Automated Web Application Testing Using Seacrch
+	Software Engineering} \cite{Alshahwan2011}
 \end{itemize}
 
 \subsection{Assumptions And Limitations}\label{sec:limitations}
@@ -489,129 +493,113 @@ functional benefits these tools provide to developers, their practicality for
 large and modern systems with respect to advanced language support has not been
 evaluated.
 
-\section{Scalable Output Approximation} \label{sec:3}
+\section{Scalable Output Approximation?} \label{sec:3}
 The main objective of this experience report is to investigate whether we can
-have a scalable symbolic execution engine as it is the underlying technique for
-static output approximation in previous work
+build a scalable symbolic execution engine as it is the underlying technique
+for static output approximation in previous work
 \cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}.
-Our vision is a practical symbolic execution, i.e., it computes an accurate approximation for large and modern PHP systems with reasonable time and space consumption.
+Our vision is a practical symbolic execution, i.e., it computes an accurate
+approximation for large and modern PHP systems with reasonable time and space consumption.
+We approach this goal by re-implementing the symbolic execution semantics  of
+\sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928} and extending it with support for additional language
+including object-oriented programming and array operations. We aim to support symbolic
+execution for a real-world example system of reasonable size that incorporates
+the missing language features described in Section \ref{sec:limitations}.
+\textsf{WordPress} is a popular open-source Content Management System (CMS)
+with around 300.000 lines of code that provides a vivid
+plug-in environment and is used.  The full implementation of \sf{Oak}, the test
+suite as well as or test corpus (see Section \ref{sec:experiment_setup}) can be found at
+\url{http://www.github.com/smba/oak}.
 
-Also, we are interested in the limitations of scalable symbolic execution for
-PHP web applications. Limitations may either be conceptional, where symbolic
-execution of PHP code, in contrast to concrete execution, is inaccurate: For
-example an include expression evaluated to a symbolic value simply provides to
-little information to include a script. Or, in spite of infeasible effort
-required, limitations could allow an accurate symbolic execution. For example,
-exhaustively exploring all feasible paths in an application may result in an
-infeasible number of program states to store; nevertheless, this so called
-state explosion problem may be addressed with additional engineering.
+For our implementation of a symbolic execution engine for PHP, Oak, we have
+chosen a test-driven approach with continuous integration using regression
+tests based on \sf{WordPress} and \sf{SchoolMate} (see Section
+\ref{sec:experiment_setup}). For \sf{SchoolMate}, a rather straightforward and
+simple system, which we chose to compare our approximation results to those of
+\sf{PhpSync}, we could achieve similar output approximation results. For
+\sf{WordPress} though, we did not achieve high code coverage or an accurate
+approximation for \sf{WordPress} as we faced a number of obstacles hindering
+symbolic execution in different ways: The following Subsection
+\ref{sec:experience_report} documents our design choices we made, apparent trade-offs we recognized, and limitations
+we faced on our way towards a scalable symbolic execution engine; and what we
+have learned from bypassing limitations faced in spite of manual effort for
+future work. Subsection \ref{sec:experience_results} compares our observations
+and results to \emph{PhpSync} and presents the motivation for our empirical evaluation of our
+tool symbolic execution engine in Section \ref{sec:evaluation}.
 
-\subsection{Towards Scalable Output Approximation?}
-As our goal is to have a scalable symbolic execution engine, we approach this
-question by re-implementing the symbolic execution semantics described in
-previous work \cite{Nguyen:2014:BCG:2635868.2635928} and extending it with
-support for additional language features. We aim to support symbolic execution
-for a real-world example system of reasonable size that incorporates the
-missing language features described in Section \ref{sec:limitations} and is
-still developed and maintained. \textsf{WordPress} is a popular open-source
-Content Management System (CMS) with around \textcolor{blue}{300.000} lines of
-code that provides a vivid plug-in environment and is maintained by a large
-community.
-For our implementation of a symbolic execution engine for PHP,
-\textsf{Oak}\footnote{The implementation can be found
-at \url{github.com/smba/oak}.}, we have chosen a test-driven approach with
-continuous integration using regression tests based on \textsf{WordPress} and \textsf{SchoolMate} (see Section \ref{sec:experiment_setup}). Oak incorporates the existing execution semantics
-of \cite{Nguyen:2014:BCG:2635868.2635928} and extends it with support for
-object-oriented orientation (class definition, class instantiation and method
-invocation) as well as most PHP array operations. A list of the functions
-provided by the PHP standard library can be found at \cite{PHP}.
-Throughout the implementation we did not achieve high code coverage for
-\sf{WordPress}. In the following we present our observations we made thorughout
-the implementation regarding issues impeding symbolic execution.
+
 
 \subsection{Experience Report}\label{sec:experience_report}
-We identified trade-offs between accuracy and performance that may
-cause the approximation to be impractical, yet possible. Additionally, we
-detected limitations impeding symbolic execution conceptually: For certain
-language features, concrete information rather than symbolic values may be required to
-actually be executed properly as this defective execution can impact subsequent
-parts of the program which may become inaccessible and may be missed.
 
-\subsubsection{Symbolic vs Concrete Execution}
-Throughout the implementation, we basically followed the symbolic execution
-semantics described in previous work \cite{Nguyen:2014:BCG:2635868.2635928}.
-Nevertheless, for additional language features we experienced it to be beneficial to the
-approximation to execute them as precisely as possible.
-For instance, \sf{WordPress} uses a text filter mechanism, where different
-filter functions are applied sequentially to a string literal. Filters can
-be linked to a hook using  associative arrays so that when the hook is
-triggered, all filters that are linked to it are applied. As described in
-Section \ref{} we execute loops only once due to an possibly
-indeterminable number of iterations. PHP yet offers more loop constructs: the
-do-while loop and the foreach loop. While for the do-while loop as well as for
-the while loop the number of iterations is possibly indeterminable, the foreach
-loop iterates over all items of a given array whose number of items is known at
-runtime. For \sf{WordPress}, we are able to achieve a more accurate
-approximation and higher code coverage results by concretely executing foreach
-loops as more server-side code (filter functions in our case) are accessed and
-executed. In turn, exhaustively executing foreach loops and filter functions
-concretely is a trade-off between accuracy and performance, as a single hook
-call site can be called from various contexts since we are exploring multiple
-execution paths.
+\subsubsection{Symbolic/Concrete Loop Execution}
+Throughout the implementation we basically followed the symbolic execution
+semantics of \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928}. As described
+in Section \ref{sec:workflow} for loops, only one iteration is executed since
+the number of iterations is indeterminable for most cases. While this is the
+case for while and do-while loops, the number of loop iterations for for or
+foreach loops is generally determinable and known before entering the loop
+body. For loops use a loop counter that usually is incremented or decremented
+after each loop iteration until a loop condition is not satisfied anymore;
+foreach loops simply iterate over a given array value.
+Our execution semantics follows this scheme and simulates concrete execution
+for those types of loops if possible. Otherwise, for instance, if a loop
+counter, loop counter limit for for loops, or variable for foreach loops is
+symbolic, we resort to executing only a single iteration. This design choice
+was made since it is more precise and, in contrast to only considering one
+iteration in all cases, slightly increased code coverage for \sf{WordPress}.
 
-An additional aspect on the trade-off between concrete and symbolic execution,
-or effort and accuracy respectively, is the extent to which program inputs are
-assumed to be symbolic. As shown in Section \ref{} introducing symbolic values
-can be problematic if they are propagated to language features requiring
-concrete information, such as include expressions or indirect function calls.
-We manually scaled the number of sources of symbolic inputs by providing static
-dummy inputs such as a concrete form input, file name or configuration entry.
-For specific cases, where concrete information is inevitably required, we can
-achieve higher code coverage and a more accurate approximation, as more code
-becomes accessible. Nevertheless, while detecting dynamic features can be
-automated, it requires manual inspection and understanding of the web
-application to provide appropriate dummy input data. Again, this is a trade-off
-between the effort to provide input data and accuracy of the approximation and
-code coverage respectively.
+\subsubsection{Method Target Space Explosion}
+For method invocations that for concrete execution have only one target object,
+exploring multiple execution paths can cause the space of target objects to
+grow rapidly. A minimal example is shown in the listing in Figure
+\ref{fig:multi_target} where two different objects can be assigned to variable \tt{\$person} in line 12 and
+14. For the method invocation in line 16 hence, the method is executed twice in
+total since we have two alternative target objects. To address this problem, we
+implement program state merging for symbolic execution. For the example in
+Figure \ref{fig:multi_target}, after the control flow is split in line 11 into
+two branches, we merge both branches together subsequently. For both branches two different
+values have been assigned to variable \tt{\$person} under different path
+conditions respectively. We implement state merging inspired by work of Sen et al. 
+\cite{Sen:2015:MMS:2786805.2786830} using value summaries. A value summary can be conceived as a value
+type. For state merging in our example, in the value summary, each value (or
+each object in our case) is associated to the path condition under that it has
+been assigned to a variable. This would allow to only pass the value summary to
+the method and only invocate it once, but for our execution to be sound, all
+objects would need to be of the same class type. If for instance, in our
+example there would be another class definition with a method named
+\tt{greet} and an instance of that class is assigned to variable \tt{\$person}
+in one of the two branches, the method invocation in line 16 actually needs to be
+executed for two different target objects of a different type.
 
-\subsubsection{Multi-Target Method Calls}
-A non-conceptual problem we encountere is related to object-oriented programming. While exploring
-different execution paths when the control flow is split, a variable can have
-different values depending on the path condition under which a value has been
-assigned to it (see the code example in Figure \ref{fig:output_example}).
-Similarly, a variable can point to different objects depending on the path
-condition as the snippet in Figure \ref{fig:multi_target} illustrates. The variable \tt{\$person} can either
-point to object \tt{Alice} or \tt{Bob}. In addition, for any method invocated on
-that variable the actual target is ambiguous as there are two, depending on the
-path condition. In order to have a sound symbolic execution, both method calls
-need to be executed. Nevertheless, the number of contexts for which a method can
-be called can grow rapidly, and easily become infeasible to execute
-exhaustively.
-
-We implemented several heuristic approaches to tame this state space explosion
-for multi-target method calls, including executing a method only for a subset of
-target objects, or just a single object. This is a trade-off between accuracy
-and soundness of the symbolic execution and performance time required.
+Therefore, for our execution engine to be sound, we were bound to execute
+invocated methods for multiple targets since we cannot assert that all values
+contained in summary are of the same type. Nevertheless, to scale the target
+object space, in addition, we implemented execution modes only allowing
+execution of a method for a subset of possible targets and assuming symbolic
+return values for the remaining targets. This execution mode was necessary for
+WordPress for several, but not all entry points that we studied, in order to
+terminate. All subsequent analyses in this paper do not use this execution
+mode, yet it is provided in out implementation.
 
 \subsubsection{Dynamic Language Features}
-\label{sec:experiment_dynamicfeaturess} 
-Conceptually, we identified two language features for which symbolic execution
-failed frequently. As stated in Section \ref{sec:workflow}, dynamic web
-applications are staged and client page output is computed at runtime. Symbolic
-execution has shown to be a useful technique to approximate dynamically
-generated output in theory, though it is challenged by language features that
-require concrete information rather than symbolic information at runtime. In particular, this
-applies to language features that provide access to reusable code of the web
-application: include expressions and function calls.
+\label{sec:experiment_dynamicfeatures} 
+Aside from the previous issues, we identified two dynamic language features
+that we were not able to execute accurately. Dynamic features in PHP are
+features that take as input rather a expression that is resolved at runtime
+than a static constant value. For \sf{WordPress}, we faced missing files and
+functions that are included using dynamic includes and dynamic function
+invocation respectively.
 
-First, include expressions in PHP usually require a string value representing
-the path to the script file or template to include. If this string value is
-statically provided by a string literal or can be constructed unambiguously, the
-symbolic execution engine was able to resolve the include expression and include
-the desired file. However, it is also common to assemble include expressions not
-only from static string literals, but from several sources including user input
-information, database query results or configuration files. Figure
-\ref{fig:dynamic_includes} shows a small example of a dynamic include containing
+First, file inclusion in PHP usually is managed by statements like \tt{include},
+\tt{include\_once} or \tt{require} and \tt{require\_once}. For transitive
+includes, statements ending with \tt{\_once} will not include the same file
+twice. The include statements make an attempt to include a file, but do not
+return a warning in contrast to the require statements. Each of these
+statements takes as input either a string constant (static include) or an
+expression that is evaluated at runtime (dynamic include). The string that the
+expression evaluates to represents an absolute or relative paths to the target
+file that the interpreter finally attempts to include.
+Figure \ref{fig:dynamic_includes} shows a small example of a dynamic include containing
 information retrieved from a database. Since any input for a symbolically
 executed application is symbolic this information can be propagated to include
 expressions. Also, configuration files represent only one particular
@@ -714,32 +702,47 @@ call_user_func('header_' . $font_style, 'Title');
 	}
 \end{figure}
 
-\subsubsection{Interpreter Customization}
-We have approached issues we encountered, including
-multiple-target method calls and foreach loops, in different ways as these
-represent a trade-off between accuracy of execution and performance.
-For method calls having ambiguous targets, we implemented different modes of
-execution, ranging from a complete mode where a method is executed for all
-possible targets to abstract modes with either a subset of targets or only a
-single target. In the latter cases where targets are discarded, we assumed
-symbolic values as method return values. Our symbolic interpreter can be
-customized to work in the desired mode to scale accuracy or performance.
-Nevertheless, for \sf{WordPress} these variations did not have significant
-impact on the output approximation as symbolic execution was rather impeded by
-dynamic features.
-Also, for foreach loops we are able to toggle between a single iteration mode
-and a complete iteration mode. Although we were able to increase code coverage
-by accessing more code, it did not significantly increase our output
-approximation.
-Note that these variants have only been tested for \sf{WordPress} to better
-understand possible trade-offs or simply achieve any output approximation in a
-reasonable period of time. We believe based on our experience dynamic features
-to be the main conceptual limitation impeding code coverage as well as output
-approximation quality. In the next Section we analyze in detail the impact of
-dynamic features with concrete foreach loop execution and complete
-multiple-target execution for method calls.
+\subsubsection{Symbolic/Concrete Input}
+In the previous subsection, we argued that dynamic includes and dynamic
+function invocations hinder symbolic execution  due to imprecise resolution of
+expression if symbolic information is contained. For callable code parts as
+included scripts or invocated functions, we attempted to bypass this limitation
+by manually providing proper concrete input.
 
-\section{Evaluation}
+Consider the code example in Figure \ref{fig:indirect_calls} where a function
+name could not be resolved precisely due to a missing string literal that is contained from a
+database query result. By manually providing either option \tt{serif} or
+\tt{sserif}, or both as alternatives, we are able to increase code coverage and
+the accuracy of our approximation with manual effort by making dynamic
+statements static. Of course we did not provide proper input exhaustively for
+every occurrence of dynamic features, yet this illustrates a basis for possible
+future work towards scalable symbolic execution. This manual approach addresses
+the same problem as dynamic test input generation for web applications, where
+proper concrete input is assumed rather than symbolic values to increase code
+coverage. We present work on this problem in Section \ref{sec:related_work}.
+
+
+\subsection{Experience Results} \label{sec:experience_results}
+The symbolic execution engine \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928} so far does not face the
+problems we documented in Section \ref{sec:experience_report}. The evaluation of
+PhpSync, i.e., the PHP systems that the tool was applied to, did neither contain object-oriented
+features, nor dynamic features like dynamic includes or dynamic function
+invocation with symbolic values.
+ 
+As the observations so far did only refer to \sf{WordPress} as a large-scale
+system, we wanted to study the impeding impact of dynamic features to symbolic
+execution for a wider selection of PHP systems systematically apart from the
+systems that \sf{PhpSync} was applied to for two reasons. First, the usage of
+dynamic features, not only of includes and function invocations, varies from
+system to system \cite{hills2015variable}. Second, we were not able to obtain results for
+all entry points possible for \sf{WordPress} and hence could not compare our
+approximatio results to those of \sf{PhpSync} where client page output
+approximation is evaluated for all entry points. Therefore, we decided to
+systematically evaluate our symbolic execution engine for systems apart from
+\sf{WordPress}, which is documented in the following Section
+\ref{sec:evaluation}.
+
+\section{Evaluation} \label{sec:evaluation}
 As already stated in the previous Section \ref{sec:experience_report}, we
 encountered several problems during the implementation of our symbolic
 execution engine for \sf{WordPress}. The main items of critique of the symbolic
@@ -836,8 +839,8 @@ recall of 50 percent means that half of the string literals, which we manually
 classified as output candidates, actually were responsive to the classifier. We
 attempted to increase recall by looking for further distinctive properties to build a
 classifier from, but could not do so without decreasing precision. 
-\textcolor{blue}{In spite of missing half of the output candidates, we decided to use a simple, yet
-precise and distinctive classifier.}
+\textcolor{gray}{In spite of missing half of the output candidates, we decided
+to use a simple, yet precise and distinctive classifier.}
 
 \subsection{Measuring Approximation Accuracy}
 \label{HowAccurateIsOurApproximation} 
@@ -845,7 +848,7 @@ In Section \ref{heuristic} we introduced the definition of output candidates as
 expected output. For an approximation to be most accurate, it needs to contain
 all output candidates of a system analyzed. Based on whether output
 candidates are reached by an execution path and part of the output
-approximatiopn define two metrics to approach measuring accuracy.
+approximatiopn define two metrics to approximate measuring accuracy.
 
 We measure how much of the expected output was actually processed by the
 symbolic interpreter.  Once a line of code, a statement or expression
@@ -952,7 +955,7 @@ expressions in the next section.
 
 \subsubsection{Why did includes fail?}
 \label{WhyDidIncludesFail}
-From Section \ref{sec:experiment_dynamicfeaturess} we learn that include
+From Section \ref{sec:experiment_dynamicfeatures} we learn that include
 expressions can not be evaluated accurately for symbolic values, and from the
 previous Section \ref{WhatLiteralsDidWeMiss?} that very little of missed output
 candidates can be explained by simply missing to include a file. To better
@@ -1027,7 +1030,7 @@ through callback candidates.
 For failed function calls to functions containing not-reached output
 candidates we measured how many of those functions were only, or
 partially accessibly through indirect calling mechanisms (see Section
-\ref{sec:experiment_dynamicfeaturess}). As Figure
+\ref{sec:experiment_dynamicfeatures}). As Figure
 \ref{fig:output_candidate_explanation} illustrates, around 80 percent (except
 for \sf{TimeClock}) all missed output candidates of each system were only
 accessible through callback candidates, i.e., functions that are only
@@ -1038,7 +1041,7 @@ In this section we summarize the insights gained from our observations during
 the implementation as well as the from the results obtained by our experimental
 evaluation.
 
-\paragraph{Features are problematic, but prevalently used.}
+\paragraph{Dynamic features are problematic.}
 From out observations with \sf{WordPress} in Section \ref{sec:3} we learn that
 dynamic language features, in particular include expressions and indirect function
 calls, in combination with symbolic values cannot be evaluated accurately since
@@ -1075,23 +1078,25 @@ provide proper and concrete input variants.
 
 \paragraph{Practical tools require practical evaluation.}
 Last, we want to address the limited informative value of analyses and tools
-presented in previous work \cite{minamide2005static,wassermann2007sound,Nguyen:2015:VIS:2819009.2819140,Nguyen:2015:CPS:2786805.2786872,Nguyen:2014:BCG:2635868.2635928,Nguyen:2011:AFH:2190078.2190142}
- where only small PHP systems  have been studied. These papers introduce
- techniques for static output approximation of PHP web applications [X, Y] or
- propose tools based on respective approximations [Z, Wassermann]. As these
- approaches address practical use cases, they require a more and further
- comprehensive evaluation in order to  better understand possible limitations
- and assess their practicality, in particular for large-scale systems.
+presented in previous work
+\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,minamide_static_2005,wassermann2007sound}
+where only small PHP systems have been studied. These papers introduce
+techniques for static output approximation of PHP web applications
+\cite{minamide_static_2005,Nguyen:2014:BCG:2635868.2635928,wang_automating_2012} or propose tools
+based on respective approximations
+\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,wassermann2007sound,wassermann_static_2008}.
+As these approaches address practical use cases, they require a more and further comprehensive evaluation in order to  better understand possible limitations and assess their practicality, in particular for large-scale systems.
 
 \paragraph{The road so far.}
-For this paper, the extension of the symbolic execution Symex [Hung] support
-for object-oriented programming was not the main goal, yet necessary to
-symbolically execute modern PHP systems. The observations regarding state state
-explosion for method calls documented in Section \ref{} are only anecdotal and,
-with the exception of \sf{WordPress}, we did not notice any significant impact
-on scalability. Nevertheless, more research is required to better and
-systematically understand possible drawbacks of object-oriented symbolic
-execution. This question though is beyond the scope of this paper, as we aimed
+For this paper, the extension of the symbolic execution \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928}
+support for object-oriented programming was not the main goal, yet necessary to
+symbolically execute modern PHP systems. The observations regarding object
+target space explosion for method calls documented in Section
+\ref{sec:experiment_dynamicfeatures} are only anecdotal and, with the exception
+of \sf{WordPress}, we did not notice any significant impact on scalability.
+Nevertheless, more research is required to better and systematically understand
+possible drawbacks of object-oriented symbolic execution. 
+This question though is beyond the scope of this paper, as we aimed
 to explore limitations of the practicality and scalability of static output
 approximation using symbolic execution. Future work might address design
 guidelines to enable programming analyzable applications, tool support to scale
@@ -1113,13 +1118,14 @@ Minamide \cite{minamide_static_2005} approximates client page output
 of web applications by describing possible output by a context-free
 grammar that is constructed statically from the PHP code for a given regular
 expression of user input. The constructed grammar enables analyses such as
-detecting cross-site scripting vulnerabilities by checking whether user input has been sanitized, and HTML validation by
-determining whether the constructed grammar is contained in a depth-bound
-HTML grammar. Based on Minamide's approximation approach several
-vulnerability analyses addressing cross-site scripting
-\cite{wassermann_static_2008} and SQL injection \cite{wassermann2007sound} have
-been proposed. Wang et al. \cite{wang_locating_2010} utilizes this string analysis to detect strings visible at the browser and enable
-internationalization of web applications. 
+detecting cross-site scripting vulnerabilities by checking whether user input
+has been sanitized, and HTML validation by determining whether the constructed
+grammar is contained in a depth-bound HTML grammar. Based on Minamide's
+approximation approach several vulnerability analyses addressing cross-site
+scripting \cite{wassermann_static_2008} and SQL injection
+\cite{wassermann2007sound} have been proposed. Wang et al.
+\cite{wang_locating_2010} utilizes this string analysis to detect strings
+visible at the browser and enable internationalization of web applications.
     
 Another approach is proposed by Wang et al. \cite{wang_automating_2012}, where
 output for a web application is approximated using a hybrid approach: A
@@ -1127,16 +1133,23 @@ dynamic webpage is executed with concrete input and the execution is
 recorded at runtime. Changes in the client-side output then can be mapped to 
 corresponding PHP code using static impact analysis.
 
-%Creating Test Input \cite{DynamicWassermann}
+\paragraph{Dynamic Features}
+According to a case study by Hills et al. \cite{Hills:2013:ESP:2483760.2483786}
+of the feature usage in PHP, based on a corpus of state-of-the-art-projects,
+dynamic includes are less frequently used than static includes, but usage
+frequency is varying from system to system. Further work by Hills et al.
+\cite{hills2014static,hills2014php} approaches static resolution of dynamic includes using
+both context-insensitive resolution on file level by simplifying PHP constants; and context-sensitive on program level for transitive includes. In spite of
+promising results, these approaches, similar to our results, face limitations
+for truly dynamic includes if resolution is not sound due to information not
+being available in the source code like database query results. Something about
+dynamic features and resolution.
 
-Something about dynamic features and resolution
-  \cite{Hills:2013:ESP:2483760.2483786,hills2014static,hills2015variable}
-  
-Tools using symbolic execution for static output approximation
-   \cite{artzi_finding_2008,artzi_finding_2010}
+%Tools using symbolic execution for static output approximation \cite{artzi_finding_2008,artzi_finding_2010}
 %\textcolor{blue}{\blindtext}
 
 \section{Conclusion}
+
 
 %\newpage
 %References

@@ -255,8 +255,9 @@ for detecting and locating HTML validation errors
 \cite{Nguyen:2011:AFH:2190078.2190142}, computing program slices across
 server-side and client-page code \cite{Nguyen:2015:CPS:2786805.2786872}, or
 easing development and maintenance by extending IDE support for web applications
-with code navigation
-\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
+with code navigation \cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
+Moreover, knowledge of output variants can increases code coverage for
+output-oriented testing \cite{Alshahwan2011}.
 
 Despite the various use cases for analyses based on an approximated output
 model, static output approximation for PHP web applications using symbolic
@@ -476,8 +477,7 @@ conducted:
 	allows navigation in client-site code (HTML, JS and CSS) although it is
 	embedded in server-side code
 	\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
-	\item \textcolor{gray}{Automated Web Application Testing Using Seacrch
-	Software Engineering} \cite{Alshahwan2011}
+
 \end{itemize}
 
 \subsection{Assumptions And Limitations}\label{sec:limitations}
@@ -732,12 +732,14 @@ invocation with symbolic values.
 As the observations so far did only refer to \sf{WordPress} as a large-scale
 system, we wanted to study the impeding impact of dynamic features to symbolic
 execution for a wider selection of PHP systems systematically apart from the
-systems that \sf{PhpSync} was applied to for two reasons. First, the usage of
-dynamic features, not only of includes and function invocations, varies from
-system to system \cite{hills2015variable}. Second, we were not able to obtain results for
-all entry points possible for \sf{WordPress} and hence could not compare our
-approximatio results to those of \sf{PhpSync} where client page output
-approximation is evaluated for all entry points. Therefore, we decided to
+systems that \sf{PhpSync} was applied to for two reasons. 
+
+First, the usage of dynamic features, not only of includes and function invocations, varies from
+system to system \cite{hills2015variable}. 
+
+Second, we were not able to obtain results for all entry points possible for
+\sf{WordPress} and hence could not compare our approximation results to those of
+\sf{PhpSync} where client page output approximation is evaluated for all entry points. Therefore, we decided to
 systematically evaluate our symbolic execution engine for systems apart from
 \sf{WordPress}, which is documented in the following Section
 \ref{sec:evaluation}.
@@ -765,14 +767,15 @@ approach those questions are explained in Sections
 \ref{HowAccurateIsOurApproximation} and \ref{sec:understanding_limitations}.
 
 First, the evaluation of the output approximation using the symbolic execution
-engine, \sf{Symex}, in previous work \cite{Nguyen:2014:BCG:2635868.2635928} has
-shown high code coverage for small systems. As our symbolic execution
-re-implements \sf{Symex} and extends with support for additional language
-features, we ask whether we can replicate high coverage results at least on a small-scale. Therefore, our PHP
-corpus contains four small-scale systems used in previous work \cite{Nguyen:2014:BCG:2635868.2635928}.
+engine, \sf{PhpSync}, in previous work \cite{Nguyen:2014:BCG:2635868.2635928}
+has shown high code coverage for small systems. As our symbolic execution
+re-implements \sf{PhpSync} and extends with support for additional language
+features, we ask: Can  we replicate high coverage results at least on a
+small-scale. Therefore, our PHP corpus contains four small-scale systems used
+in previous work \cite{Nguyen:2014:BCG:2635868.2635928}.
 
-Second, we ask whether system size and usage of modern language features are
-factors affecting the practicality of our symbolic execution engine. We
+Second, we ask :Do system size and usage of modern language features
+factors affect the practicality of our symbolic execution engine? We
 selected both a range of large-scale and small-scale modern PHP systems to
 better separate and understand the circumstances under which conceptual
 limitations might affect practicality. For the selection of large-scale systems
@@ -839,8 +842,11 @@ recall of 50 percent means that half of the string literals, which we manually
 classified as output candidates, actually were responsive to the classifier. We
 attempted to increase recall by looking for further distinctive properties to build a
 classifier from, but could not do so without decreasing precision. 
-\textcolor{gray}{In spite of missing half of the output candidates, we decided
-to use a simple, yet precise and distinctive classifier.}
+In spite of missing half of the output candidates, we decided
+to use a simple, yet precise and distinctive classifier. We rather work on a
+smaller sample subset of actual output candidates with less false positives
+than a larger set of string literals, where more are mistakenly classified as
+output candidates.
 
 \subsection{Measuring Approximation Accuracy}
 \label{HowAccurateIsOurApproximation} 
@@ -1142,8 +1148,13 @@ frequency is varying from system to system. Further work by Hills et al.
 both context-insensitive resolution on file level by simplifying PHP constants; and context-sensitive on program level for transitive includes. In spite of
 promising results, these approaches, similar to our results, face limitations
 for truly dynamic includes if resolution is not sound due to information not
-being available in the source code like database query results. Something about
-dynamic features and resolution.
+being available in the source code like database query results. 
+
+\paragraph{Input Generation for PHP}
+\textcolor{gray}{Apollo \cite{artzi_finding_2008,artzi_finding_2010}, automated
+test input generation using concolic testing \cite{DynamicWassermann}, test case generation
+using search based software engineering \cite{Alshahwan2011}}
+
 
 %Tools using symbolic execution for static output approximation \cite{artzi_finding_2008,artzi_finding_2010}
 %\textcolor{blue}{\blindtext}

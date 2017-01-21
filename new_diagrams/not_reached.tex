@@ -6,18 +6,18 @@
 
 \pgfplotstableread{ % data 
 Label     Reached/Output OnlyReached FunctionContext NotImported Misc
-Adressbook 		84	2	4	1	9
-Schoolmate   	98	2	0	0	0
-Timeclock  		91	1	0	0	8
-Webchess  		89	3	7	0	1
-PhpBB 			5	27	66	0	3
-Drupal 			18	2	80	0	0
-phpMyAdmin 		4	1	87	1	7
-Anchor 			90	1	10	0	0
-Kirby 			76	0	23	1	0
-Automad 		40	7	49	0	4
-Monstra 		61	18	17	0	3
-Nibbleblog 		59	12	26	0	3
+Nibbleblog      59  12  26  0   3
+Monstra         61  18  17  0   3
+Automad         40  7   49  0   4
+Kirby           76  0   23  1   0
+Anchor          90  1   10  0   0
+phpMyAdmin      4   1   87  1   7
+Drupal          18  2   80  0   0
+PhpBB           5   27  66  0   3
+Webchess        89  3   7   0   1
+Timeclock       91  1   0   0   8
+Schoolmate      98  2   0   0   0
+Adressbook      84  2   4   1   9
     }\testdata
 
 \begin{center}
@@ -36,7 +36,8 @@ Nibbleblog 		59	12	26	0	3
        cells={anchor=center, fill},
        nodes={inner sep=1.5,below=-1.1ex}
     },
-    yticklabels from table={\testdata}{Label}  % Get the labels from the Label column of the \datatable
+    yticklabels from table={\testdata}{Label}  % Get the labels from the Label
+    % column of the \datatable
     ,bar width=2ex, y=3ex,
     nodes near coords = {%
        \pgfmathprintnumberto[fixed,assume math mode=true]{\pgfplotspointmeta}{\myval}%

@@ -36,7 +36,7 @@
 
 %\usepackage[labelfont=bf]{caption}
 
-\definecolor{lightgrey}{HTML}{FFFFFF}
+\definecolor{lightgrey}{HTML}{FCFCFF}
 
 \hypersetup{
     colorlinks,
@@ -114,7 +114,7 @@
 \begin{document}
 \title{Does It Scale? Symbolic Execution of PHP Web Applications}
 %\titlenote{Produces the permission block, and copyright information}
-%\subtitle{Extended Abstract}
+\subtitle{Output-oriented Symbolic Execution for Static Output Approximation}
 %\subtitlenote{The full version of the author's guide is available as  \texttt{acmart.pdf} document}
 
 
@@ -231,8 +231,8 @@ to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE
 programming community index \cite{tiobePHP}, and was the ranked as the 6th
 most popular language on GitHub \cite{githubPHP}.
 
-One common property of all technologies for dynamic web applications is
-\emph{staged computation}: A dynamic web application as a whole
+A common characteristic of all dynamic web applications is their
+\emph{staged nature}: A dynamic web application as a whole
 consists of both static code, such as scripts, and dynamically generated code,
 such as client page output. The latter code, although assembled at
 runtime, may contain client-side parts of the web application, such as
@@ -774,7 +774,7 @@ features, we ask: Can  we replicate high coverage results at least on a
 small-scale. Therefore, our PHP corpus contains four small-scale systems used
 in previous work \cite{Nguyen:2014:BCG:2635868.2635928}.
 
-Second, we ask :Do system size and usage of modern language features
+Second, we ask: Do system size and usage of modern language features
 factors affect the practicality of our symbolic execution engine? We
 selected both a range of large-scale and small-scale modern PHP systems to
 better separate and understand the circumstances under which conceptual
@@ -784,10 +784,12 @@ systems. Some more detailed description of this case study can be found in
 Section \ref{sec:related_work}. For the small-scale systems we selected five systems from
 a list of recent Content Management Systems (CMS) written in PHP \cite{codegeekz}. For both
 selections we were bound to select a smaller number of system than we intended
-to since the parser used in our implementation, \sf{Quercus}\footnote{Quercus
-footnote}, did not support a number of language features. The full list of PHP
-systems for that we evaluate our symbolic execution engine along with
-descriptive code metrics can be found in Table \ref{corpus}.
+to since the parser used in our implementation,
+\sf{Quercus}\footnote{\sf{Quercus} is an open-source Java implementation of PHP
+5 by Caucho Technology. We reused the parser front-end for our implementation.
+\sf{Quercus} can be obtained from \url{http://quercus.caucho.com}.}, did not
+support a number of language features.
+The full list of PHP systems for that we evaluate our symbolic execution engine along with descriptive code metrics can be found in Table \ref{corpus}.
 
 \begin{table*}[t]
 \centering 
@@ -889,32 +891,39 @@ our approximation results and conducted three more measurements.
 \begin{figure}[h!]
 	\begin{subfigure}[center]{0.48\textwidth}
 		\input{new_diagrams/not_reached}
-		\caption{\label{coverage}}
+		\caption{
+		Classification distribution of \emph{reached} output candidates
+		(Reached/Output, OnlyReached) and \emph{not-reached} output candidates
+		(FunctionContext, NotImported, Misc) during the analyis for each system.
+		\label{coverage}}
 	\end{subfigure}
+	\vspace{1mm}
 	
 	\begin{subfigure}[center]{0.48\textwidth}
 		\input{new_diagrams/includes}
 		\caption{
-			Include coverage and accuracy.
+			Classification distribution of \emph{reached} output include expressions
+			(Reached/Output, OnlyReached) and \emph{not-reached} include expressions.
 			\label{fig:include_coverage_results}
 		}
 	\end{subfigure}
-	
+	\vspace{1mm}
 	
 	% Callback candidate explanation
 	\begin{subfigure}[center]{0.48\textwidth}
 		\input{new_diagrams/callbacks}
 		\caption{
-			Distribution dead function output candidates that are par-
-			tially or completely explained due to callback candidates.
+			Distribution of \emph{not-reached} output candidates (in function contexts)
+			that are only (Complete), partially (Partial), or not accessible via callback candidates. 
 			\label{fig:output_candidate_explanation}
 		}
 		
 	\end{subfigure}
-	\caption{Results}
+	\caption{Evaluation results for output candidates, include expressions and
+	callgraph analysis for not-reached output candidates}
 \end{figure}
 
-\subsubsection{What literals did we miss?}\label{WhatLiteralsDidWeMiss?}
+\subsubsection{Where did we miss output?}\label{WhatLiteralsDidWeMiss?}
 Our initial approach to understand missed output candidates is to find out
 whether their surrounding program code was not accessed/accessible, and if so,
 why. We are interested in those output candidates that are located in HTML
@@ -959,7 +968,7 @@ investigate how many functions fail due to inaccurately resolved indirect
 function calls. Moreover, we evaluate the accuracy of evaluation of include
 expressions in the next section.
 
-\subsubsection{Why did includes fail?}
+\subsubsection{(Dynamic) Includes}
 \label{WhyDidIncludesFail}
 From Section \ref{sec:experiment_dynamicfeatures} we learn that include
 expressions can not be evaluated accurately for symbolic values, and from the
@@ -984,7 +993,7 @@ resolution success rate was over 80 percent. Note that one failed attempt
 to include a script file can result in a cascade of missing more include
 expressions as the include target script file is not included and executed.
 
-\subsubsection{Why did function calls fail?}
+\subsubsection{Dynamic Function Invocations}
 \label{WhyDidFunctionCallsFail}
 Aside from failed or successful includes, this metric describes one scenario of
 why functions containing not-reached output candidates are never called: The
@@ -1069,18 +1078,13 @@ Symbolic execution is used to approximate client page output since it allows to
 unfold the staged nature of dynamic web applications. Aside from conceptual
 limitations in the systems studied, limitations can be addressed. To use
 approaches incorporating symbolic execution with dynamic web applications in
-the long run, more concrete dummy information, similar to test oracles, needs
+the long run, more concrete input, similar to test oracles, needs
 to be provided to decrease the number of assumed symbolic inputs and avoid
 dynamic features being confronted with symbolic values. Also, if the usage of
 tools using static output approximation with symbolic execution is intended,
 avoiding dynamic features that are prone to be inaccurately executed for
 symbolic execution  may be an adjustment strategy to program in an analyzable
 way. 
-Future work to increase code coverage and approximation quality might involve
-automated test case generation as tools like \sf{Apollo}
-\cite{artzi_finding_2008,artzi_finding_2010} or previous
-work \cite{DynamicWassermann} to decrease the number of symbolic inputs and
-provide proper and concrete input variants.
 
 \paragraph{Practical tools require practical evaluation.}
 Last, we want to address the limited informative value of analyses and tools
@@ -1111,6 +1115,25 @@ to increase the practical benefit of the tools described above.
 
 
 \section{Related Work} \label{sec:related_work}
+
+\paragraph{Symbolic Execution}
+Symbolic execution \cite{King1976,Darringer1978} remained an conceptual approach
+for decades, but has been refined and extended over the last years. Several
+approaches incorporating constraint solving and leveraging concrete execution
+anlongside symbolic execution emerged and enable automated test case generation
+and testing; the scalability of these approaches is still challenged by path
+explosion and constraint solving \cite{CadarSen2013}. 
+
+Dynamic symbolic execution \cite{CadarSen2013} incorporates symbolic execution
+alongside concrete execution and ahs shown promising results in automated test
+generation and testing \cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann} for PHP web
+applications and might help mitigate the conceptual limitations faced with
+symbolic values and dynamic features for future work on output-oriented
+symbolic execution.
+
+An overview about recent evolution of symbolic execution is provided by work of Cadar et al.
+\cite{CadarSen2013}, as well as a more tool-centered perspective \cite{Cadar2011}.
+
 \paragraph{Static Output Approximation}
 To approximate program slices for web
 applications, Ricca et al. \cite{tonella_web_2005,tonella_2001,tonella_2002} approximate
@@ -1150,17 +1173,28 @@ promising results, these approaches, similar to our results, face limitations
 for truly dynamic includes if resolution is not sound due to information not
 being available in the source code like database query results. 
 
-\paragraph{Input Generation for PHP}
-\textcolor{gray}{Apollo \cite{artzi_finding_2008,artzi_finding_2010}, automated
-test input generation using concolic testing \cite{DynamicWassermann}, test case generation
-using search based software engineering \cite{Alshahwan2011}}
+
 
 
 %Tools using symbolic execution for static output approximation \cite{artzi_finding_2008,artzi_finding_2010}
 %\textcolor{blue}{\blindtext}
 
 \section{Conclusion}
+In this paper we have addressed symbolic execution of PHP web applications that
+is used for client page output approximation. This approximations are leveraged
+be several developer tools for PHP, yet have not been evaluated for larger
+systems. We re-implemented and extended an existing symbolic execution engine
+to analyze several real-world PHP applications with the intention to evaluate
+the scalability of symbolic execution for PHP. Our work illustrates the
+necessity of more comprehensive evaluation of developer tools as
+previous work did not explore these limitations. Dynamic features of PHP in
+combination with symbolic values though hinder precise symbolic execution and
+limit the scalability and practicality of tools on symbolically approximated
+client page output.
 
+In the future we would like to use dynamic symbolic execution for output
+approxiamtion and possibly bypass existing limitations, as dynamic symbolic
+execution has shown to be promising for automated testing and verification.
 
 %\newpage
 %References

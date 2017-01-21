@@ -49,6 +49,8 @@ Warning--empty year in tiobePHP
 Warning--require articleno with numpages field in Alshahwan2011
 Warning--empty booktitle in artzi_finding_2008
 Warning--empty address in artzi_finding_2008
+Warning--require articleno with numpages field in Cadar2011
+Warning--require articleno with numpages field in CadarSen2013
 Warning--require articleno with numpages field in Darringer1978
 Warning--empty publisher in hills2015variable
 Warning--empty address in hills2015variable
@@ -73,45 +75,45 @@ Warning--empty publisher in wassermann2007sound
 Warning--empty address in wassermann2007sound
 Warning--empty address in wassermann_static_2008
 Warning--require articleno with numpages field in DynamicWassermann
-You've used 28 entries,
+You've used 30 entries,
             5551 wiz_defined-function locations,
-            1504 strings with 21699 characters,
-and the built_in function-call counts, 31627 in all, are:
-= -- 3586
-> -- 1042
+            1522 strings with 22304 characters,
+and the built_in function-call counts, 34188 in all, are:
+= -- 3921
+> -- 1165
 < -- 0
-+ -- 323
-- -- 619
-* -- 2436
-:= -- 3247
-add.period$ -- 131
-call.type$ -- 28
-change.case$ -- 184
-chr.to.int$ -- 27
-cite$ -- 115
-duplicate$ -- 2566
-empty$ -- 1827
-format.name$ -- 443
-if$ -- 7169
++ -- 363
+- -- 663
+* -- 2650
+:= -- 3531
+add.period$ -- 141
+call.type$ -- 30
+change.case$ -- 201
+chr.to.int$ -- 29
+cite$ -- 119
+duplicate$ -- 2755
+empty$ -- 1961
+format.name$ -- 495
+if$ -- 7778
 int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 111
-newline$ -- 296
-num.names$ -- 183
-pop$ -- 1150
+missing$ -- 120
+newline$ -- 317
+num.names$ -- 199
+pop$ -- 1210
 preamble$ -- 1
-purify$ -- 323
+purify$ -- 350
 quote$ -- 0
-skip$ -- 675
+skip$ -- 734
 stack$ -- 0
-substring$ -- 3120
-swap$ -- 269
+substring$ -- 3316
+swap$ -- 293
 text.length$ -- 515
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 392
-warning$ -- 67
-while$ -- 202
+type$ -- 420
+warning$ -- 69
+while$ -- 220
 width$ -- 0
-write$ -- 578
-(There were 67 warnings)
+write$ -- 620
+(There were 69 warnings)

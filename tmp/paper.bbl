@@ -131,6 +131,40 @@
 \url{http://dx.doi.org/10.1109/TSE.2010.31}}
 
 
+\bibitem[\protect\citeauthoryear{Cadar, Godefroid, Khurshid, P\u{a}s\u{a}reanu,
+  Sen, Tillmann, and Visser}{Cadar et~al\mbox{.}}{2011}]%
+        {Cadar2011}
+\bibfield{author}{\bibinfo{person}{Cristian Cadar}, \bibinfo{person}{Patrice
+  Godefroid}, \bibinfo{person}{Sarfraz Khurshid}, \bibinfo{person}{Corina~S.
+  P\u{a}s\u{a}reanu}, \bibinfo{person}{Koushik Sen}, \bibinfo{person}{Nikolai
+  Tillmann}, {and} \bibinfo{person}{Willem Visser}.}
+  \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Symbolic Execution for Software Testing in
+  Practice: Preliminary Assessment}. In \bibinfo{booktitle}{{\em Proceedings of
+  the 33rd International Conference on Software Engineering}} {\em
+  (\bibinfo{series}{ICSE '11})}. \bibinfo{publisher}{ACM},
+  \bibinfo{address}{New York, NY, USA}, \bibinfo{pages}{1066--1071}.
+\newblock
+\showISBNx{978-1-4503-0445-0}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1985793.1985995}}
+
+
+\bibitem[\protect\citeauthoryear{Cadar and Sen}{Cadar and Sen}{2013}]%
+        {CadarSen2013}
+\bibfield{author}{\bibinfo{person}{Cristian Cadar} {and}
+  \bibinfo{person}{Koushik Sen}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Symbolic Execution for Software Testing: Three
+  Decades Later}.
+\newblock \bibinfo{journal}{{\em Commun. ACM\/}} \bibinfo{volume}{56},
+  \bibinfo{number}{2} (\bibinfo{date}{Feb.} \bibinfo{year}{2013}),
+  \bibinfo{pages}{82--90}.
+\newblock
+\showISSN{0001-0782}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2408776.2408795}}
+
+
 \bibitem[\protect\citeauthoryear{Darringer and King}{Darringer and
   King}{1978}]%
         {Darringer1978}

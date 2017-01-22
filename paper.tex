@@ -36,7 +36,7 @@
 
 %\usepackage[labelfont=bf]{caption}
 
-\definecolor{lightgrey}{HTML}{FCFCFF}
+\definecolor{lightgrey}{HTML}{FFFFFF}
 
 \hypersetup{
     colorlinks,
@@ -158,23 +158,24 @@
 
 
 \begin{abstract}
-\textcolor{gray}{
-Dynamic web applications have become widely popular and are to
-a large proportion based on the scripting language PHP. Output approximation of web
-applications enables a range of additional tool support as well as possibilities
-for vulnerability detection. Unfortunately, recent approximation approaches have
-only been evaluated for smaller systems.}
-\textcolor{gray}{This paper presents an experience report about the scalability of output
-approximation using symbolic execution of state-of-the-art PHP web
-applications. For a symbolic execution engine extended with support for
-object-oriented programming and arrays, we identified language features and
-corresponding programming patterns that impede symbolic execution and limit the
-scalability of this approach. Our findings include: (1) Dynamic features such as
-functions and includes are prone to fail for certain programming patterns. (2)
-Expressions containing elements from I/O, databases or files can heavily impede
-symbolic execution. Our findings provide useful guidelines to design new
-tools and also to improve the development process of statically analyzable web
-applications.}
+Dynamic web applications have become widely popular and are to a large portion
+based on the scripting language PHP. Dynamic languages like PHP challenge
+static analysis, as they generate code at runtime. One approach to unfold their
+staged nature is symbolic execution by approximating client page output.
+Knowledge about possible output enables a range of developer tools and analyses
+for vulnerability detection.
+
+However, previous tools have only been evaluated for smaller systems and
+scalability for larger systems has not been shown. We criticize the missing
+evalaution of practicality of respective tools and ask whether symbolic
+execution for output approximation for PHP is scalable and what limitations can
+be faced. This paper presents our experiences with re-implementing and
+extending a previous symbolic execution engine for PHP that we evaluate for
+several large PHP systems.
+We find that dynamic language features are likely to be resolved imprecisely
+for symbolic values and impede symbolic execution. We explore
+strategies to mitigate limitations based on previous work on dynamic symbolic
+execution by manually providing concrete rather than symbolic values.
 \end{abstract}
 
 %
@@ -519,17 +520,13 @@ simple system, which we chose to compare our approximation results to those of
 \sf{PhpSync}, we could achieve similar output approximation results. For
 \sf{WordPress} though, we did not achieve high code coverage or an accurate
 approximation for \sf{WordPress} as we faced a number of obstacles hindering
-symbolic execution in different ways: The following Subsection
-\ref{sec:experience_report} documents our design choices we made, apparent trade-offs we recognized, and limitations
-we faced on our way towards a scalable symbolic execution engine; and what we
-have learned from bypassing limitations faced in spite of manual effort for
-future work. Subsection \ref{sec:experience_results} compares our observations
-and results to \sf{PhpSync} and presents the motivation for our empirical
-evaluation of our tool symbolic execution engine in Section \ref{sec:evaluation}.
-
-
+symbolic execution in different ways.
 
 \subsection{Experience Report}\label{sec:experience_report}
+We document our design choices we made, apparent trade-offs we
+recognized, and limitations we faced on our way towards a scalable symbolic
+execution engine; and what we have learned from bypassing limitations faced in
+spite of manual effort for future work.
 
 \subsubsection{Symbolic/Concrete Loop Execution}
 Throughout the implementation we basically followed the symbolic execution
@@ -721,7 +718,7 @@ the same problem as dynamic test input generation for web applications, where
 proper concrete input is assumed rather than symbolic values to increase code
 coverage. We present work on this problem in Section \ref{sec:related_work}.
 
-
+% Comparison with PhpSync
 \subsection{Experience Results} \label{sec:experience_results}
 The symbolic execution engine \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928} so far does not face the
 problems we documented in Section \ref{sec:experience_report}. The evaluation of
@@ -798,7 +795,6 @@ The full list of PHP systems for that we evaluate our symbolic execution engine 
 %find . -regextype "posix-extended" -iregex '.*\.(php|bit|inc|module)' | wc -l
 
 
-
 \begin{table*}[t]
 \centering 
 	\begin{tabular}{lrp{5cm}rrrr}
@@ -825,8 +821,9 @@ The full list of PHP systems for that we evaluate our symbolic execution engine 
 	Nibbleblog & 4.0.5 & Content Management System & 20.376 & 328  & 1013 & 28\\
 	\bottomrule
 	\end{tabular}
-	\caption{Corpus of twelve PHP systems. The file count includes files with a .php,
-	.inc, .bit or .module extension.}
+	\vspace{1mm}
+	\caption{Corpus of twelve PHP systems. The file count includes files with a
+	\tt{.php}, \tt{.inc}, \tt{.bit} or \tt{.module} extension.}
 	\label{corpus}
 \end{table*}
 

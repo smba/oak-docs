@@ -281,7 +281,7 @@ become infeasible. This may require additional engineering adjustments to tame
 the state space explosion at cost of accuracy.
 
 Based on observations we identify conceptual limitations of symbolic
-execution for PHP.  Dynamic features such as indirect function calls and
+execution for PHP.  Dynamic features such as indirect function invocations and
 include expression require concrete information to be evaluated properly. Since
 these expressions may be assembled at runtime and can contain symbolic
 information, for many cases this restricts a symbolic execution engine from
@@ -524,8 +524,8 @@ symbolic execution in different ways: The following Subsection
 we faced on our way towards a scalable symbolic execution engine; and what we
 have learned from bypassing limitations faced in spite of manual effort for
 future work. Subsection \ref{sec:experience_results} compares our observations
-and results to \emph{PhpSync} and presents the motivation for our empirical evaluation of our
-tool symbolic execution engine in Section \ref{sec:evaluation}.
+and results to \sf{PhpSync} and presents the motivation for our empirical
+evaluation of our tool symbolic execution engine in Section \ref{sec:evaluation}.
 
 
 
@@ -606,9 +606,9 @@ expressions. Also, configuration files represent only one particular
 configuration or even just default values or placeholders. Hence, symbolic
 execuion is prone to fail for dynamic includes if symbolic information is contained.
 
-Second, function can either be called directly by statically providing the name
-of the function (or method), or indirectly. Indirect function calls in PHP are
-enabled by using built-in functions like \tt{call\_user\_func},
+Second, function can either be invocated directly by statically providing the
+name of the function (or method), or indirectly. Indirect, or dynamic function
+invocation in PHP are enabled by using built-in functions like \tt{call\_user\_func},
 \tt{call\_user\_func\_array} or simply passing a string value with a direct
 function call to the \tt{eval} function. The first two functions take as
 arguments the name of the function two call, and all arguments to that
@@ -617,7 +617,6 @@ respectively.
 The \tt{eval} function evaluates a given PHP expression passed as a string
 literal.
 Again, we encountered issues similar to dynamic include expressions with
-indirect function call mechanisms: The example in Figure
 \ref{fig:indirect_calls} illustrates two functions \tt{header\_serif} and
 \tt{header\_sserif} which both print a HTML headline. Depending on whether the
 value of the variable \tt{\$style} retrieved from a database is \tt{serif} or
@@ -650,7 +649,7 @@ if (...) {
 $person->greet("Good Morning, ");
 \end{lstlisting}
 	\caption{
-		Dynamic dispatch: Multiple targets for method calls
+		Dynamic Dispatch : Multiple target objects for method invocation \tt{greet()} 
 		\label{fig:multi_target}
 	}
 	\end{subfigure}
@@ -668,7 +667,8 @@ $template = mysql_result(...);
 require_once TEMPLATE . $template;
 \end{lstlisting}
 	\caption{
-		Dynamic Include Resolution
+		Dynamic Include Resolution: The value of \tt{\$template} is retrieved from a
+		database query result.
 		\label{fig:dynamic_includes}
 	}
 	\end{subfigure}
@@ -691,13 +691,13 @@ $font_style = mysql_result(...);
 call_user_func('header_' . $font_style, 'Title');
 \end{lstlisting}
 	\caption{
-		Function calls by indirect invocation mechanisms
+		Dynamic Function Invocation using \tt{call\_user\_func}
 		\label{fig:indirect_calls}
 	}
 	
 	\end{subfigure}
 	\caption{
-		Code Examples of defective code features
+		Code examples for dynamic features
 		\label{fig:defective_code_features}
 	}
 \end{figure}
@@ -791,27 +791,38 @@ to since the parser used in our implementation,
 support a number of language features.
 The full list of PHP systems for that we evaluate our symbolic execution engine along with descriptive code metrics can be found in Table \ref{corpus}.
 
+% count lines
+%find . -regextype "posix-extended" -iregex '.*\.(php|bit|inc|module)' | xargs wc -l
+
+% count files
+%find . -regextype "posix-extended" -iregex '.*\.(php|bit|inc|module)' | wc -l
+
+
+
 \begin{table*}[t]
 \centering 
-	\begin{tabular}{lrp{4cm}rrrr}
+	\begin{tabular}{lrp{5cm}rrrr}
 	\toprule
 	\textbf{System} & \textbf{Version} & \textbf{Classification} & \textbf{SLOC} &
-	\textbf{\#files} & \textbf{\#OCs} & \textbf{\#includes}\\
+	\textbf{\#files} & \textbf{\#Output candidates} & \textbf{\#Include
+	Expressions}\\
 	\midrule
-	AddressBook & 8.2.5.2 &  & 51,907 & 239  & 1009 & 186\\
-	SchoolMate & 1.5.4 &  & 8,118 & 65  & 853 & 88\\
-	TimeClock & 1.04 &  & 20,800 & 63  & 7920 & 306\\
-	WebChess & 1.0.0 &  & 5,219 & 28  & 470 & 56\\
+	AddressBook & 8.2.5.2 & Web-based address and phone book & 51,907 & 239  & 1009
+	& 186\\
+	SchoolMate & 1.5.4 & School administration & 8,118 & 65  & 853 & 88\\
+	TimeClock & 1.0.4 & Web-based time tracking & 20,800 & 63  & 7920 & 306\\
+	WebChess & 1.0.0 & Chess server software & 5,219 & 28  & 470 & 56\\
 	\midrule
-	Drupal & 7.5.0 & CMS & 52,464 & 125  & 3569 & 749\\
-	phpBB & 3.1.9 &  & 327,371 & 1,398  & 3606 & 206\\
-	phpMyAdmin & 4.6.3 &  & 303,582 & 871  & 7103 & 571\\
+	Drupal & 7.5.0 & Content Management System &  52,464 & 125  & 3569 & 749\\
+	phpBB & 3.1.9 & Forum & 327,371 & 1,398  & 3606 & 206\\
+	phpMyAdmin & 4.6.3 & Web-based MySQL administration & 303,582 & 871  & 7103 &
+	571\\
 	\midrule
-	Anchor & 0.12.1 &  & 15,054 & 201 & 987 & 32\\
-	Kirby & XXX & CMS & XXX & XXX  & 654 & 23\\
-	Automad & XXX & CMS & XXX & XXX  & 655 & 8\\
-	Monstra & XXX & CMS & XXX & XXX  & 1934 & 48\\
-	Nibbleblog & XXX & CMS & XXX & XXX  & 1013 & 28\\
+	Anchor & 0.12.1 & Content Management System & 15,054 & 201 & 987 & 32\\
+	Kirby & 2.4.1 & Content Management System & 51.778 & 435  & 654 & 23\\
+	Automad & 0.10 & Content Management System & 13.978 & 64  & 655 & 8\\
+	Monstra & 3.0.4 & Content Management System & 41.102 & 490  & 1934 & 48\\
+	Nibbleblog & 4.0.5 & Content Management System & 20.376 & 328  & 1013 & 28\\
 	\bottomrule
 	\end{tabular}
 	\caption{Corpus of twelve PHP systems. The file count includes files with a .php,
@@ -957,16 +968,16 @@ are several ways to call a function beside direct call sites.
 %The language offers indirect call mechanisms like callback-commands or an
 % evaluation function that parses and evaluates PHP source code as strings.
 
-Given a symbolic value, indirect call mechanisms like callback-commands are
-likely to fail since target function name and the symbolic value do not match.
+Given a symbolic value, indirect function invocation mechanisms like
+callback-commands are likely to fail since target function name and the symbolic value do not match.
 This also applies for the evaluation of include expressions as concrete values
 representing include targets can be included, but any include target containing
 symbolic values is ambiguous. Since it is unlikely that all functions containing
 missed output candidates are dead code having no call site (direct or
 indirect) at all, in Section \ref{WhyDidFunctionCallsFail} we further
 investigate how many functions fail due to inaccurately resolved indirect
-function calls. Moreover, we evaluate the accuracy of evaluation of include
-expressions in the next section.
+function invocations. Moreover, we evaluate the accuracy of evaluation of
+include expressions in the next section.
 
 \subsubsection{(Dynamic) Includes}
 \label{WhyDidIncludesFail}
@@ -1008,10 +1019,10 @@ Thus, for functions containing not-reached output candidates we measure whether
 they can be (1) only, (2) partially or (3) never accessed transitively from
 functions that have no direct call sites. We refer to those functions (or
 access points) having no direct call site as callback candidates since the only
-way to reach them is through indirect mechanisms. Measuring how many
-not-reached output candidates can be explained by functions that are callback
-candidates helps to understand whether, and if so, indirect call mechanisms and
-their usage may impact our analysis’ code coverage.
+way to reach them is through dynamic function invocation mechanisms. Measuring
+how many not-reached output candidates can be explained by functions that are callback
+candidates helps to understand whether, and if so, indirect function invocation
+mechanisms and their usage may impact our analysis’ code coverage.
 
 The callgraph snippets in Figure \ref{fig:callgraph} illustrate the idea of
 detecting the functions’ access points: The nodes at the top depict callback
@@ -1044,8 +1055,8 @@ through callback candidates.
 
 For failed function calls to functions containing not-reached output
 candidates we measured how many of those functions were only, or
-partially accessibly through indirect calling mechanisms (see Section
-\ref{sec:experiment_dynamicfeatures}). As Figure
+partially accessibly through indirect function invocation mechanisms (see
+Section \ref{sec:experiment_dynamicfeatures}). As Figure
 \ref{fig:output_candidate_explanation} illustrates, around 80 percent (except
 for \sf{TimeClock}) all missed output candidates of each system were only
 accessible through callback candidates, i.e., functions that are only
@@ -1059,9 +1070,9 @@ evaluation.
 \paragraph{Dynamic features are problematic.}
 From out observations with \sf{WordPress} in Section \ref{sec:3} we learn that
 dynamic language features, in particular include expressions and indirect function
-calls, in combination with symbolic values cannot be evaluated accurately since
-concrete values are required. For our observations we were able to explain most
-of the missed output candidates with indirect function calls. For include
+invocations, in combination with symbolic values cannot be evaluated accurately
+since concrete values are required. For our observations we were able to explain most
+of the missed output candidates with indirect function invocations. For include
 expressions we are indeed able to resolve most expressions successfully, yet we
 do not distinguish between static and dynamic includes in this case study as
 this would exceed the scope of our paper. However, we believe it is plausible
@@ -1172,12 +1183,6 @@ both context-insensitive resolution on file level by simplifying PHP constants; 
 promising results, these approaches, similar to our results, face limitations
 for truly dynamic includes if resolution is not sound due to information not
 being available in the source code like database query results. 
-
-
-
-
-%Tools using symbolic execution for static output approximation \cite{artzi_finding_2008,artzi_finding_2010}
-%\textcolor{blue}{\blindtext}
 
 \section{Conclusion}
 In this paper we have addressed symbolic execution of PHP web applications that

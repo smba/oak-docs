@@ -118,20 +118,20 @@
 %\subtitlenote{The full version of the author's guide is available as  \texttt{acmart.pdf} document}
 
 
-\author{Stefan Mühlbauer}
+%\author{Stefan Mühlbauer}
 \affiliation{%
-  \institution{Technische Universität Braunschweig}
+  %\institution{Technische Universität Braunschweig}
   %\streetaddress{P.O. Box 1212}
   %\city{Braunschweig} 
-  \state{Germany} 
+  %\state{Germany} 
   %\postcode{43017-6221}
 }
 %\email{s.muehlbauer@tu-bs.de}
 
-\author{Christian Kästner}
+%\author{Christian Kästner}
 %\orcid{1234-5678-9012}
 \affiliation{%
-  \institution{Carnegie Mellon University}
+  %\institution{Carnegie Mellon University}
   %\streetaddress{5000 Forbes Avenue}
   %\city{Pittsburgh} 
   %\state{PA} 
@@ -139,10 +139,10 @@
 }
 %\email{s.muehlbauer@tu-bs.de}
 
-\author{Tien N. Nguyen}
+%\author{Tien N. Nguyen}
 %\orcid{1234-5678-9012}
 \affiliation{%
-  \institution{University of Texas at Dallas}
+  %\institution{University of Texas at Dallas}
   %\streetaddress{P.O. Box 1212}
   %\city{Braunschweig} 
   %\state{Germany} 
@@ -159,12 +159,13 @@
 
 \begin{abstract}
 Dynamic web applications have become widely popular and are to a large portion
-based on the scripting language PHP. Dynamic languages like PHP challenge
-static analysis, as they generate code at run-time. One approach to unfold their
-staged nature is symbolic execution by approximating client page output.
-Knowledge about possible output enables a range of developer tools and analyses
-for vulnerability detection. However, previous tools have only been evaluated
-for smaller systems and scalability for larger systems has not been shown.
+implemented in the scripting language PHP. Dynamic languages like PHP though
+challenge static analysis, as they generate code at run-time. One approach to unfold their
+staged nature and to approximate client page output is symbolic execution.
+Knowledge about possible output variants enables a range of developer tools as
+well as analyses for vulnerability detection. However, previous tools have only
+been evaluated for smaller systems and scalability for larger systems has not
+been assessed.
  
 In this paper, we criticize the limited expressiveness of the evaluation of
 practicality for respective tools. We ask whether symbolic execution for output
@@ -221,12 +222,12 @@ evaluation for developer tools.
 \section{Introduction}
 With the emerging world wide web, dynamic web applications have become
 widely popular. Various different implementation techniques have emerged,
-ranging from technologies for programming languages (JSP, ASP .NET) and web
+ranging from web technologies for programming languages (JSP, ASP .NET) and web
 application frameworks for  script languages (Ruby On Rails, Django) to
 languages tailored specifically to the domain of web applications. PHP
 \cite{phpNET} is a programming language focused on server-side application
-development. As of 2012, it was used by 78.8 percent of the ten million most popular websites (according
-to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE
+development. As of 2012, PHP was used by 78.8 percent of the ten million most
+popular websites (according to Alexa popularity ranking) \cite{alexaPHP}, ranking 7th on the TIOBE
 programming community index \cite{tiobePHP}, and was the ranked as the 6th
 most popular language on GitHub \cite{githubPHP}.
 
@@ -235,65 +236,67 @@ A common characteristic of all dynamic web applications is their
 consists of both static code, such as scripts, and dynamically generated code,
 such as client page output. The latter code, although assembled at
 run-time, may contain client-side parts of the web application, such as
-JavaScript. So, to study dynamic web applications in its entirety, we need to
-consider both static as well as dynamic aspects of systems.
+JavaScript. Therefore, to study dynamic web applications in its entirety, we
+need to consider both static as well as dynamic aspects of those systems.
 
 \emph{Symbolic execution} is a static analysis technique between program testing
 and program proving. For a program, symbolic values are
-used instead of concrete inputs \cite{Darringer1978,King1976}. The underlying
+assumed instead of concrete inputs \cite{Darringer1978,King1976}. The underlying
 concept is to map program input to program output: Symbolic values are used and
 propagated throughout the symbolic execution and keep dependencies for program
-output traceable. This analysis technique helps unfold the \emph{staged} nature
-of dynamic web applications. Since every feasible path can be executed the
-symbolic output contains both invariant output as well as output variants that
-depend on program input.
+output traceable. This analysis technique helps unfold the staged nature
+of dynamic web applications. Since every feasible path can be explored
+and executed the symbolic output contains both invariant output as well as
+output variants that depend on program input.
 
 Knowledge about different output variants is leveraged by a number of
-analyses for the domain of web applications. Previous work presented tools
-for detecting and locating HTML validation errors
+tools and analyses for the domain of web applications. Previous work presented
+tools for detecting and locating HTML validation errors
 \cite{Nguyen:2011:AFH:2190078.2190142}, computing program slices across
 server-side and client-page code \cite{Nguyen:2015:CPS:2786805.2786872}, or
 easing development and maintenance by extending IDE support for web applications
 with code navigation \cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
-Moreover, knowledge of output variants can increases code coverage for
+Moreover, knowledge of output variants can increase code coverage for
 output-oriented testing \cite{Alshahwan2011}.
 
 Despite the various use cases for analyses based on an approximated output
 model, static output approximation for PHP web applications using symbolic
 execution has so far only been evaluated for small systems that are not
-maintained anymore. The tools presented by previous work
+actively maintained. The tools presented by previous work
 \cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2011:AFH:2190078.2190142}
 though are only practical, if for a given system the symbolic execution engine
-is scalable, i.e., will also approximate output accurately for larger and more
-recent systems with acceptable time and space consumption.
+is scalable, i.e., will also approximate client page output accurately for
+larger and more recent systems with acceptable time and space consumption.
 
 To investigate the question, whether we can have a practical and scalable
-symbolic execution engine, we re-implemented the engine with the specifications
-of the previous symbolic execution semantics \cite{Nguyen:2014:BCG:2635868.2635928} for PHP and additional features, such
-as object-oriented programming. We evaluate our
-symbolic execution engine for several large-scale and modern PHP systems.
+symbolic execution engine, we re-implemented the symbolic engine with the
+specifications of the previous symbolic execution semantics
+for \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928} for PHP and
+extended it with additional features, such as object-oriented programming. We
+evaluate our symbolic execution engine for several large-scale and modern PHP systems.
 
-During the introduction of new semantics, we addressed two  trade-offs between
-accuracy of our execution and performance: For method calls with ambiguous
-targets as well as concrete execution of loops the number of program states can
-become infeasible. This may require additional engineering adjustments to tame
-the state space explosion at cost of accuracy.
+During the introduction of new semantics for object-oriented programming we
+faced a trade-off between accuracy and scalability: Whilst exploring multiple
+paths, for method invocations the number of target objects may grow rapidly and
+infeasible.
 
-Based on observations we identify conceptual limitations of symbolic
-execution for PHP.  Dynamic features such as indirect function invocations and
-include expression require concrete information to be evaluated properly. Since
-these expressions may be assembled at run-time and can contain symbolic
-information, for many cases this restricts a symbolic execution engine from
-further execution.
-Although some effort to statically approximate include expression can be spent,
-it is often non-trivial since expressions can contain information coming from
-various inputs including databases, user inputs or configuration files. We
-empirically evaluate our observations for a corpus including large, actively maintained PHP systems.
+Moreover, based on observations we identify limitations of symbolic execution
+for PHP. Dynamic features such as dynamic function invocations and dynamic
+include for an accurate execution require precisely resolved include targets
+and function names respectively. Since these expressions  can contain symbolic
+values at run-time, for many cases this restricts a symbolic execution engine
+from further execution as callable code sections become inaccessible.
+Although some effort can be spent to statically resolve dynamic include
+expressions \cite{hills2014static}, or to simply provide static counterparts manually, resolution
+is often not trivial since expressions can contain symbolic values assumed instead
+of concrete program input, including databases, user inputs or configuration
+files. We empirically evaluate our symbolic execution engine for a corpus
+including large and actively maintained PHP systems.
 
 Our key contribution in this paper include (1)  a new tool infrastructure to
 statically approximate the client-page output for PHP web applications using
 symbolic execution and (2) a report of observations for state-of-the-art
-web applications as well as an empirical evaluation of conceptual limitations
+web applications as well as an empirical evaluation of practical limitations
 of symbolic executions for PHP web applications.
 
 \section{State Of the Art}\label{sec:stateoftheart}

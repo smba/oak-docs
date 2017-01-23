@@ -1,4 +1,4 @@
-\documentclass[sigconf]{acmart}
+\documentclass[sigconf, preprint]{acmart}
 
 % just in case
 \usepackage{etex}
@@ -853,9 +853,9 @@ client page output variant is contained in our symbolic output approximation. In
 the following we refer to those expected output string literals as \emph{output candidates}.
 
 With respect to the staged nature of web applications it is
-non-trivialstatically to determine whether a string literal is an output
-candidate, so we heuristically classify string literals as output candidates if
-they contain the characters \tt{<}, \tt{>}, or both since we expect output to
+not trivial to statically determine whether a string literal is an output
+candidate. Consequently, we heuristically classify string literals as output
+candidates if they contain the characters \tt{<}, \tt{>}, or both since we expect output to
 contain HTML tags.
 
 We evaluated this heuristic manually with a sample of 400 string
@@ -919,7 +919,7 @@ our approximation results and conduct three subsequent measurements.
 		\caption{
 		Classification distribution of \emph{reached} output candidates
 		(Reached/Output, OnlyReached) and \emph{not-reached} output candidates
-		(FunctionContext, NotImported, Misc) during the analyis for each system.
+		(FunctionContext, NotImported, Misc) during the analysis for each system.
 		\label{coverage}}
 	\end{subfigure}
 	\vspace{1mm}
@@ -997,7 +997,7 @@ Moreover, we evaluate the accuracy of evaluation of include expressions in the n
 \subsubsection{(Dynamic) Includes}
 \label{WhyDidIncludesFail}
 From Section \ref{sec:experiment_dynamicfeatures} we learn that include
-expressions containic symbolic valuescannot be resolution precisely, and from
+expressions containing symbolic values cannot be resolution precisely, and from
 the previous Section \ref{WhatLiteralsDidWeMiss?} that very little of missed
 output candidates can be explained by simply missing to include a file. To
 better understand the impact of include expression resolution throughout
@@ -1009,7 +1009,7 @@ reached include expressions in a system to check whether failed includes may
 have caused subsequent include expressions and so on. 
 
 Second, we measure how many reached include expressions are
-succesfully resolved throughout the analysis for each system.
+successfully resolved throughout the analysis for each system.
 
 Figure \ref{fig:include_coverage_results} illustrates the classification of
 include expressions for each system: We can either reach an include expression
@@ -1119,7 +1119,7 @@ manually providing expressions that can be resolved precisely.To use
 approaches incorporating symbolic execution with dynamic web applications in
 the long run, more concrete input, similar to test oracles, needs
 to be provided to decrease the number of assumed symbolic inputs and avoid
-dynamic features being confronted with symbolic values. Exising work approaching
+dynamic features being confronted with symbolic values. Existing work approaching
 this goal \cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann}
 incorporates dynamic symbolic execution, i.e. concrete execution alongside symbolic execution.
 
@@ -1197,7 +1197,7 @@ visible at the browser and enable internationalization of web applications.
     
 Another approach is proposed by Wang et al. \cite{wang_automating_2012}, where
 output for a web application is approximated using a hybrid approach: A
-dynamic webpage is executed with concrete input and the execution is
+dynamic web page is executed with concrete input and the execution is
 recorded at run-time. Changes in the client-side output then can be mapped to 
 corresponding PHP code using static impact analysis.
 
@@ -1221,7 +1221,7 @@ systems. We re-implemented and extended an existing symbolic execution engine
 to analyze several real-world PHP applications with the intention to evaluate
 the scalability of symbolic execution for PHP. Our work illustrates the
 necessity of more comprehensive evaluation of developer tools as
-symbolic execution is a conceptually suitable, but not neccessary practical
+symbolic execution is a conceptually suitable, but not necessary practical
 approach to approximate client page output. Dynamic features of PHP in
 combination with symbolic values though can hinder precise symbolic execution
 and limit the scalability and practicality of tools relying on symbolically

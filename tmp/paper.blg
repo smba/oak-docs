@@ -8,9 +8,6 @@ Database file #1: bibliography.bib
 Warning--no key, author in phpNET
 Warning--no author, editor, organization, or key in phpNET
 Warning--to sort, need author or key in phpNET
-Warning--no key, author in alexaPHP
-Warning--no author, editor, organization, or key in alexaPHP
-Warning--to sort, need author or key in alexaPHP
 Warning--no key, author in tiobePHP
 Warning--no author, editor, organization, or key in tiobePHP
 Warning--to sort, need author or key in tiobePHP
@@ -20,8 +17,6 @@ Warning--to sort, need author or key in githubPHP
 Warning--no key, author in codegeekz
 Warning--no author, editor, organization, or key in codegeekz
 Warning--to sort, need author or key in codegeekz
-Warning--no key, author in alexaPHP
-Warning--no key, author in alexaPHP
 Warning--no key, author in codegeekz
 Warning--no key, author in codegeekz
 Warning--no key, author in githubPHP
@@ -33,22 +28,16 @@ Warning--no key, author in tiobePHP
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--no key, author in codegeekz
 Warning--no author, editor, organization, or key in codegeekz
-Warning--empty year in codegeekz
-Warning--no key, author in phpNET
-Warning--no author, editor, organization, or key in phpNET
-Warning--empty year in phpNET
 Warning--no key, author in githubPHP
 Warning--no author, editor, organization, or key in githubPHP
-Warning--empty year in githubPHP
-Warning--no key, author in alexaPHP
-Warning--no author, editor, organization, or key in alexaPHP
-Warning--empty year in alexaPHP
+Warning--no key, author in phpNET
+Warning--no author, editor, organization, or key in phpNET
 Warning--no key, author in tiobePHP
 Warning--no author, editor, organization, or key in tiobePHP
-Warning--empty year in tiobePHP
 Warning--require articleno with numpages field in Alshahwan2011
 Warning--empty booktitle in artzi_finding_2008
 Warning--empty address in artzi_finding_2008
+Warning--require articleno with numpages field in artzi_finding_2010
 Warning--require articleno with numpages field in Cadar2011
 Warning--require articleno with numpages field in CadarSen2013
 Warning--require articleno with numpages field in Darringer1978
@@ -77,43 +66,43 @@ Warning--empty address in wassermann_static_2008
 Warning--require articleno with numpages field in DynamicWassermann
 You've used 30 entries,
             5551 wiz_defined-function locations,
-            1522 strings with 22304 characters,
-and the built_in function-call counts, 34188 in all, are:
-= -- 3921
-> -- 1165
+            1525 strings with 22462 characters,
+and the built_in function-call counts, 34369 in all, are:
+= -- 3987
+> -- 1185
 < -- 0
-+ -- 363
-- -- 663
-* -- 2650
-:= -- 3531
-add.period$ -- 141
++ -- 367
+- -- 671
+* -- 2679
+:= -- 3590
+add.period$ -- 151
 call.type$ -- 30
-change.case$ -- 201
+change.case$ -- 202
 chr.to.int$ -- 29
-cite$ -- 119
-duplicate$ -- 2755
-empty$ -- 1961
-format.name$ -- 495
-if$ -- 7778
+cite$ -- 104
+duplicate$ -- 2745
+empty$ -- 1952
+format.name$ -- 503
+if$ -- 7771
 int.to.chr$ -- 2
 int.to.str$ -- 0
 missing$ -- 120
-newline$ -- 317
-num.names$ -- 199
-pop$ -- 1210
+newline$ -- 329
+num.names$ -- 207
+pop$ -- 1105
 preamble$ -- 1
-purify$ -- 350
+purify$ -- 351
 quote$ -- 0
-skip$ -- 734
+skip$ -- 760
 stack$ -- 0
-substring$ -- 3316
+substring$ -- 3375
 swap$ -- 293
 text.length$ -- 515
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 420
-warning$ -- 69
-while$ -- 220
+warning$ -- 58
+while$ -- 228
 width$ -- 0
-write$ -- 620
-(There were 69 warnings)
+write$ -- 639
+(There were 58 warnings)

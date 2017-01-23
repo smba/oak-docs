@@ -114,24 +114,24 @@
 \begin{document}
 \title{Does It Scale? Symbolic Execution of PHP Web Applications}
 %\titlenote{Produces the permission block, and copyright information}
-\subtitle{Output-oriented Symbolic Execution for Static Output Approximation}
+%\subtitle{Output-oriented Symbolic Execution for Static Output Approximation}
 %\subtitlenote{The full version of the author's guide is available as  \texttt{acmart.pdf} document}
 
 
-%\author{Stefan Mühlbauer}
+\author{Stefan Mühlbauer}
 \affiliation{%
-  %\institution{Technische Universität Braunschweig}
+  \institution{Technische Universität Braunschweig}
   %\streetaddress{P.O. Box 1212}
   %\city{Braunschweig} 
-  %\state{Germany} 
+  \state{Germany} 
   %\postcode{43017-6221}
 }
 %\email{s.muehlbauer@tu-bs.de}
 
-%\author{Christian Kästner}
+\author{Christian Kästner}
 %\orcid{1234-5678-9012}
 \affiliation{%
-  %\institution{Carnegie Mellon University}
+  \institution{Carnegie Mellon University}
   %\streetaddress{5000 Forbes Avenue}
   %\city{Pittsburgh} 
   %\state{PA} 
@@ -139,10 +139,10 @@
 }
 %\email{s.muehlbauer@tu-bs.de}
 
-%\author{Tien N. Nguyen}
+\author{Tien N. Nguyen}
 %\orcid{1234-5678-9012}
 \affiliation{%
-  %\institution{University of Texas at Dallas}
+  \institution{University of Texas at Dallas}
   %\streetaddress{P.O. Box 1212}
   %\city{Braunschweig} 
   %\state{Germany} 
@@ -1074,36 +1074,45 @@ evaluation.
 
 \paragraph{Dynamic features are problematic.}
 From out observations with \sf{WordPress} in Section \ref{sec:3} we learn that
-dynamic language features, in particular include expressions and indirect function
-invocations, in combination with symbolic values cannot be evaluated accurately
-since concrete values are required. For our observations we were able to explain most
-of the missed output candidates with indirect function invocations. For include
-expressions we are indeed able to resolve most expressions successfully, yet we
-do not distinguish between static and dynamic includes in this case study as
-this would exceed the scope of our paper. However, we believe it is plausible
-to assume that defective include expressions can cause a cascade of missing
-files and subsequent includes.
-Throughout the experiment we have seen that dynamic features, are prevalent for
-modern PHP systems as they serve a genuine purpose in the programming language.
-Nevertheless their usage in situations when combined with assumed symbolic
+dynamic language features, in particular include expressions and dynamic
+function invocations containing symbolic values, often cannot be executed
+accurately since include targets or function names respectively are resolved
+imprecisely.
+For our observations we were able to explain most of the missed
+output candidates with indirect function invocations. For include expressions we
+are indeed able to resolve most reached expressions successfully, yet we do not
+distinguish between static and dynamic includes in this case study as this 
+would exceed the scope of our paper. However, we believe it is plausible to
+assume that imprecisely resolved include expressions can cause a cascade of
+missing files and subsequent includes.
+Throughout the evaluation we have seen that dynamic features, are commonly used
+in modern PHP systems as they serve a genuine purpose in the programming
+language.
+Nevertheless their usage in situations where they contain assumed symbolic
 values restricts symbolic execution and any tool leveraging results obtained
 from that.
 
 \paragraph{Bypassing conceptual limitations.}
 Symbolic execution is used to approximate client page output since it allows to
-unfold the staged nature of dynamic web applications. Aside from conceptual
-limitations in the systems studied, limitations can be addressed. To use
+unfold the staged nature of dynamic web applications. 
+
+Aside from being limited by dynamic features, we exercised replacing dynamic
+features with respective static counterparts in order to bypass limitations by
+manually providing expressions that can be resolved precisely.To use
 approaches incorporating symbolic execution with dynamic web applications in
 the long run, more concrete input, similar to test oracles, needs
 to be provided to decrease the number of assumed symbolic inputs and avoid
-dynamic features being confronted with symbolic values. Also, if the usage of
-tools using static output approximation with symbolic execution is intended,
-avoiding dynamic features that are prone to be inaccurately executed for
+dynamic features being confronted with symbolic values. Exising work approaching
+this goal \cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann}
+incorporates dynamic symbolic execution, i.e. concrete execution alongside symbolic execution.
+
+Also, if the usage of tools using static output approximation with symbolic
+execution is intended, avoiding dynamic features that are prone to be inaccurately executed for
 symbolic execution  may be an adjustment strategy to program in an analyzable
 way. 
 
 \paragraph{Practical tools require practical evaluation.}
-Last, we want to address the limited informative value of analyses and tools
+We wanted to address the limited informative value of analyses and tools
 presented in previous work
 \cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,minamide_static_2005,wassermann2007sound}
 where only small PHP systems have been studied. These papers introduce
@@ -1122,10 +1131,8 @@ target space explosion for method calls documented in Section
 of \sf{WordPress}, we did not notice any significant impact on scalability.
 Nevertheless, more research is required to better and systematically understand
 possible drawbacks of object-oriented symbolic execution. 
-This question though is beyond the scope of this paper, as we aimed
-to explore limitations of the practicality and scalability of static output
-approximation using symbolic execution. Future work might address design
-guidelines to enable programming analyzable applications, tool support to scale
+This question though is beyond the scope of this paper.
+Future work might address design guidelines to enable programming analyzable applications, tool support to scale
 the number of assumed symbolic inputs or systematically provide concrete data
 to increase the practical benefit of the tools described above.
 
@@ -1136,13 +1143,12 @@ to increase the practical benefit of the tools described above.
 Symbolic execution \cite{King1976,Darringer1978} remained an conceptual approach
 for decades, but has been refined and extended over the last years. Several
 approaches incorporating constraint solving and leveraging concrete execution
-alongside symbolic execution emerged and enable automated test case generation
-and testing; the scalability of these approaches is still challenged by path
-explosion and constraint solving \cite{CadarSen2013}. 
+alongside symbolic execution emerged and enable automated test case generation;
+the scalability of these approaches is still challenged by path explosion and constraint solving \cite{CadarSen2013}. 
 
 Dynamic symbolic execution \cite{CadarSen2013} incorporates symbolic execution
 alongside concrete execution and has shown promising results in automated test
-generation and testing \cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann} for PHP web
+generation\cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann} for PHP web
 applications and might help mitigate the conceptual limitations faced with
 symbolic values and dynamic features for future work on output-oriented
 symbolic execution.
@@ -1181,30 +1187,32 @@ corresponding PHP code using static impact analysis.
 \paragraph{Dynamic Features}
 According to a case study by Hills et al. \cite{Hills:2013:ESP:2483760.2483786}
 of the feature usage in PHP, based on a corpus of state-of-the-art-projects,
-dynamic includes are less frequently used than static includes, but usage
-frequency is varying from system to system. Further work by Hills et al.
+dynamic includes are less frequently used than static includes, yet usage
+frequency varies from system to system. Further work by Hills et al.
 \cite{hills2014static,hills2014php} approaches static resolution of dynamic includes using
-both context-insensitive resolution on file level by simplifying PHP constants; and context-sensitive on program level for transitive includes. In spite of
+both context-insensitive resolution on file level by simplifying PHP constants;
+and context-sensitive on program level for transitive includes. In spite of 
 promising results, these approaches, similar to our results, face limitations
 for truly dynamic includes if resolution is not sound due to information not
-being available in the source code like database query results. 
+being available in the source code like database query results.
 
 \section{Conclusion}
 In this paper we have addressed symbolic execution of PHP web applications that
-is used for client page output approximation. This approximations are leveraged
-be several developer tools for PHP, yet have not been evaluated for larger
+is used for client page output approximation. These approximations are leveraged
+be several developer tools for PHP that yet have not been evaluated for larger
 systems. We re-implemented and extended an existing symbolic execution engine
 to analyze several real-world PHP applications with the intention to evaluate
 the scalability of symbolic execution for PHP. Our work illustrates the
 necessity of more comprehensive evaluation of developer tools as
-previous work did not explore these limitations. Dynamic features of PHP in
-combination with symbolic values though hinder precise symbolic execution and
-limit the scalability and practicality of tools on symbolically approximated
-client page output.
+symbolic execution is a conceptually suitable, but not neccessary practical
+approach to approximate client page output. Dynamic features of PHP in
+combination with symbolic values though can hinder precise symbolic execution
+and limit the scalability and practicality of tools relying on symbolically
+approximated output.
 
-In the future we would like to use dynamic symbolic execution for output
+In the future we would like to apply dynamic symbolic execution for output
 approximation and possibly bypass existing limitations, as dynamic symbolic
-execution has shown to be promising for automated testing and verification.
+execution has shown promising results for automated testing and verification.
 
 %\newpage
 %References

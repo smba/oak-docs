@@ -278,9 +278,7 @@ evaluate our symbolic execution engine for several large-scale and modern PHP sy
 During the introduction of new semantics for object-oriented programming we
 faced a trade-off between accuracy and scalability: Whilst exploring multiple
 paths, for method invocations the number of target objects may grow rapidly and
-infeasible.
-
-Moreover, based on observations we identify limitations of symbolic execution
+infeasible. Moreover, based on observations we identify limitations of symbolic execution
 for PHP. Dynamic features such as dynamic function invocations and dynamic
 include for an accurate execution require precisely resolved include targets
 and function names respectively. Since these expressions  can contain symbolic
@@ -293,33 +291,33 @@ of concrete program input, including databases, user inputs or configuration
 files. We empirically evaluate our symbolic execution engine for a corpus
 including large and actively maintained PHP systems.
 
-Our key contribution in this paper include (1)  a new tool infrastructure to
+Our key contribution in this paper include (1) a new tool infrastructure to
 statically approximate the client-page output for PHP web applications using
 symbolic execution and (2) a report of observations for state-of-the-art
 web applications as well as an empirical evaluation of practical limitations
 of symbolic executions for PHP web applications.
 
 \section{State Of the Art}\label{sec:stateoftheart}
-This section recaps the idea of symbolic
-execution, the tools which make use of it, and both conceptual and
-language-related limitations.
+This Section recaps the idea of symbolic
+execution, the tools using output approximation based on it and whose evaluation
+we criticize, and current conceptual and language-related limitations.
 
 \subsection{Symbolic Execution}
 Symbolic execution is a static analysis technique that was proposed by King
-\cite{King1976} in 1976. Symbolic execution allows to explore feasible paths in a program. Based on normal program execution, the execution semantics
-is extended to handle symbolic values. An execution becomes symbolic by
-assuming symbolic values as program inputs rather than obtaining concrete
-values \cite{King1976,Darringer1978}. These symbolic values are then propagated
-and used throughout the execution. 
+\cite{King1976} in 1976. Symbolic execution allows to explore feasible paths in
+a program. Based on normal program execution, the execution semantics is
+extended to handle symbolic values. An execution becomes symbolic by assuming
+symbolic values as program inputs rather than obtaining concrete values
+\cite{King1976,Darringer1978}. These symbolic values are then propagated and
+used throughout the execution.
 
-Execution starts with a tautology path
-condition. The control-flow can be split whenever the decision between branches
-is ambiguous. This is the case, when conditional expressions, for example for
-if-statements, evaluate to a symbolic value rather than an actual result.
-The corresponding path conditions (guards for instance) are conjoined with the
-previous path condition \cite{King1976}. Additionally, the conjoined path
-condition can be checked for satisfiability in order to exclude infeasible
-paths. 
+Symbolic execution commences with a tautology path condition. The control-flow
+can be split whenever the decision between branches is ambiguous. This is the
+case, when conditional expressions, for example for if-statements, evaluate to
+a symbolic value rather than an actual result. The corresponding branch
+predicates are conjoined with the previous path condition \cite{King1976}.
+Additionally, the conjoined path condition can be checked for satisfiability in
+order to exclude infeasible paths.
 
 
 \subsection{Static Output Approximation for PHP} \label{sec:workflow}
@@ -404,76 +402,77 @@ Entered $\alpha$!
 Figure \ref{fig:code_example} shows two code listings. The snippet of server-side web
 application code in Figure \ref{fig:web_application} contains both HTML code
 (input form in lines 1 -- 4) as well as PHP code: First, the function
-\texttt{make\_titles} defined in lines 7 – 13 prints the string \texttt{\$arg} passed as an argument between zero and an arbitrary number of
-times. Second, the function is indirectly called using the built-in mechanism
-\texttt{call\_user\_func} in line 15 with the string \texttt{Headline} and
-\texttt{4} as arguments.  Finally, the input from the form in lines 1 – 4 is
-used: The variable \texttt{\$greeting} consists of three concatenated strings,
+\texttt{make\_titles} defined in lines 7 – 13 prints the string \texttt{\$arg} 
+passed as an argument between zero and an arbitrary number of times. Second, the
+function is dynamically invocated using the built-in mechanism
+\texttt{call\_user\_func} in line 15 with the string \texttt{Headline} and \texttt{4} as arguments.  
+Finally, the input from the form in lines 1 – 4 is used: The variable \texttt{\$greeting} consists of three concatenated strings,
 \texttt{Hello}, the value of input field \texttt{name}, and an exclamation mark.
 For the greeting there are two possible client page output
 variants: If the input field \texttt{name} is empty at run-time, line 19 is
-executed and \texttt{No name entered!} is printed, or, if a name was entered,
-line 21 is executed and the greeting constructed in line 17 is printed.
+executed and \texttt{No name entered!} is printed. Otherwise, if a non-empty
+name was entered, line 21 is executed and the greeting constructed in line 17 is printed.
 
 The following symbolic execution semantics for PHP features based on
 previous work \cite{Nguyen:2014:BCG:2635868.2635928} illustrate the necessary
-modifications and extensions made to handle the level of ambiguity that comes with handling symbolic values. In addition to normal output, the
-output approximation contains preprocessor directives to express
+modifications and extensions made to handle the level of ambiguity that comes with handling symbolic values. 
+In addition to normal output, the output approximation illustrated in
+Figure \ref{fig:output_example} contains preprocessor directives to express
 repeatable parts as well as output variants. All approximated client page
-output corresponding to Figure \ref{fig:web_application} consisting of two different variants
-is illustrated in Figure \ref{fig:output_example}.
+output corresponding to Figure \ref{fig:web_application} consisting of two
+different variants is illustrated in Figure \ref{fig:output_example}.
 
 First, for loops in the previous execution semantics
 \cite{Nguyen:2014:BCG:2635868.2635928} only one iteration is executed instead of
 an arbitrary number of iterations. Since a loop condition can contain symbolic
 values, it might not be feasible to determine whether, and if so, when a loop
-execution terminates. Hence, any output constructed during the single loop
+execution terminates. Hence, any output assembled during the single loop
 iteration is highlighted (\texttt{repeat \ldots endrepeat}) to possibly be
 repeated an arbitrary number of times. The output in line 7 is marked to be
 repeated an arbitrary number of times, as the number of loop iterations cannot
 be determined statically. 
 
 Second, a similar procedure applies to recursive
-functions. Once called, a recursive function is  also only executed to recursion
-depth one per call, and any subsequent invocation of that function returns a
-symbolic value. This, again, is due to the difficulty to determine the exact
+functions. Once invocated, a recursive function is also only executed to
+recursion depth one per call, and any subsequent invocation of that function returns a
+symbolic value. Again, this is due to the difficulty to determine the exact
 recursion depth similar to the number of loop iterations.
 
-Third, any form of user interaction providing input data as well as any form of input referred
-to from the deployment context of the web application, i.e. configuration files
-or databases, is assumed to be symbolic. The context variable
+Third, any form of user interaction providing concrete input data as well as any
+form of input referred to from the deployment context of the web application, i.e. configuration files
+or databases, is assumed to be symbolic. The PHP context variable
 \texttt{\$\_POST} represents input submitted to the server and, hence, is
-symbolic as every program input is per definition substituted by symbolic values. Finally, the
-output in lines 11 and 13 respectively are marked as alternative variants
+symbolic as every program input is per definition substituted by assumed
+symbolic values. Finally, the output in lines 11 and 13 respectively are marked as alternative variants
 (\texttt{if \ldots else \ldots endif}) as symbolic execution of lines 18 – 22
 in Figure \ref{fig:web_application} will explore both different branches.
 
 \subsection{Symbolic-Execution-based Tools For PHP}\label{sec:existing_tools}
-All tools proposed so far leverage a representation of all possible HTML client
-page output. Since any single client page output variant can be analyzed this
-enables tool support addressing the web application as a whole in spite of its
-staged nature, where parts of the web application are
+All tools proposed so far and presented in the following leverage symbolically
+approximated client page output. Since any single client page output variant can
+be analyzed this enables tool support addressing the web application as a whole
+in spite of its staged nature, where parts of the web application are
 generated dynamically.
-Based on the approximated output representation, subsequent analyses can be
-conducted:
+Based on the approximated output representation, subsequent developer tools and
+analyses have been proposed:
 \begin{itemize}
-	\item \emph{PhpSync}: Using all variants of  HTML client page output, every
+	\item \emph{PhpSync}: Using all variants of HTML client page output, every
 	single one can be statically checked for markup validity, i.e., if the web page
 	conforms to syntactical specifications for HTML and other client-side
-	languages. After the tool detects validation errors, auto-fixes
-	can be provided. Otherwise, it traces validation errors back to
+	languages. After the tool detects validation errors, if possible, auto-fixes
+	are provided. Otherwise, it traces validation errors back to
 	source code responsible for the defect, which then can be refactored manually
 	\cite{Nguyen:2011:AFH:2190078.2190142}. 
 
 	\item \emph{WebSlice}: Program slices enable to extract and understand the
 	impact of changes in an application. To consider all of a dynamic web
 	application for program slices, client page output needs to be taken into
-	account. WebSlice combines PHP data-flow information with an output
+	account. \sf{WebSlice} combines PHP data-flow information with an output
 	approximation to enable program slices across different languages
 	\cite{Nguyen:2015:CPS:2786805.2786872}.
 
 	\item \emph{Varis}: Editor services such as “jump to declaration” are
-	nontrivial for dynamic web applications due to their staged nature. Varis
+	not trivial for dynamic web applications due to their staged nature. \sf{Varis}
 	provides editor services across stages for client-side code: Starting with an
 	output approximation a call-graph with conditional edges is constructed, which
 	allows navigation in client-site code (HTML, JS and CSS) although it is
@@ -486,14 +485,15 @@ conducted:
 In addition to the assumptions introduced by symbolic execution, such as
 symbolic inputs and one-time loop execution, the symbolic execution
 engine described in previous work \cite{Nguyen:2014:BCG:2635868.2635928} does
-not support advanced language features, including object-oriented programming. Moreover, the range of
-standard library functions supported are mostly string operations, yet PHP
+not yet support advanced language features, including object-oriented
+programming.
+Moreover, the range of standard library functions supported are mostly string operations, yet PHP
 provides a large collection of functions for array operations.
-All three analyses described in Section \ref{sec:existing_tools} though have
-only been applied to systems that are small and not maintained any more. Despite the
-functional benefits these tools provide to developers, their practicality for
-large and modern systems with respect to advanced language support has not been
-evaluated.
+All three tools described in Section \ref{sec:existing_tools} have
+only been applied to systems that are small and not actively maintained.
+Despite the functional benefits that these tools can provide to developers,
+their practicality for large and modern systems with respect to advanced language support has not been
+assessed.
 
 \section{Scalable Output Approximation?} \label{sec:3}
 The main objective of this experience report is to investigate whether we can

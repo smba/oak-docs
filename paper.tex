@@ -38,11 +38,15 @@
 
 \definecolor{lightgrey}{HTML}{FFFFFF}
 
+\definecolor{xlinkcolor}{HTML}{383838}
+\definecolor{xcitecolor}{HTML}{383838}
+\definecolor{xurlcolor}{HTML}{000055}
+
 \hypersetup{
     colorlinks,
-    linkcolor={red!65!black},
-    citecolor={blue!50!black},
-    urlcolor={blue!80!black}
+    linkcolor = xlinkcolor,
+    citecolor = xcitecolor,
+    urlcolor  = xurlcolor
 }
 
 \usepackage{listings}  
@@ -509,39 +513,40 @@ execution for a real-world example system of reasonable size that incorporates
 the missing language features described in Section \ref{sec:limitations}.
 \textsf{WordPress} is a popular open-source Content Management System (CMS)
 with around 300.000 lines of code that provides a vivid
-plug-in environment and is used.  The full implementation of \sf{Oak}, the test
-suite as well as or test corpus (see Section \ref{sec:experiment_setup}) can be found at
+plug-in environment and is actively maintained. The full implementation of
+\sf{Oak}, the test suite as well as or test corpus (see Section \ref{sec:experiment_setup}) can be found at
 \url{http://www.github.com/smba/oak}.
 
-For our implementation of a symbolic execution engine for PHP, Oak, we have
-chosen a test-driven approach with continuous integration using regression
-tests based on \sf{WordPress} and \sf{SchoolMate} (see Section
+For our implementation of a symbolic execution engine for PHP, \sf{Oak}, we
+chose a test-driven approach with continuous integration using regression tests
+based on \sf{WordPress} and \sf{SchoolMate} (see Section
 \ref{sec:experiment_setup}). For \sf{SchoolMate}, a rather straightforward and
 simple system, which we chose to compare our approximation results to those of
 \sf{PhpSync}, we could achieve similar output approximation results. For
 \sf{WordPress} though, we did not achieve high code coverage or an accurate
 approximation for \sf{WordPress} as we faced a number of obstacles hindering
-symbolic execution in different ways.
+symbolic execution.
 
 \subsection{Experience Report}\label{sec:experience_report}
-We document our design choices we made, apparent trade-offs we
+We document in this Section the design choices we made, trade-offs we
 recognized, and limitations we faced on our way towards a scalable symbolic
-execution engine; and what we have learned from bypassing limitations faced in
+execution engine, and what we have learned from bypassing limitations faced in
 spite of manual effort for future work.
 
 \subsubsection{Symbolic/Concrete Loop Execution}
-Throughout the implementation we basically followed the symbolic execution
+Throughout the implementation we followed the symbolic execution
 semantics of \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928}. As described
 in Section \ref{sec:workflow} for loops, only one iteration is executed since
 the number of iterations is indeterminable for most cases. While this is the
-case for while and do-while loops, the number of loop iterations for for or
-for-each loops is generally determinable and known before entering the loop
-body. For loops use a loop counter that usually is incremented or decremented
+case for while and do-while loops, the number of loop iterations for for-loops
+or for-each loops is generally determinable and known before entering the loop
+body. For-loops use a loop counter that usually is incremented or decremented
 after each loop iteration until a loop condition is not satisfied anymore;
 for-each loops simply iterate over a given array value.
+
 Our execution semantics follows this scheme and simulates concrete execution
 for those types of loops if possible. Otherwise, for instance, if a loop
-counter, loop counter limit for for loops, or variable for for-each loops is
+counter, loop counter limit for for-loops, or variable for for-each loops is
 symbolic, we resort to executing only a single iteration. This design choice
 was made since it is more precise and, in contrast to only considering one
 iteration in all cases, slightly increased code coverage for \sf{WordPress}.
@@ -551,8 +556,8 @@ For method invocations that for concrete execution have only one target object,
 exploring multiple execution paths can cause the space of target objects to
 grow rapidly. A minimal example is shown in the listing in Figure
 \ref{fig:multi_target} where two different objects can be assigned to variable \tt{\$person} in line 12 and
-14. For the method invocation in line 16 hence, the method is executed twice in
-total since we have two alternative target objects. To address this problem, we
+14 respectively. For the method invocation in line 16, hence, the method is
+executed twice in total since we have two alternative target objects. To address this problem, we
 implement program state merging for symbolic execution. For the example in
 Figure \ref{fig:multi_target}, after the control flow is split in line 11 into
 two branches, we merge both branches together subsequently. For both branches two different
@@ -562,22 +567,22 @@ conditions respectively. We implement state merging inspired by work of Sen et a
 type. For state merging in our example, in the value summary, each value (or
 each object in our case) is associated to the path condition under that it has
 been assigned to a variable. This would allow to only pass the value summary to
-the method and only invocate it once, but for our execution to be sound, all
+the method and only invocate it once. For our execution though to be sound, all
 objects would need to be of the same class type. If for instance, in our
-example there would be another class definition with a method named
+example there would exist another class definition with a method named
 \tt{greet} and an instance of that class is assigned to variable \tt{\$person}
 in one of the two branches, the method invocation in line 16 actually needs to be
 executed for two different target objects of a different type.
 
 Therefore, for our execution engine to be sound, we were bound to execute
 invocated methods for multiple targets since we cannot assert that all values
-contained in summary are of the same type. Nevertheless, to scale the target
-object space, in addition, we implemented execution modes only allowing
+contained in the value summary are of the same type. Nevertheless, to scale the
+target object space, in addition, we implemented execution modes only allowing
 execution of a method for a subset of possible targets and assuming symbolic
 return values for the remaining targets. This execution mode was necessary for
-WordPress for several, but not all entry points that we studied, in order to
-terminate. All subsequent analyses in this paper do not use this execution
-mode, yet it is provided in out implementation.
+\sf{WordPress} for several, but not all entry points that we studied, in order
+to terminate. All subsequent analyses in this paper do not use this execution
+mode, yet it is provided in our implementation.
 
 \subsubsection{Dynamic Language Features}
 \label{sec:experiment_dynamicfeatures} 
@@ -592,37 +597,39 @@ First, file inclusion in PHP usually is managed by statements like \tt{include},
 \tt{include\_once} or \tt{require} and \tt{require\_once}. For transitive
 includes, statements ending with \tt{\_once} will not include the same file
 twice. The include statements make an attempt to include a file, but do not
-return a warning in contrast to the require statements. Each of these
+return a warning in contrast to the \tt{require} statements. Each of these
 statements takes as input either a string constant (static include) or an
 expression that is evaluated at run-time (dynamic include). The string that the
 expression evaluates to represents an absolute or relative paths to the target
 file that the interpreter finally attempts to include.
+
 Figure \ref{fig:dynamic_includes} shows a small example of a dynamic include containing
 information retrieved from a database. Since any input for a symbolically
-executed application is symbolic this information can be propagated to include
-expressions. Also, configuration files represent only one particular
+executed application is assumed to be symbolic this information can be
+propagated to include expressions. Also, configuration files represent only one particular
 configuration or even just default values or placeholders. Hence, symbolic
-execution is prone to fail for dynamic includes if symbolic information is contained.
+execution is prone to fail for dynamic includes if symbolic values are
+contained.
 
-Second, function can either be invocated directly by statically providing the
-name of the function (or method), or indirectly. Indirect, or dynamic function
-invocation in PHP are enabled by using built-in functions like \tt{call\_user\_func},
-\tt{call\_user\_func\_array} or simply passing a string value with a direct
-function call to the \tt{eval} function. The first two functions take as
-arguments the name of the function two call, and all arguments to that
+Second, a function can either be invocated directly by statically providing the
+name of the function (or method), or indirectly. Indirect (or dynamic) function
+invocations in PHP are enabled by using built-in functions like
+\tt{call\_user\_func}, \tt{call\_user\_func\_array} or simply passing a string
+value with a static function invocation to the \tt{eval} function. The first two
+functions take as arguments the name of the function two call, and all arguments to that
 functions either as additional arguments or a single associative array
 respectively.
 The \tt{eval} function evaluates a given PHP expression passed as a string
 literal.
-Again, we encountered issues similar to dynamic include expressions with
-\ref{fig:indirect_calls} illustrates two functions \tt{header\_serif} and
-\tt{header\_sserif} which both print a HTML headline. Depending on whether the
-value of the variable \tt{\$style} retrieved from a database is \tt{serif} or
-\tt{sserif}, a different function is called. Given that the function name is 
+Again, we encountered issues similar to those with dynamic include expressions.
+Figure \ref{fig:indirect_calls} illustrates two functions \tt{header\_serif}
+and \tt{header\_sserif} which both print a HTML headline. Depending on whether
+the value of the variable \tt{\$style} retrieved from a database is \tt{serif}
+or \tt{sserif}, a different function is called. Given that the function name is
 concrete at run-time, the desired function can be called. Otherwise, if the
-function name is assembled at run-time and contains symbolic values, no function
-can be called as the name is ambiguous or unknown. For this example, symbolic
-execution is not able to determine which function to call indirectly.
+function name is assembled at run-time and contains symbolic values, no
+function can be called as the name is ambiguous or unknown. For this example,
+symbolic execution is not able to determine which function to call dynamically.
 
 % code examples for 3.3 experience report
 \begin{figure}[t]
@@ -702,15 +709,15 @@ call_user_func('header_' . $font_style, 'Title');
 
 \subsubsection{Symbolic/Concrete Input}
 In the previous subsection, we argued that dynamic includes and dynamic
-function invocations hinder symbolic execution  due to imprecise resolution of
-expression if symbolic information is contained. For callable code parts as
-included scripts or invocated functions, we attempted to bypass this limitation
+function invocations can hinder symbolic execution due to imprecise resolution
+of expressions if symbolic values are contained. For callable code sections as
+included scripts or functions, we attempted to bypass this limitation
 by manually providing proper concrete input.
 
 Consider the code example in Figure \ref{fig:indirect_calls} where a function
-name could not be resolved precisely due to a missing string literal that is contained from a
-database query result. By manually providing either option \tt{serif} or
-\tt{sserif}, or both as alternatives, we are able to increase code coverage and
+name could not be resolved precisely due to a missing string literal that is
+obtained from a database query result. By manually providing either option
+\tt{serif} or \tt{sserif}, or both as alternatives, we are able to increase code coverage and
 the accuracy of our approximation with manual effort by making dynamic
 statements static. Of course we did not provide proper input exhaustively for
 every occurrence of dynamic features, yet this illustrates a basis for possible
@@ -723,12 +730,12 @@ coverage. We present work on this problem in Section \ref{sec:related_work}.
 \subsection{Experience Results} \label{sec:experience_results}
 The symbolic execution engine \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928} so far does not face the
 problems we documented in Section \ref{sec:experience_report}. The evaluation of
-PhpSync, i.e., the PHP systems that the tool was applied to, did neither contain object-oriented
-features, nor dynamic features like dynamic includes or dynamic function
-invocation with symbolic values.
+\sf{PhpSyn}c, i.e., the PHP systems that the tool was applied to, did neither
+contain object-oriented features, nor dynamic features like dynamic includes or dynamic function
+invocation with symbolic values in a significant number.
  
 As the observations so far did only refer to \sf{WordPress} as a large-scale
-system, we wanted to study the impeding impact of dynamic features to symbolic
+system, we want to study the hindering impact of dynamic features to symbolic
 execution for a wider selection of PHP systems systematically apart from the
 systems that \sf{PhpSync} was applied to for two reasons. 
 
@@ -786,7 +793,12 @@ to since the parser used in our implementation,
 5 by Caucho Technology. We reused the parser front-end for our implementation.
 \sf{Quercus} can be obtained from \url{http://quercus.caucho.com}.}, did not
 support a number of language features.
-The full list of PHP systems for that we evaluate our symbolic execution engine along with descriptive code metrics can be found in Table \ref{corpus}.
+The full list of PHP systems for that we evaluate our symbolic execution engine
+along with descriptive code metrics can be found in Table \ref{corpus}. 
+
+All measurements in the following are cumulated for all possible entry points of a
+system, i.e., each script file. The symbolic execution operates with a timeout
+of ten minutes and terminates if this timeout is exceeded.
 
 % count lines
 %find . -regextype "posix-extended" -iregex '.*\.(php|bit|inc|module)' | xargs wc -l

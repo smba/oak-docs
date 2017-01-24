@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  24 JAN 2017 13:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  24 JAN 2017 13:44
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1835,7 +1835,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 9.0pt on input line 285.
 
-Underfull \vbox (badness 5667) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [1.1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
@@ -1919,12 +1919,9 @@ Overfull \hbox (1.87193pt too wide) in paragraph at lines 381--412
  [][]$[]$ 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.0pt on input line 472.
- [2.2]
+(Font)              scaled to size 6.0pt on input line 462.
+[2.2]
 Overfull \hbox (1.99146pt too wide) in paragraph at lines 512--528
 []\T1/LinuxLibertineT-TLF/m/n/9 (-20) The main ob-jec-tive of this ex-pe-ri-enc
 e re-port is to in-ves-ti-gate whether
@@ -1933,7 +1930,7 @@ e re-port is to in-ves-ti-gate whether
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 546.
 [3.3]
-Underfull \vbox (badness 3375) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/utf8x.def
@@ -1995,7 +1992,7 @@ Package microtype Info: Character `textemdash ' is missing
 (microtype)             in font `T1/newtxtt/b/n/9'.
 (microtype)             Ignoring protrusion settings for this character.
 [5.5]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4217) has occurred while \output is active []
 
 
 (./new_diagrams/not_reached.tex
@@ -2036,11 +2033,17 @@ Overfull \hbox (1.87193pt too wide) in paragraph at lines 945--955
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[6.6] (./new_diagrams/callback_classification.tex)
-Underfull \vbox (badness 3375) has occurred while \output is active []
+[6.6]
+Underfull \vbox (badness 1735) has occurred while \output is active []
+
+
+Underfull \vbox (badness 2671) has occurred while \output is active []
 
  [7.7]
-[8.8] (./paper.bbl
+(./new_diagrams/callback_classification.tex) [8.8] (./paper.bbl
+Underfull \vbox (badness 5771) has occurred while \output is active []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 55--63
 [][]\T1/LinuxLibertineT-TLF/m/n/7 (+20) 2015.  PHP Pop-u-lar-ity on GitHub.  []
 []$https : / / github . com / blog /
@@ -2066,11 +2069,11 @@ Package rerunfilecheck Info: File `paper.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1245.
  ) 
 Here is how much of TeX's memory you used:
- 43694 strings out of 493105
- 936341 string characters out of 6137071
- 1506354 words of memory out of 5000000
+ 43700 strings out of 493105
+ 936509 string characters out of 6137071
+ 1508354 words of memory out of 5000000
  45745 multiletter control sequences out of 15000+600000
- 164015 words of font info for 329 fonts, out of 8000000 for 9000
+ 165063 words of font info for 333 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,21n,100p,734b,3381s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}{/us
@@ -2079,8 +2082,8 @@ e/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/share/texl
 ive/texmf-dist/fonts/enc/dvips/newtx/libertinealt.enc}{/usr/share/texlive/texmf
 -dist/fonts/enc/dvips/newtxtt/txttDec.enc}{/usr/share/texlive/texmf-dist/fonts/
 enc/dvips/libertine/lbtn_7grukw.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dv
-ips/libertine/lbtn_76gpa5.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/li
-bertine/lbtn_nh77jq.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/liber
+ips/libertine/lbtn_nh77jq.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/li
+bertine/lbtn_76gpa5.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/liber
 tine/LinBiolinumT.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/liberti
 ne/LinBiolinumTB.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertin
 e/LinBiolinumTI.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/libertine
@@ -2092,10 +2095,10 @@ ri-7letters.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxtt/newtx
 btt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxtt/newtxtt.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/txfonts/txsy.pfb>
-Output written on paper.pdf (10 pages, 595102 bytes).
+Output written on paper.pdf (10 pages, 595869 bytes).
 PDF statistics:
  511 PDF objects out of 1000 (max. 8388607)
  479 compressed objects within 5 object streams
  157 named destinations out of 1000 (max. 500000)
- 47277 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 49325 words of extra memory for PDF output out of 51595 (max. 10000000)
 

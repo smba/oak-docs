@@ -1,4 +1,9 @@
-\documentclass[sigconf, preprint]{acmart}
+\documentclass[sigconf]{acmart}
+
+% removes copyright & conference info
+\settopmatter{printacmref=false} % Removes citation information below abstract
+\renewcommand\footnotetextcopyrightpermission[1]{} % removes footnote with  conference information in first column 
+\pagestyle{plain} % removes running headers
 
 % just in case
 \usepackage{etex}
@@ -93,7 +98,7 @@
 %\setcopyright{none}
 %\setcopyright{acmcopyright}
 %\setcopyright{acmlicensed}
-\setcopyright{rightsretained}
+%\setcopyright{rightsretained}
 %\setcopyright{usgov}
 %\setcopyright{usgovmixed}
 %\setcopyright{cagov}
@@ -122,9 +127,9 @@
 %\subtitlenote{The full version of the author's guide is available as  \texttt{acmart.pdf} document}
 
 
-%\author{Stefan Mühlbauer}
+\author{Stefan Mühlbauer}
 \affiliation{%
-  %\institution{Technische Universität Braunschweig}
+  \institution{Technische Universität Braunschweig}
   %\streetaddress{P.O. Box 1212}
   %\city{Braunschweig} 
   %\state{Germany} 
@@ -167,9 +172,9 @@ implemented in the scripting language PHP. Dynamic languages like PHP though
 challenge static analysis, as they generate code at run-time. One approach to unfold their
 staged nature and to approximate client page output is symbolic execution.
 Knowledge about possible output variants enables a range of developer tools as
-well as analyses for vulnerability detection. However, previous tools have only
-been evaluated for smaller systems and scalability for larger systems has not
-been assessed.
+well as analyses for vulnerability detection. However, previous tools that
+leverage symbolically approximated output have only been evaluated for smaller
+systems and scalability for larger systems has not been assessed.
  
 In this paper, we criticize the limited expressiveness of the evaluation of
 practicality for respective tools. We ask whether symbolic execution for output
@@ -186,40 +191,40 @@ evaluation for developer tools.
 % http://dl.acm.org/ccs.cfm
 % Please copy and paste the code instead of the example below. 
 %
-\begin{CCSXML}
-<ccs2012>
- <concept>
-  <concept_id>10010520.10010553.10010562</concept_id>
-  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
-  <concept_significance>500</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010575.10010755</concept_id>
-  <concept_desc>Computer systems organization~Redundancy</concept_desc>
-  <concept_significance>300</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010553.10010554</concept_id>
-  <concept_desc>Computer systems organization~Robotics</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
- <concept>
-  <concept_id>10003033.10003083.10003095</concept_id>
-  <concept_desc>Networks~Network reliability</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
-</ccs2012>  
-\end{CCSXML}
+%\begin{CCSXML}
+%<ccs2012>
+% <concept>
+%  <concept_id>10010520.10010553.10010562</concept_id>
+%  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
+%  <concept_significance>500</concept_significance>
+% </concept>
+% <concept>
+%  <concept_id>10010520.10010575.10010755</concept_id>
+%  <concept_desc>Computer systems organization~Redundancy</concept_desc>
+%  <concept_significance>300</concept_significance>
+% </concept>
+% <concept>
+%  <concept_id>10010520.10010553.10010554</concept_id>
+%  <concept_desc>Computer systems organization~Robotics</concept_desc>
+%  <concept_significance>100</concept_significance>
+% </concept>
+% <concept>
+%  <concept_id>10003033.10003083.10003095</concept_id>
+%  <concept_desc>Networks~Network reliability</concept_desc>
+%  <concept_significance>100</concept_significance>
+% </concept>
+%</ccs2012>  
+%\end{CCSXML}
 
-\ccsdesc[500]{Computer systems organization~Embedded systems}
-\ccsdesc[300]{Computer systems organization~Redundancy}
-\ccsdesc{Computer systems organization~Robotics}
-\ccsdesc[100]{Networks~Network reliability}
+%\ccsdesc[500]{Computer systems organization~Embedded systems}
+%\ccsdesc[300]{Computer systems organization~Redundancy}
+%\ccsdesc{Computer systems organization~Robotics}
+%\ccsdesc[100]{Networks~Network reliability}
 
 % We no longer use \terms command
 %\terms{Theory}
 
-\keywords{ACM proceedings, \LaTeX, text tagging}
+%\keywords{ACM proceedings, \LaTeX, text tagging}
 
 \maketitle
 
@@ -239,7 +244,7 @@ ranking 10th on the TIOBE programming community index \cite{tiobePHP}, and, in
 A common characteristic of all dynamic web applications is their
 \emph{staged nature}: A dynamic web application as a whole
 consists of both static code, such as scripts, and dynamically generated code,
-such as client page output. The latter code, although assembled at
+such as client page output. The latter code, although generated at
 run-time, may contain client-side parts of the web application, such as
 JavaScript. Therefore, to study dynamic web applications in its entirety, we
 need to consider both static as well as dynamic aspects of those systems.
@@ -274,21 +279,22 @@ is scalable, i.e., will also approximate client page output accurately for
 larger and more recent systems with acceptable time and space consumption.
 
 To investigate the question, whether we can have a practical and scalable
-symbolic execution engine, we re-implemented the symbolic engine with the
+symbolic execution engine, we re-implement the symbolic engine with the
 specifications of the previous symbolic execution semantics
 for \sf{PhpSync} \cite{Nguyen:2014:BCG:2635868.2635928} for PHP and
-extended it with additional features, such as object-oriented programming. We
+extend it with additional features, such as object-oriented programming. We
 evaluate our symbolic execution engine for several large-scale and modern PHP systems.
 
 During the introduction of new semantics for object-oriented programming we
-faced a trade-off between accuracy and scalability: Whilst exploring multiple
-paths, for method invocations the number of target objects may grow rapidly and
-infeasible. Moreover, based on observations we identify limitations of symbolic execution
-for PHP. Dynamic features such as dynamic function invocations and dynamic
-include for an accurate execution require precisely resolved include targets
-and function names respectively. Since these expressions  can contain symbolic
-values at run-time, for many cases this restricts a symbolic execution engine
-from further execution as callable code sections become inaccessible.
+face a trade-off between accuracy and scalability: Whilst exploring multiple
+paths, for method invocations the number of target objects can grow rapidly and
+become infeasible. Moreover, based on observations we identify limitations of
+symbolic execution for PHP. For an accurate execution dynamic features, such as
+dynamic function invocations and dynamic includes, require precisely resolved
+include targets and function names respectively. Since these expressions  can
+contain symbolic values at run-time, for many cases this restricts a symbolic
+execution engine from further execution as callable code sections become
+inaccessible. 
 Although some effort can be spent to statically resolve dynamic include
 expressions \cite{hills2014static}, or to simply provide static counterparts manually, resolution
 is often not trivial since expressions can contain symbolic values assumed instead
@@ -305,7 +311,7 @@ of symbolic executions for PHP web applications.
 \section{State Of the Art}\label{sec:stateoftheart}
 This Section recaps the idea of symbolic
 execution, the tools using output approximation based on it and whose evaluation
-we criticize, and current conceptual and language-related limitations.
+we criticize as well as current conceptual and language-related limitations.
 
 \subsection{Symbolic Execution}
 Symbolic execution is a static analysis technique that was proposed by King
@@ -576,7 +582,7 @@ example there would exist another class definition with a method named
 in one of the two branches, the method invocation in line 16 actually needs to be
 executed for two different target objects of a different type.
 
-Therefore, for our execution engine to be sound, we were bound to execute
+Therefore, for our execution engine to be sound, we are bound to execute
 invocated methods for multiple targets since we cannot assert that all values
 contained in the value summary are of the same type. Nevertheless, to scale the
 target object space, in addition, we implemented execution modes only allowing
@@ -589,8 +595,8 @@ mode, yet it is provided in our implementation.
 \subsubsection{Dynamic Language Features}
 \label{sec:experiment_dynamicfeatures} 
 Aside from the previous issues, we identified two dynamic language features
-that we were not able to execute accurately. Dynamic features in PHP are
-features that take as input rather a expression that is resolved at run-time
+that, in many cases, we were not able to execute accurately. Dynamic features in
+PHP are features that take as input rather a expression that is resolved at run-time
 than a static constant value. For \sf{WordPress}, we faced missing files and
 functions that are included using dynamic includes and dynamic function
 invocation respectively.
@@ -602,7 +608,7 @@ twice. The include statements make an attempt to include a file, but do not
 return a warning in contrast to the \tt{require} statements. Each of these
 statements takes as input either a string constant (static include) or an
 expression that is evaluated at run-time (dynamic include). The string that the
-expression evaluates to represents an absolute or relative paths to the target
+expression evaluates to represents an absolute or relative path to the target
 file that the interpreter finally attempts to include.
 
 Figure \ref{fig:dynamic_includes} shows a small example of a dynamic include containing
@@ -759,7 +765,7 @@ execution engine and tools described in previous work
 \cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}
 are the missing support for widely-used language features, and the evaluation
 only using small-scale systems. Although evaluating a tool for a small systems
-can be a valuable proof-of-concept, it does not necessarily cover the question
+can be a valuable proof of concept, it does not necessarily cover the question
 of whether a tool is practical on a larger-scale. Therefore in the following we
 present our methods to evaluate practicality of our symbolic output
 approximation. Moreover, we investigate to which extent the limitations encountered
@@ -785,8 +791,8 @@ Second, we ask: \textit{Do system size and usage of modern language features
 factors affect the practicality of our symbolic execution engine?} We
 selected both a range of large-scale and small-scale modern PHP systems to
 better separate and understand the circumstances under which limitations might affect practicality. For the selection of large-scale systems
-we borrow three systems from a case study by Hills et al. \cite{hills2015variable} addressing the
-feature usage patterns and frequencies in PHP systems. Some more detailed description of this
+we borrowed three systems from a case study by Hills et al.
+\cite{hills2015variable} addressing the feature usage patterns and frequencies in PHP systems. Some more detailed description of this
 case study can be found in Section \ref{sec:related_work}. For our choice of modern small-scale systems we
 selected five systems from a list of recent Content Management Systems (CMS) written in PHP \cite{codegeekz}. For both
 selections we were bound to select a smaller number of systems than we intended
@@ -956,12 +962,12 @@ files (possibly with nested PHP), or located in a function definition. Plain
 HTML files do not require any further execution and represent output candidates
 that just need to be included properly to be part of the output. Aside, output
 candidates that are part of a function definition are only missed if the
-corresponding function is never invocated at run-time, or simply dead code.
+corresponding function is never invocated at run-time or simply just dead code.
 
 We started classifying missed output candidates by their string literal
 context. As the classification statistics in Figure \ref{coverage} illustrate,
 for almost all systems tested (except for \textsf{AddressBook} and
-\textsf{TimeClock}) not-reached output candidates have a function context. 
+\textsf{TimeClock}) not-reached output candidates had a function context. 
 
 %Note that \textsf{SchoolMate} was excluded from the diagram since our analysis
 % reached all output candidates for that system.
@@ -1122,7 +1128,6 @@ to be provided to decrease the number of assumed symbolic inputs and avoid
 dynamic features being confronted with symbolic values. Existing work approaching
 this goal \cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann}
 incorporates dynamic symbolic execution, i.e. concrete execution alongside symbolic execution.
-
 Also, if the usage of tools using static output approximation with symbolic
 execution is intended, avoiding dynamic features that are prone to be inaccurately executed for
 symbolic execution  may be an adjustment strategy to program in an analyzable
@@ -1151,7 +1156,7 @@ possible drawbacks of object-oriented symbolic execution.
 This question though is beyond the scope of this paper.
 Future work might address design guidelines to enable programming analyzable applications, tool support to scale
 the number of assumed symbolic inputs or systematically provide concrete data
-to increase the practical benefit of the tools described above.
+to increase the practicality of the tools described above.
 
 
 \section{Related Work} \label{sec:related_work}

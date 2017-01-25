@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  24 JAN 2017 13:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2015/dev/Debian) (preloaded format=pdflatex 2016.11.21)  25 JAN 2017 15:31
 entering extended mode
  restricted \write18 enabled.
  Source specials enabled.
@@ -1930,7 +1930,7 @@ e re-port is to in-ves-ti-gate whether
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
 (Font)              scaled to size 9.0pt on input line 546.
 [3.3]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3375) has occurred while \output is active []
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/utf8x.def
@@ -1968,7 +1968,12 @@ Overfull \hbox (1.87193pt too wide) in paragraph at lines 645--716
  [] 
  []
 
-[4.4]
+
+Underfull \vbox (badness 1087) has occurred while \output is active []
+
+ [4.4]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 7.3pt on input line 801.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
@@ -1992,7 +1997,7 @@ Package microtype Info: Character `textemdash ' is missing
 (microtype)             in font `T1/newtxtt/b/n/9'.
 (microtype)             Ignoring protrusion settings for this character.
 [5.5]
-Underfull \vbox (badness 4217) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 (./new_diagrams/not_reached.tex
@@ -2036,14 +2041,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [6.6]
 Underfull \vbox (badness 1735) has occurred while \output is active []
 
-
-Underfull \vbox (badness 2671) has occurred while \output is active []
-
  [7.7]
-(./new_diagrams/callback_classification.tex) [8.8] (./paper.bbl
-Underfull \vbox (badness 5771) has occurred while \output is active []
+(./new_diagrams/callback_classification.tex)
+Underfull \vbox (badness 4266) has occurred while \output is active []
 
-
+ [8.8]
+(./paper.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 55--63
 [][]\T1/LinuxLibertineT-TLF/m/n/7 (+20) 2015.  PHP Pop-u-lar-ity on GitHub.  []
 []$https : / / github . com / blog /
@@ -2052,7 +2055,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--63
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 7.0pt on input line 95.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4229) has occurred while \output is active []
 
  [9.9])
 [10.10
@@ -2071,7 +2074,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1245.
 Here is how much of TeX's memory you used:
  43700 strings out of 493105
  936509 string characters out of 6137071
- 1508354 words of memory out of 5000000
+ 1506354 words of memory out of 5000000
  45745 multiletter control sequences out of 15000+600000
  165063 words of font info for 333 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
@@ -2095,7 +2098,7 @@ ri-7letters.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxtt/newtx
 btt.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/newtxtt/newtxtt.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/tcxtt.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/txfonts/txsy.pfb>
-Output written on paper.pdf (10 pages, 595869 bytes).
+Output written on paper.pdf (10 pages, 595543 bytes).
 PDF statistics:
  511 PDF objects out of 1000 (max. 8388607)
  479 compressed objects within 5 object streams

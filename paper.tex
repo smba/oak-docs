@@ -1160,64 +1160,7 @@ the number of assumed symbolic inputs or systematically provide concrete data
 to increase the practicality of the tools described above.
 
 
-\section{Related Work} \label{sec:related_work}
-
-\paragraph{Symbolic Execution}
-Symbolic execution \cite{King1976,Darringer1978} remained an conceptual approach
-for decades, but has been refined and extended over the last years. Several
-approaches incorporating constraint solving and leveraging concrete execution
-alongside symbolic execution emerged and enable automated test case generation;
-the scalability of these approaches is still challenged by path explosion and constraint solving \cite{CadarSen2013}. 
-
-Dynamic symbolic execution \cite{CadarSen2013} incorporates symbolic execution
-alongside concrete execution and has shown promising results in automated test
-generation\cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann} for PHP web
-applications and might help mitigate the conceptual limitations faced with
-symbolic values and dynamic features for future work on output-oriented
-symbolic execution.
-
-An overview about recent evolution of symbolic execution is provided by work of Cadar et al.
-\cite{CadarSen2013}, as well as a more tool-centered perspective \cite{Cadar2011}.
-
-\paragraph{Static Output Approximation}
-To approximate program slices for web
-applications, Ricca et al. \cite{tonella_web_2005,tonella_2001,tonella_2002} approximate
-dynamically generated output. For output generating statements, such as \tt{echo} or
-\tt{print}, all strings are unquoted (code extrusion). If those statements
-contain variables, these are linked to string concatenations using a
-proposed flow analysis called \emph{string-cat propagation}. From these
-flows representing approximated output subsequent program slices are computed.
-
-Minamide \cite{minamide_static_2005} approximates client page output
-of web applications by describing possible output by a context-free
-grammar that is constructed statically from the PHP code for a given regular
-expression of user input. The constructed grammar enables analyses such as
-detecting cross-site scripting vulnerabilities by checking whether user input
-has been sanitized, and HTML validation by determining whether the constructed
-grammar is contained in a depth-bound HTML grammar. Based on Minamide's
-approximation approach several vulnerability analyses addressing cross-site
-scripting \cite{wassermann_static_2008} and SQL injection
-\cite{wassermann2007sound} have been proposed. Wang et al.
-\cite{wang_locating_2010} utilizes this string analysis to detect strings
-visible at the browser and enable internationalization of web applications.
-    
-Another approach is proposed by Wang et al. \cite{wang_automating_2012}, where
-output for a web application is approximated using a hybrid approach: A
-dynamic web page is executed with concrete input and the execution is
-recorded at run-time. Changes in the client-side output then can be mapped to 
-corresponding PHP code using static impact analysis.
-
-\paragraph{Dynamic Features}
-According to a case study by Hills et al. \cite{Hills:2013:ESP:2483760.2483786}
-of the feature usage in PHP, based on a corpus of state-of-the-art-projects,
-dynamic includes are less frequently used than static includes, yet usage
-frequency varies from system to system. Further work by Hills et al.
-\cite{hills2014static,hills2014php} approaches static resolution of dynamic includes using
-both context-insensitive resolution on file level by simplifying PHP constants;
-and context-sensitive on program level for transitive includes. In spite of 
-promising results, these approaches, similar to our results, face limitations
-for truly dynamic includes if resolution is not sound due to information not
-being available in the source code like database query results.
+\input{related}
 
 \section{Conclusion}
 In this paper we have addressed symbolic execution of PHP web applications that

@@ -1,30 +1,98 @@
 \section{Related Work} \label{sec:related_work}
 
 \paragraph{Symbolic Execution}
-Symbolic execution \cite{King1976,Darringer1978} remained an conceptual approach
-for decades, but has been refined and extended over the last years. Several
-approaches incorporating constraint solving and leveraging concrete execution
-alongside symbolic execution emerged and enable automated test case generation;
-the scalability of these approaches is still challenged by path explosion and constraint solving \cite{CadarSen2013}. 
+An overview about recent evolution of symbolic execution is provided
+by Cadar {\em et al.}~\cite{CadarSen2013}, as well as a more
+tool-centered perspective~\cite{Cadar2011}.
+%
+Symbolic execution \cite{King1976,Darringer1978} remained a
+conceptual approach for decades, but has been refined and extended
+over the last years. Several approaches incorporating constraint
+solving and leveraging concrete execution alongside symbolic execution
+emerged and enable automated test case generation; the scalability of
+these approaches is still challenged by path explosion and constraint
+solving.
 
-Dynamic symbolic execution \cite{CadarSen2013} incorporates symbolic execution
-alongside concrete execution and has shown promising results in automated test
-generation\cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann} for PHP web
-applications and might help mitigate the conceptual limitations faced with
-symbolic values and dynamic features for future work on output-oriented
-symbolic execution.
+\paragraph{Dynamic symbolic execution} Cedar and Sen~\cite{CadarSen2013} incorporates symbolic execution
+alongside concrete execution and has shown promising results in
+automated test
+generation~\cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann}
+for PHP web applications and might help mitigate the conceptual
+limitations faced with symbolic values and dynamic features for future
+work on output-oriented symbolic execution.
 
-An overview about recent evolution of symbolic execution is provided by work of Cadar et al.
-\cite{CadarSen2013}, as well as a more tool-centered perspective \cite{Cadar2011}.
+\paragraph{Symbolic Execution and Dynamic Analysis for PHP-based Web Applications}
+PHPQuickFix and PHPRepair~\cite{ibm-icse12} detect and fix errors in
+server-side PHP applications leading to ill-formed generated HTML.
+PHPQuickFix examines {\em constant prints}, i.e., the PHP statements
+that print directly string literals and repairs HTML ill-formed
+errors, such as mismatched start and end tags and missing special
+characters within those literals. It analyzes each string literal
+separately and can only identify local issues. In contrast, PHPRepair
+follows a dynamic approach in which a given test suite is used to
+generate client-side code with different server-side executions, while
+tracing the origin of output strings.
+%% Final
+They identify ill-formed HTML code, infer and automatically apply
+fixes via using an external oracle and a string constraint solver.  In
+contrast to their dynamic strategy, we aim to study symbolic execution
+in this work.
+
+Wang {\em et al.}~\cite{wang-fse12}'s approach executes the
+(instrumented) server-side code with a specific input to generate the
+client code. Changes in that generated code can then be mapped to
+their origins in the PHP code using the recorded run-time mappings and
+static impact analysis.
+%We similarly track origin locations, but we symbolically execute the
+%PHP code.
+%
+%We previously used our symbolic execution engine \emph{PhpSync} for
+%similar purposes~\cite{drc-ase13,phpsync}. First, we 
+PHPSync~\cite{phpsync} used our static origin tracking to propagate
+changes in the client code (output of symbolic execution) back to the
+PHP code. Subsequently, the same authors designed DRC to analyze both
+PHP code and generated client-side code to detect cross-language and
+cross-stage dangling references~\cite{drc-ase13}. DRC matches path
+constraints of references/declarations without fully symbolic
+execution. It uses the path conditions from symbolic execution to
+determine in which configurations dangling references can occur.
+%
+%In contrast to this work, DRC extracts program entities 
+%(identifiers)
+%via heuristics:
+%%and {\em is not} able to parse and understand the structure and
+%%semantics of the embedded code; DRC
+%it just matches path constraints of
+%references/declarations without building the ASTs and DOM for embedded
+%code in different configurations.
+%%In the future, we plan to integrate DRC's analyses to derive
+%%additional call-graph edges that cross languages and stages.
+
+
+Apollo~\cite{artzi-icse10,artzi-tse10}, a more general fault
+localization tool for PHP code, rates the PHP echo/print
+statements higher in suspiciousness by running an instrumented
+interpreter on test cases. Clark {\em et al.}~\cite{clark-ase11}
+localize faults in an SQL command embedded within JSP code. Although
+not in our focus, we could conceptually use our tool to approximate
+embedded SQL queries and use a variability-aware SQL parser for
+analysis.
+
+
+%-------------------
+
+%-------------------------------------
+
 
 \paragraph{Static Output Approximation}
-To approximate program slices for web
-applications, Ricca et al. \cite{tonella_web_2005,tonella_2001,tonella_2002} approximate
-dynamically generated output. For output generating statements, such as \tt{echo} or
-\tt{print}, all strings are unquoted (code extrusion). If those statements
-contain variables, these are linked to string concatenations using a
-proposed flow analysis called \emph{string-cat propagation}. From these
-flows representing approximated output subsequent program slices are computed.
+To approximate program slices for web applications, Ricca et
+al. \cite{tonella_web_2005,tonella_2001,tonella_2002} approximate
+dynamically generated output. For output generating statements, such
+as \tt{echo} or \tt{print}, all strings are unquoted (code
+extrusion). If those statements contain variables, these are linked to
+string concatenations using a proposed flow analysis called
+\emph{string-cat propagation}. From these flows representing
+approximated output subsequent program slices are computed.
 
 Minamide \cite{minamide_static_2005} approximates client page output
 of web applications by describing possible output by a context-free
@@ -44,6 +112,40 @@ output for a web application is approximated using a hybrid approach: A
 dynamic web page is executed with concrete input and the execution is
 recorded at run-time. Changes in the client-side output then can be mapped to 
 corresponding PHP code using static impact analysis.
+
+%Minamide proposed a string analyzer~\cite{minamide05} that takes a PHP
+%program and a regular expression describing the input, and validates
+%approximate HTML output via context-free grammar analysis.
+%regular expression describing all of its possible inputs, and then
+%statically approximates and validates the output via a context-free
+%grammar. In comparison, his goal is to validate approximated HTML
+%outputs from a PHP program {\em without fixing support}. Moreover,
+%{\tool} performs symbolic execution
+%to produce D-models without
+%requiring an input specification as in Minamide's.
+%%Using a similar string analyzer,
+%Wang {\em et al.}~\cite{wang-fse10} compute the approximated output of
+%PHP code and identify the constant strings visible from a browser
+%for translation. Both do not aim to analyze multiple variants of
+%embedded code in JS or CSS.
+% getting Telvik Bultan work
+
+Several string taint-analysis techniques were built for PHP web
+programs and software-security
+problems~\cite{kieyzun09,su-icse08,xieaiken06,tevfik11}.  The key idea
+behind string tainting is to check the code expression by expression,
+variable by variable to have a list of all the ones potentially
+influenced by outside input.  If these variables are used in running a
+dangerous command, we will have potentially dangerous tainted
+variables.
+%
+Gould {\em et al.}~\cite{gould04} use string analysis to guarantee
+well-typed SQL queries generated by a Java program. The type system
+in~\cite{tabuchi03} is based on regular expressions with string
+concatenation and pattern matching.  
+
+%A CFG-based type system for string analysis is presented
+%in~\cite{thiemann05}.
 
 \paragraph{Dynamic Features}
 According to a case study by Hills et al. \cite{Hills:2013:ESP:2483760.2483786}

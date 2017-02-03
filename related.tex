@@ -1,8 +1,8 @@
 \section{Related Work} \label{sec:related_work}
 
-\paragraph{Symbolic Execution}
-An overview about recent evolution of symbolic execution is provided
-by Cadar {\em et al.}~\cite{CadarSen2013}, as well as a more
+\paragraph{Symbolic execution}
+A literature review on symbolic execution is provided by Cadar in a
+recent overview {\em et al.}~\cite{CadarSen2013}, as well as in a more
 tool-centered perspective~\cite{Cadar2011}.
 %
 Symbolic execution \cite{King1976,Darringer1978} remained a
@@ -48,7 +48,7 @@ static impact analysis.
 %
 %We previously used our symbolic execution engine \emph{PhpSync} for
 %similar purposes~\cite{drc-ase13,phpsync}. First, we 
-PHPSync~\cite{phpsync} used our static origin tracking to propagate
+PHPSync~\cite{phpsync} used static origin tracking to propagate
 changes in the client code (output of symbolic execution) back to the
 PHP code. Subsequently, the same authors designed DRC to analyze both
 PHP code and generated client-side code to detect cross-language and
@@ -56,32 +56,13 @@ cross-stage dangling references~\cite{drc-ase13}. DRC matches path
 constraints of references/declarations without fully symbolic
 execution. It uses the path conditions from symbolic execution to
 determine in which configurations dangling references can occur.
-%
-%In contrast to this work, DRC extracts program entities 
-%(identifiers)
-%via heuristics:
-%%and {\em is not} able to parse and understand the structure and
-%%semantics of the embedded code; DRC
-%it just matches path constraints of
-%references/declarations without building the ASTs and DOM for embedded
-%code in different configurations.
-%%In the future, we plan to integrate DRC's analyses to derive
-%%additional call-graph edges that cross languages and stages.
-
 
 Apollo~\cite{artzi-icse10,artzi-tse10}, a more general fault
 localization tool for PHP code, rates the PHP echo/print
 statements higher in suspiciousness by running an instrumented
 interpreter on test cases. Clark {\em et al.}~\cite{clark-ase11}
-localize faults in an SQL command embedded within JSP code. Although
-not in our focus, we could conceptually use our tool to approximate
-embedded SQL queries and use a variability-aware SQL parser for
-analysis.
+localize faults in an SQL command embedded within JSP code. 
 
-
-%-------------------
-
-%-------------------------------------
 
 
 \paragraph{Static Output Approximation}

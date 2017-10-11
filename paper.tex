@@ -264,7 +264,7 @@ output variants that depend on program input.
 Knowledge about different output variants is leveraged by a number of
 tools and analyses for the domain of web applications. Previous work presented
 tools for detecting and locating HTML validation errors
-\cite{Nguyen:2011:AFH:2190078.2190142}, computing program slices across
+\cite{phpsync}, computing program slices across
 server-side and client-page code \cite{Nguyen:2015:CPS:2786805.2786872}, or
 easing development and maintenance by extending IDE support for web applications
 with code navigation \cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928}.
@@ -275,7 +275,7 @@ Despite the various use cases for analyses based on an approximated output
 model, static output approximation for PHP web applications using symbolic
 execution has so far only been evaluated for small systems that are not
 actively maintained. The tools presented by previous work
-\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2011:AFH:2190078.2190142}
+\cite{Nguyen:2015:VIS:2819009.2819140,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,phpsync}
 though are only practical, if for a given system the symbolic execution engine
 is scalable, i.e., will also approximate client page output accurately for
 larger and more recent systems with acceptable time and space consumption.
@@ -476,7 +476,7 @@ analyses have been proposed:
 	languages. After the tool detects validation errors, if possible, auto-fixes
 	are provided. Otherwise, it traces validation errors back to
 	source code responsible for the defect, which then can be refactored manually
-	\cite{Nguyen:2011:AFH:2190078.2190142}. 
+	\cite{phpsync}. 
 
 	\item \emph{WebSlice}: Program slices enable to extract and understand the
 	impact of changes in an application. To consider all of a dynamic web
@@ -513,7 +513,7 @@ assessed.
 The main objective of this experience report is to investigate whether we can
 build a scalable symbolic execution engine as it is the underlying technique
 for static output approximation in previous work
-\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}.
+\cite{phpsync,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}.
 Our vision is a practical symbolic execution, i.e., it computes an accurate
 approximation for large and modern PHP systems with reasonable time and space consumption.
 We approach this goal by re-implementing the symbolic execution semantics  of
@@ -764,7 +764,7 @@ As already stated in the previous Section \ref{sec:experience_report}, we
 encountered several problems during the implementation of our symbolic
 execution engine for \sf{WordPress}. The main items of critique of the symbolic
 execution engine and tools described in previous work
-\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}
+\cite{phpsync,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140}
 are the missing support for widely-used language features, and the evaluation
 only using small-scale systems. Although evaluating a tool for a small systems
 can be a valuable proof of concept, it does not necessarily cover the question
@@ -795,7 +795,7 @@ selected both a range of large-scale and small-scale modern PHP systems to
 better separate and understand the circumstances under which limitations might affect practicality. For the selection of large-scale systems
 we borrowed three systems from a case study by Hills et al.
 \cite{hills2015variable} addressing the feature usage patterns and frequencies in PHP systems. Some more detailed description of this
-case study can be found in Section \ref{sec:related_work}. For our choice of modern small-scale systems we
+case study can be found in Section \ref{sec:related_work}. Many of the older small-scale systems in our corpus have been studied before in similar contexts. For instance, Nguyen et al.~\cite{phpsync,Nguyen:2014:BCG:2635868.2635928} have selected among others these systems from \sf{sourceforge.net} while considering different sizes and domains as well as little use of object-oriented constructs. For our choice of modern small-scale systems we
 selected five systems from a list of recent Content Management Systems (CMS) written in PHP \cite{codegeekz}. For both
 selections we were bound to select a smaller number of systems than we intended
 to since the parser used in our implementation,
@@ -955,6 +955,7 @@ our approximation results and conduct three subsequent measurements.
 	\caption{Evaluation results for output candidates, include expressions and
 	call-graph analysis for not-reached output candidates}
 \end{figure}
+\vspace{-3mm}
 
 \subsubsection{Where did we miss output?}\label{WhatLiteralsDidWeMiss?}
 Our initial approach to understand missed output candidates is to find out
@@ -1098,7 +1099,7 @@ the implementation as well as the from the results obtained by our experimental
 evaluation.
 
 \paragraph{Dynamic features are problematic.}
-From out observations with \sf{WordPress} in Section \ref{sec:3} we learn that
+From our observations with \sf{WordPress} in Section \ref{sec:3} we learn that
 dynamic language features, in particular include expressions and dynamic
 function invocations containing symbolic values, often cannot be executed
 accurately since include targets or function names respectively are resolved
@@ -1128,7 +1129,7 @@ approaches incorporating symbolic execution with dynamic web applications in
 the long run, more concrete input, similar to test oracles, needs
 to be provided to decrease the number of assumed symbolic inputs and avoid
 dynamic features being confronted with symbolic values. Existing work approaching
-this goal \cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann}
+this goal \cite{artzi_finding_2008,artzi-tse10,DynamicWassermann}
 incorporates dynamic symbolic execution, i.e. concrete execution alongside symbolic execution.
 Also, if the usage of tools using static output approximation with symbolic
 execution is intended, avoiding dynamic features that are prone to be inaccurately executed for
@@ -1138,12 +1139,12 @@ way.
 \paragraph{Practical tools require practical evaluation.}
 We wanted to address the limited informative value of analyses and tools
 presented in previous work
-\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,minamide_static_2005,wassermann2007sound}
+\cite{phpsync,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,minamide_static_2005,wassermann2007sound}
 where only small PHP systems have been studied. These papers introduce
 techniques for static output approximation of PHP web applications
-\cite{minamide_static_2005,Nguyen:2014:BCG:2635868.2635928,wang_automating_2012} or propose tools
+\cite{minamide_static_2005,Nguyen:2014:BCG:2635868.2635928,wang-fse12} or propose tools
 based on respective approximations
-\cite{Nguyen:2011:AFH:2190078.2190142,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,wassermann2007sound,wassermann_static_2008}.
+\cite{phpsync,Nguyen:2014:BCG:2635868.2635928,Nguyen:2015:CPS:2786805.2786872,Nguyen:2015:VIS:2819009.2819140,wassermann2007sound,wassermann_static_2008}.
 As these approaches address practical use cases, they require a more and further comprehensive evaluation in order to  better understand possible limitations and assess their practicality, in particular for large-scale systems.
 
 \paragraph{The road so far.}

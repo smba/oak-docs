@@ -1,8 +1,8 @@
 \section{Related Work} \label{sec:related_work}
 
 \paragraph{Symbolic execution}
-A literature review on symbolic execution is provided by Cadar in a
-recent overview {\em et al.}~\cite{CadarSen2013}, as well as in a more
+A literature review on symbolic execution is provided by Cadar and Sen~\cite{CadarSen2013} in a
+recent overview, as well as in a more
 tool-centered perspective~\cite{Cadar2011}.
 %
 Symbolic execution \cite{King1976,Darringer1978} remained a
@@ -13,10 +13,10 @@ emerged and enable automated test case generation; the scalability of
 these approaches is still challenged by path explosion and constraint
 solving.
 
-\paragraph{Dynamic symbolic execution} Cedar and Sen~\cite{CadarSen2013} incorporates symbolic execution
+\paragraph{Dynamic symbolic execution} Cadar and Sen~\cite{CadarSen2013} incorporates symbolic execution
 alongside concrete execution and has shown promising results in
 automated test
-generation~\cite{artzi_finding_2008,artzi_finding_2010,DynamicWassermann}
+generation~\cite{artzi_finding_2008,artzi-tse10,DynamicWassermann}
 for PHP web applications and might help mitigate the conceptual
 limitations faced with symbolic values and dynamic features for future
 work on output-oriented symbolic execution.
@@ -88,7 +88,7 @@ scripting \cite{wassermann_static_2008} and SQL injection
 \cite{wang_locating_2010} utilizes this string analysis to detect strings
 visible at the browser and enable internationalization of web applications.
     
-In another approach by Wang et al. \cite{wang_automating_2012}, 
+In another approach by Wang et al. \cite{wang-fse12}, 
 output for a web application is approximated using a hybrid approach: A
 dynamic web page is executed with concrete input and the execution is
 recorded at run-time. Changes in the client-side output then can be mapped to 
@@ -96,7 +96,7 @@ corresponding PHP code using static impact analysis.
 
 Several string taint-analysis techniques were built for PHP web
 programs and software-security
-problems~\cite{kieyzun09,su-icse08,xieaiken06,tevfik11}.  The key idea
+problems~\cite{kieyzun09,wassermann_static_2008,xieaiken06,tevfik11}.  The key idea
 behind string tainting is to check the code expression by expression,
 variable by variable to have a list of all the ones potentially
 influenced by outside input.  If these variables are used in running a
